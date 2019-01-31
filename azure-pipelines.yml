@@ -1,5 +1,10 @@
+strategy:
+  matrix:
+    linux:
+      os.vmImage: 'ubuntu-16.04'
+
 pool:
-  vmImage: 'ubuntu-16.04'
+  vmImage: '$(os.vmImage)'
 
 steps:
   - powershell: pwd
