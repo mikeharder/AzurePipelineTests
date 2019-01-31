@@ -1,8 +1,5 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
-
 pool:
-  vmImage: '$(os.vmImage)'
+  vmIMage: 'ubuntu-16.04'
 
 steps:
   - powershell: pwd
