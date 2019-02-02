@@ -4,5 +4,5 @@ jobs:
       vmImage: 'ubuntu-16.04'
     steps:
       - bash: sleep 2m
-        timeoutInMinutes: 1
-    timeoutInMinutes: 3
+        timeoutInMinutes: 3
+    timeoutInMinutes: 1
