@@ -1,8 +1,8 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
-
 pool:
-  vmImage: '$(os.vmImage)'
+  vmImage: 'ubuntu-16.04'
 
-steps:
-  - powershell: pwd
+jobs:
+  - job: 'sleep'
+    steps:
+      - bash: sleep 2m
+    timeoutInMinutes: 1
