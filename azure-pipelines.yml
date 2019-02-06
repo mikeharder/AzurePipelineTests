@@ -1,2 +1,10 @@
-steps:
-- script: echo hello
+jobs:
+- job: 'Queue'
+  server: true
+  steps:
+  - task: InvokeRESTAPI@1
+    inputs:
+      serviceConnection: 'Azure Devops - mharder - test'
+      method: 'POST'
+      urlSuffix: 'build/builds?api-version=5.0'
+      body: '{ "definition": { "id": 6} }'
