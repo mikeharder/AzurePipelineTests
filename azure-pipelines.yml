@@ -1,6 +1,6 @@
 jobs:
 - job: 'Queue'
-  server: true
+  pool: server
   steps:
   - task: InvokeRESTAPI@1
     inputs:
