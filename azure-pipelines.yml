@@ -7,4 +7,10 @@ jobs:
       serviceConnection: 'Azure Devops - mharder - test'
       method: 'POST'
       urlSuffix: 'build/builds?api-version=5.0'
+      headers: '{ "Content-Type": "application/json", "Bearer": "$(System.AccessToken)" }'
       body: '{ "definition": { "id": 6} }'
+
+# steps:
+# - powershell: Invoke-RestMethod -Uri https://dev.azure.com/mharder/test/_apis/build/builds?api-version=5.0 -Authentication Bearer -Token 
+#   env:
+#     SYSTEM_ACCESSTOKEN: $(System.AccessToken)
