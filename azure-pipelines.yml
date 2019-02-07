@@ -7,7 +7,7 @@ jobs:
       serviceConnection: 'Azure Devops - mharder - test'
       method: 'POST'
       urlSuffix: 'build/builds?api-version=5.0'
-      headers: '{ "Content-Type": "application/json", "Bearer": "$(System.AccessToken)" }'
+      headers: '{ "Content-Type": "application/json", "Authorization": "Bearer $(System.AccessToken)" }'
       body: '{ "definition": { "id": 6} }'
 
 # steps:
