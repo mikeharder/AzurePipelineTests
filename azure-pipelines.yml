@@ -1,5 +1,5 @@
 variables:
-  DotNetCoreSdkVersion: '2.1.503'
+  DotNetCoreSdkVersion: '2.2.200-preview-009648'
 
 strategy:
   matrix:
