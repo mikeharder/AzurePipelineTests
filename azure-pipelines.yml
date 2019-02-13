@@ -1,12 +1,6 @@
 variables:
-  DotNetCoreSdkVersion: '2.1.503'
-
-strategy:
-  matrix:
-    Linux:
-      VmImage: 'ubuntu-16.04'
-    Windows:
-      VmImage: 'vs2017-win2016'
+  DotNetCoreSdkVersion: '2.1.504'
+  VmImage: 'ubuntu-16.04'
 
 pool:
   vmImage: '$(VmImage)'
@@ -18,6 +12,6 @@ steps:
       version: $(DotNetCoreSdkVersion)
 
   - task: DotNetCoreCLI@2
-    displayName: 'Run'
+    displayName: 'Pack'
     inputs:
-      command: run
+      command: pack
