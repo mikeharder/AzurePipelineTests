@@ -1,8 +1,23 @@
 variables:
-  os.vmImage: 'ubuntu-16.04'
+  DotNetCoreSdkVersion: '2.1.503'
+
+strategy:
+  matrix:
+    Linux:
+      VmImage: 'ubuntu-16.04'
+    Windows:
+      VmImage: 'vs2017-win2016'
 
 pool:
-  vmImage: '$(os.vmImage)'
+  vmImage: '$(VmImage)'
 
 steps:
-  - powershell: pwd
+  - task: DotNetCoreInstaller@0
+    displayName: 'Use .NET Core SDK $(DotNetCoreSdkVersion)'
+    inputs:
+      version: $(DotNetCoreSdkVersion)
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Run'
+    inputs:
+      command: run
