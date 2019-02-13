@@ -1,17 +1,6 @@
-variables:
-  DotNetCoreSdkVersion: '2.1.504'
-  VmImage: 'ubuntu-16.04'
-
 pool:
-  vmImage: '$(VmImage)'
+  vmImage: 'ubuntu-16.04'
 
 steps:
-  - task: DotNetCoreInstaller@0
-    displayName: 'Use .NET Core SDK $(DotNetCoreSdkVersion)'
-    inputs:
-      version: $(DotNetCoreSdkVersion)
-
-  - task: DotNetCoreCLI@2
+  - script: dotnet pack --output $(Build.ArtifactStagingDirectory)
     displayName: 'Pack'
-    inputs:
-      command: pack
