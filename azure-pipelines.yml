@@ -25,3 +25,5 @@ steps:
     displayName: 'Run'
     inputs:
       command: run
+    env:
+      DOTNET_MULTILEVEL_LOOKUP: 0
