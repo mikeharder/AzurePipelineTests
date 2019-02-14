@@ -17,7 +17,10 @@ steps:
     inputs:
       version: $(DotNetCoreSdkVersion)
 
-  - script: dotnet --info
+  - task: DotNetCoreCLI@2
+    displayName: 'Info'
+    inputs:
+      command: info
 
   - task: DotNetCoreCLI@2
     displayName: 'Run'
