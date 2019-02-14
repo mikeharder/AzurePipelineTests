@@ -9,8 +9,7 @@ namespace AzurePipelineTests
         {
             var version = (new HttpRequestMessage()).Version.ToString();
             var path = typeof(object).Assembly.Location;
-            Assert.Fail($"Path: {path}, Version: {version}");
-            Console.WriteLine($"HttpRequestMessage.Version: {(new HttpRequestMessage()).Version}");
+            Console.WriteLine($"Path: {path}, Version: {version}");
         }
     }
 }
