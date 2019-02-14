@@ -12,15 +12,12 @@ pool:
   vmImage: '$(VmImage)'
 
 steps:
-  - task: DotNetCoreInstaller@0
-    displayName: 'Use .NET Core SDK $(DotNetCoreSdkVersion)'
-    inputs:
-      version: $(DotNetCoreSdkVersion)
+  # - task: DotNetCoreInstaller@0
+  #   displayName: 'Use .NET Core SDK $(DotNetCoreSdkVersion)'
+  #   inputs:
+  #     version: $(DotNetCoreSdkVersion)
 
-  - task: DotNetCoreCLI@2
-    displayName: 'Info'
-    inputs:
-      command: info
+  - script: dotnet --info
 
   - task: DotNetCoreCLI@2
     displayName: 'Run'
