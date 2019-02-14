@@ -2,5 +2,7 @@ pool:
   vmImage: 'ubuntu-16.04'
 
 steps:
-  - script: dotnet pack --output $(Build.ArtifactStagingDirectory)
+  - script: |
+      dotnet --info
+      dotnet pack --output $(Build.ArtifactStagingDirectory)
     displayName: 'Pack'
