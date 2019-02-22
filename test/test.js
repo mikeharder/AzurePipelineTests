@@ -34,4 +34,28 @@ describe('Test', function () {
         await delay(5000);
         console.log('after sleeps 5 seconds');
     });
+
+    it('sleeps 6 seconds', async function() {
+        console.log('before sleeps 6 seconds');
+        await delay(6000);
+        console.log('after sleeps 6 seconds');
+    });
+
+    it('sleeps 7 seconds', async function() {
+        console.log('before sleeps 7 seconds');
+        await delay(7000);
+        console.log('after sleeps 7 seconds');
+    });
+
+    it('sleeps 8 seconds', async function() {
+        console.log('before sleeps 8 seconds');
+        await delay(8000);
+        console.log('after sleeps 8 seconds');
+    });
+
+    it('sleeps 9 seconds', async function() {
+        console.log('before sleeps 9 seconds');
+        await delay(9000);
+        console.log('after sleeps 9 seconds');
+    });
 });
