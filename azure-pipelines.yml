@@ -1,29 +1,5 @@
-variables:
-  DotNetCoreSdkVersion: '2.1.503'
-
-strategy:
-  matrix:
-    Linux:
-      VmImage: 'ubuntu-16.04'
-    Windows:
-      VmImage: 'vs2017-win2016'
-
 pool:
-  vmImage: '$(VmImage)'
+  vmImage: 'vs2017-win2016'
 
 steps:
-  - task: DotNetCoreInstaller@0
-    displayName: 'Use .NET Core SDK $(DotNetCoreSdkVersion)'
-    inputs:
-      version: $(DotNetCoreSdkVersion)
-
-  - script: dotnet --info
-    env:
-      DOTNET_MULTILEVEL_LOOKUP: 0
-
-  - task: DotNetCoreCLI@2
-    displayName: 'Run'
-    inputs:
-      command: run
-    env:
-      DOTNET_MULTILEVEL_LOOKUP: 0
+  - script: echo before& timeout /t 30& echo after
