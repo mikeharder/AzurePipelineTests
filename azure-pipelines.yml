@@ -1,5 +1,15 @@
+strategy:
+  matrix:
+    Linux:
+      VmImage: 'ubuntu-16.04'
+    Windows:
+      VmImage: 'vs2017-win2016'
+
 pool:
-  vmImage: 'vs2017-win2016'
+  vmImage: '$(VmImage)'
 
 steps:
-  - script: echo before& timeout --help& echo after
+  - task: DotNetCoreCLI@2
+    displayName: 'Run'
+    inputs:
+      command: run
