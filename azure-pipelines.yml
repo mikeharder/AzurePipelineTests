@@ -1,8 +1,14 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
-
 pool:
-  vmImage: '$(os.vmImage)'
+  vmImage: 'ubuntu-16.04'
 
 steps:
-  - powershell: pwd
+  - task: Npm@1
+    inputs:
+      command: 'install'
+    displayName: 'npm install'
+
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      customCommand: 'test'
+    displayName: 'npm test'
