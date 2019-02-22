@@ -7,8 +7,4 @@ steps:
       command: 'install'
     displayName: 'npm install'
 
-  - task: Npm@1
-    inputs:
-      command: 'custom'
-      customCommand: 'test'
-    displayName: 'npm test'
+  - script: npm test
