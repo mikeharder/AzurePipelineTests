@@ -2,4 +2,4 @@ pool:
   vmImage: 'vs2017-win2016'
 
 steps:
-  - script: echo before& timeout 30& echo after
+  - script: echo before& timeout --help& echo after
