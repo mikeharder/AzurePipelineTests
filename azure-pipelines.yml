@@ -1,5 +1,5 @@
 variables:
-  yaml-nonsecret1: 'yaml-nonsecret1-value'
+  yamlnonsecret1: 'yaml-nonsecret1-value'
 
 pool:
   vmImage: 'ubuntu-16.04'
@@ -11,7 +11,7 @@ steps:
       SERVICE1_SECRET1_ENV: $(service1-secret1)
       SERVICE2_NONSECRET1_ENV: 'service2-nonsecret1-value'
       SERVICE2_SECRET1_ENV: $(service2-secret1)
-      YAML_NONSECRET1_ENV: $(yaml-nonsecret1) 
+      YAMLNONSECRET1_ENV: $(yamlnonsecret1) 
 
-  - bash: echo $(yaml-nonsecret1)
-  - bash: echo $YAML-NONSECRET1
+  - bash: echo $(yamlnonsecret1)
+  - bash: echo $YAMLNONSECRET1
