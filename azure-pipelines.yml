@@ -6,3 +6,5 @@ steps:
     env:
       SERVICE1_NONSECRET1_ENV: 'service1-nonsecret1-value'
       SERVICE1_SECRET1_ENV: $(service1-secret1)
+      SERVICE2_NONSECRET1_ENV: 'service2-nonsecret1-value'
+      SERVICE2_SECRET1_ENV: $(servcie2-secret1)
