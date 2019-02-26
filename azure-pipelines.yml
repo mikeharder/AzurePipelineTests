@@ -12,3 +12,6 @@ steps:
       SERVICE2_NONSECRET1_ENV: 'service2-nonsecret1-value'
       SERVICE2_SECRET1_ENV: $(service2-secret1)
       YAML_NONSECRET1_ENV: $(yaml-nonsecret1) 
+
+  - bash: echo $(yaml-nonsecret1)
+  - bash: echo $YAML-NONSECRET1
