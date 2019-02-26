@@ -8,9 +8,9 @@ steps:
   - bash: printenv | sort
     env:
       SERVICE1_NONSECRET1_ENV: 'service1-nonsecret1-value'
-      SERVICE1_SECRET1_ENV: variables['service1-secret1']
+      SERVICE1_SECRET1_ENV: $(variables['service1-secret1'])
       SERVICE2_NONSECRET1_ENV: 'service2-nonsecret1-value'
-      SERVICE2_SECRET1_ENV: variables['service1-secret1']
+      SERVICE2_SECRET1_ENV: $(variables['service2-secret1'])
       YAMLNONSECRET1_ENV: $(yamlnonsecret1) 
 
   - bash: echo $(yamlnonsecret1)
