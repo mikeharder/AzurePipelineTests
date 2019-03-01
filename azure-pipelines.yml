@@ -1,8 +1,12 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
+strategy:
+  matrix:
+    Linux:
+      OSVmImage: 'ubuntu-16.04'
+    Windows:
+      OSVmImage: 'vs2017-win2016'
 
 pool:
-  vmImage: '$(os.vmImage)'
+  vmImage: '$(OSVmImage)'
 
 steps:
-  - powershell: pwd
+  - script: set
