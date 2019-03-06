@@ -3,7 +3,7 @@
 #   Name of ServiceConnection to DevOps project
 
 variables:
-  - ServiceConnection2: $(ServiceConnection)
+  ServiceConnection2: $(ServiceConnection)
 
 jobs:
   - job: 'Echo'
