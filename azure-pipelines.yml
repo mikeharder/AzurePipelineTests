@@ -2,6 +2,9 @@
 # ServiceConnection
 #   Name of ServiceConnection to DevOps project
 
+variables:
+  - ServiceConnection2: $(ServiceConnection)
+
 jobs:
   - job: 'Echo'
 
@@ -19,7 +22,7 @@ jobs:
       - task: InvokeRESTAPI@1
         inputs:
           connectionType: 'connectedServiceName'
-          serviceConnection: '$(ServiceConnection)'
+          serviceConnection: '$(ServiceConnection2)'
           method: 'POST'
           headers: '{ "Content-Type":"application/json", "Authorization": "Bearer $(System.AccessToken)" }'
           body: '{ "definition": { "id": $(System.DefinitionId) } }'
