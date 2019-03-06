@@ -1,8 +1,9 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
+# External variables:
+# ServiceConnection
+#   Name of ServiceConnection to DevOps project
 
-pool:
-  vmImage: '$(os.vmImage)'
+jobs:
+  - job: "echo"
 
-steps:
-  - powershell: pwd
+    steps:
+      - script: echo hello
