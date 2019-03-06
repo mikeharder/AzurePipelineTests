@@ -6,7 +6,7 @@ jobs:
   - job: 'Echo'
 
     steps:
-      - script: echo hello
+      - script: dir foo
 
   - job: 'Trigger'
 
