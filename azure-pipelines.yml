@@ -3,12 +3,12 @@
 #   Name of ServiceConnection to DevOps project
 
 jobs:
-  - job: 'echo'
+  - job: 'Echo'
 
     steps:
       - script: echo hello
 
-  - job: 'Trigger Self'
+  - job: 'Trigger'
 
     pool: server
 
