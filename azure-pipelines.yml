@@ -3,7 +3,21 @@
 #   Name of ServiceConnection to DevOps project
 
 jobs:
-  - job: "echo"
+  - job: 'echo'
 
     steps:
       - script: echo hello
+
+  - job: 'Trigger Self'
+
+    pool: server
+
+    steps:
+      - task: InvokeRESTAPI@1
+        inputs:
+          connectionType: 'connectedServiceName'
+          serviceConnection: '$(ServiceConnection)'
+          method: 'POST'
+          headers: '{ "Content-Type":"application/json", "Authorization": "Bearer $(System.AccessToken)" }'
+          body: { 'definition': { 'id': $(System.DefinitionId) } }
+          urlSuffix: 'build/builds?api-version=5.0'
