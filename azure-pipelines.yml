@@ -6,7 +6,7 @@ jobs:
   - job: 'Echo'
 
     steps:
-      - script: dir foo
+      - script: dir
 
   - job: 'Trigger'
 
@@ -22,5 +22,5 @@ jobs:
           serviceConnection: '$(ServiceConnection)'
           method: 'POST'
           headers: '{ "Content-Type":"application/json", "Authorization": "Bearer $(System.AccessToken)" }'
-          body: '{ "definition": { "id": $(System.DefinitionId) } }'
+          body: '{ "definition": { "id": $(System.DefinitionId), "testNonSecret": $(TestNonSecret), "testSecret", $(TestSecret) } }'
           urlSuffix: 'build/builds?api-version=5.0'
