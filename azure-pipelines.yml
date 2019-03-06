@@ -6,7 +6,7 @@ jobs:
   - job: 'Echo'
 
     steps:
-      - script: dir
+      - script: dir foo
 
   - job: 'Trigger'
 
@@ -17,10 +17,11 @@ jobs:
 
     steps:
       - task: InvokeRESTAPI@1
+        condition: succeededOrFailed()
         inputs:
           connectionType: 'connectedServiceName'
           serviceConnection: '$(ServiceConnection)'
           method: 'POST'
           headers: '{ "Content-Type":"application/json", "Authorization": "Bearer $(System.AccessToken)" }'
-          body: '{ "definition": { "id": $(System.DefinitionId), "testNonSecret": $(TestNonSecret), "testSecret", $(TestSecret) } }'
+          body: '{ "definition": { "id": $(System.DefinitionId) } }'
           urlSuffix: 'build/builds?api-version=5.0'
