@@ -1,8 +1,10 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
-
-pool:
-  vmImage: '$(os.vmImage)'
-
-steps:
-  - powershell: pwd
+jobs:
+  - job:
+    pool: server
+    steps:
+      - task: InvokeRESTAPI@1
+        inputs:
+          connectionType: 'connectedServiceName'
+          serviceConnection: '$(ServiceConnection)'
+          method: 'GET'
+          urlSuffix: 'get'
