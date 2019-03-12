@@ -1,3 +1,5 @@
 steps:
-  - script: dir foo & exit 0
+  - script: dir foo
+    continueOnError: true
+
   - script: echo hello
