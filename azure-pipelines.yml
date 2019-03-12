@@ -1,5 +1,8 @@
+variables:
+  foo: 3
+
 strategy:
-  maxParallel: 'foo'
+  maxParallel: $(foo)
   matrix:
     Linux:
       OSVmImage: 'ubuntu-16.04'
