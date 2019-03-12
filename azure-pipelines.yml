@@ -1,5 +1,5 @@
 variables:
-  foo: 3
+  foo: 'bar'
 
 strategy:
   maxParallel: $[ variables['foo'] ]
