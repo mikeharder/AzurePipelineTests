@@ -1,8 +1,3 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
-
-pool:
-  vmImage: '$(os.vmImage)'
-
 steps:
-  - powershell: pwd
+  - script: dir foo
+  - script: echo hello
