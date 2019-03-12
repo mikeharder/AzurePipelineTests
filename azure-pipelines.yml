@@ -1,5 +1,16 @@
+strategy:
+  matrix:
+    Linux:
+      VmImage: 'ubuntu-16.04'
+    Windows:
+      VmImage: 'vs2017-win2016'
+    MacOs:
+      VmImage: 'macOS-10.13'
+
+pool:
+  vmImage: '$(VmImage)'
+
 steps:
-  - script: dir foo & exit 0
-    continueOnError: true
+  - script: dir foo || exit 0
 
   - script: echo hello
