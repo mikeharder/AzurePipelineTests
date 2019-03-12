@@ -1,5 +1,5 @@
 strategy:
-  maxParallel: $[ variables['MaxParallel'] ]
+  maxParallel: 'foo'
   matrix:
     Linux:
       OSVmImage: 'ubuntu-16.04'
@@ -7,6 +7,7 @@ strategy:
       OSVmImage: 'vs2017-win2016'
     MacOs:
       OSVmImage: 'macOS-10.13'
+
 pool:
   vmImage: '$(OSVmImage)'
 
