@@ -6,6 +6,6 @@ jobs:
         inputs:
           connectionType: 'connectedServiceName'
           serviceConnection: '$(ServiceConnection)'
-          headers: ''
+          headers: '{ "accept": "application/json" }'
           method: 'GET'
           urlSuffix: 'get'
