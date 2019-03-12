@@ -1,5 +1,5 @@
 steps:
-  - script: dir foo
+  - script: dir foo & exit 0
     continueOnError: true
 
   - script: echo hello
