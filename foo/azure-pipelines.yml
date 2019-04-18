@@ -4,5 +4,11 @@ trigger:
       - /root.txt
       - /foo
 
+pr:
+  paths:
+    include:
+      - /root.txt
+      - /foo
+
 steps:
   - script: echo foo

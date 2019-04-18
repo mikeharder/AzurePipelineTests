@@ -4,5 +4,11 @@ trigger:
       - /*
       - /bar
 
+pr:
+  paths:
+    include:
+      - /*
+      - /bar
+
 steps:
   - script: echo bar

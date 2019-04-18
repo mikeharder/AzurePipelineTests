@@ -3,5 +3,10 @@ trigger:
     include:
       - /
 
+pr:
+  paths:
+    include:
+      - /
+
 steps:
   - script: echo root
