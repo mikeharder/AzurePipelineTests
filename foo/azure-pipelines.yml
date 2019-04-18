@@ -1,6 +1,7 @@
 trigger:
   paths:
     include:
+      - /root.txt
       - /foo
 
 steps:

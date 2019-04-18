@@ -1,6 +1,7 @@
 trigger:
   paths:
     include:
+      - /*
       - /bar
 
 steps:
