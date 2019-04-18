@@ -1,14 +1,11 @@
-trigger:
-  paths:
-    include:
-      - /root.txt
-      - /foo
-
 pr:
+  branches:
+    include:
+      - path-filter
   paths:
     include:
-      - /root.txt
-      - /foo
+      - root.txt
+      - foo
 
 steps:
   - script: echo foo

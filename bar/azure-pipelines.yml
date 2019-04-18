@@ -1,14 +1,11 @@
-trigger:
-  paths:
-    include:
-      - /*
-      - /bar
-
 pr:
+  branches:
+    include:
+      - path-filter
   paths:
     include:
-      - /*
-      - /bar
+      - *
+      - bar
 
 steps:
   - script: echo bar

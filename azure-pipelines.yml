@@ -1,12 +1,7 @@
-trigger:
-  paths:
-    include:
-      - /
-
 pr:
-  paths:
+  branches:
     include:
-      - /
+      - path-filter
 
 steps:
   - script: echo root
