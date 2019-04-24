@@ -1,7 +1,7 @@
+# Disable CI builds entirely
+trigger: none
+
 pr:
-  branches:
-    include:
-      - path-filter
   paths:
     include:
       - root.txt

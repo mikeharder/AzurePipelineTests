@@ -1,7 +1,5 @@
-pr:
-  branches:
-    include:
-      - path-filter
+# Disable CI builds entirely
+trigger: none
 
 steps:
   - script: echo root
