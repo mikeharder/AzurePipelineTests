@@ -4,7 +4,6 @@ trigger: none
 pr:
   paths:
     include:
-      - /*
       - bar
 
 steps:
