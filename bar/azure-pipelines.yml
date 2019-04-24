@@ -4,6 +4,7 @@ trigger: none
 pr:
   paths:
     include:
+      - root.txt
       - bar
 
 steps:
