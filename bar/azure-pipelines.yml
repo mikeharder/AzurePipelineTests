@@ -5,7 +5,7 @@ pr:
   paths:
     include:
       - root.txt
-      - bar
+      - foo
 
 steps:
-  - script: echo bar
+  - script: echo foo
