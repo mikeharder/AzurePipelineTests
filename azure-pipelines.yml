@@ -5,5 +5,5 @@ pool:
   vmImage: '$(os.vmImage)'
 
 steps:
-  - cmd: where env
-  - cmd: env
+  - script: where env
+  - script: env
