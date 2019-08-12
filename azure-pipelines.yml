@@ -1,10 +1,10 @@
 jobs:
-  - job: vs2017-win2016
+  - job: vs2017_win2016
     pool:
       vmImage: vs2017-win2016
     steps:
       - script: dir
-  - job: windows-2019
+  - job: windows_2019
     pool:
       vmImage: windows-2019
     steps:
