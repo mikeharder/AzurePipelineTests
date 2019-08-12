@@ -5,4 +5,4 @@ pool:
   vmImage: '$(os.vmImage)'
 
 steps:
-  - cmd: dir
+  - script: dir
