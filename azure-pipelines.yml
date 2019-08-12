@@ -1,8 +1,11 @@
-variables:
-  os.vmImage: 'vs2017-win2016'
-
-pool:
-  vmImage: '$(os.vmImage)'
-
-steps:
-  - script: dir
+jobs:
+  - job: vs2017-win2016
+    pool:
+      vmImage: vs2017-win2016
+    steps:
+      - script: dir
+  - job: windows-2019
+    pool:
+      vmImage: windows-2019
+    steps:
+      - script: dir
