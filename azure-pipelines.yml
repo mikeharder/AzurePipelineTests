@@ -1,8 +1,8 @@
 variables:
-  os.vmImage: 'ubuntu-16.04'
+  os.vmImage: 'vs2017-win2016'
 
 pool:
   vmImage: '$(os.vmImage)'
 
 steps:
-  - powershell: pwd
+  - cmd: dir
