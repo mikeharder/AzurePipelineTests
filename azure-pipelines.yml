@@ -11,4 +11,4 @@ jobs:
 
   - job: job2
     steps:
-      - powershell: pwd
+      - powershell: foo
