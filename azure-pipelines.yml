@@ -4,10 +4,11 @@ variables:
 pool:
   vmImage: '$(os.vmImage)'
 
-- job: job1
-  steps:
-    - powershell: pwd
+jobs:
+  - job: job1
+    steps:
+      - powershell: pwd
 
-- job: job2
-  steps:
-    - powershell: pwd
+  - job: job2
+    steps:
+      - powershell: pwd
