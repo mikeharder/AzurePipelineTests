@@ -1,7 +1,7 @@
 strategy:
   matrix:
     Linux:
-      os.vmImage: 'ubunut-latest'
+      os.vmImage: 'ubuntu-latest'
     Windows:
       os.vmImage: 'windows-latest'
     MacOs:
