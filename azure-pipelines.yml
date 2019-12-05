@@ -11,4 +11,6 @@ pool:
   vmImage: '$(os.vmImage)'
 
 steps: 
-  - bash: find .
+  - bash: mkdir test-results && find sdk -type f -name test-results*.xml -exec cp --parents {} test-results \;
+
+  - bash: ls -lR test-results
