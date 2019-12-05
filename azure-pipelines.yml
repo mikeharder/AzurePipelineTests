@@ -5,7 +5,7 @@ strategy:
       copyCommand: 'cp --parents'
     Windows:
       os.vmImage: 'windows-latest'
-      copyCommand: 'cp --parents'
+      copyCommand: 'rsync -R'
     MacOs:
       os.vmImage: 'macOS-latest'
       copyCommand: 'rsync -R'
