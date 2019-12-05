@@ -1,14 +1,14 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
+strategy:
+  matrix:
+    Linux:
+      os.vmImage: 'ubunut-latest'
+    Windows:
+      os.vmImage: 'windows-latest'
+    MacOs:
+      os.vmImage: 'macOS-latest'
 
 pool:
   vmImage: '$(os.vmImage)'
 
-jobs:
-  - job: job1
-    steps:
-      - powershell: pwd
-
-  - job: job2
-    steps:
-      - powershell: foo
+steps: 
+  - bash: find .
