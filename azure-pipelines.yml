@@ -8,7 +8,7 @@ strategy:
       copyCommand: 'cp --parents'
     MacOs:
       os.vmImage: 'macOS-latest'
-      copyCommand: 'ditto'
+      copyCommand: 'rsync -R'
 
 pool:
   vmImage: '$(os.vmImage)'
