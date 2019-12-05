@@ -2,15 +2,18 @@ strategy:
   matrix:
     Linux:
       os.vmImage: 'ubuntu-latest'
+      copyCommand: 'cp --parents'
     Windows:
       os.vmImage: 'windows-latest'
+      copyCommand: 'cp --parents'
     MacOs:
       os.vmImage: 'macOS-latest'
+      copyCommand: 'ditto'
 
 pool:
   vmImage: '$(os.vmImage)'
 
 steps: 
-  - bash: mkdir test-results && find sdk -type f -name test-results*.xml -exec cp --parents {} test-results \;
+  - bash: mkdir test-results && find sdk -type f -name test-results*.xml -exec $(copyCommand) {} test-results \;
 
   - bash: ls -lR test-results
