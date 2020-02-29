@@ -1,8 +1,20 @@
 jobs:
 
-- job: Windows
+- job: Windows2016
   pool:
-    vmImage: 'windows-latest'
+    vmImage: 'windows-2016'
+  steps:
+    - pwsh: |
+        cmd /c "echo output1"
+        cmd /c "echo error1 1>&2"
+        cmd /c "echo output2"
+        cmd /c "echo error2 1>&2"
+        cmd /c "echo output3"
+        cmd /c "echo error3 1>&2"
+
+- job: Windows2019
+  pool:
+    vmImage: 'windows-2019'
   steps:
     - pwsh: |
         cmd /c "echo output1"
