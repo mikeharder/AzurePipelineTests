@@ -14,7 +14,7 @@ jobs:
 
 - job: Linux
   pool:
-    vmImage: 'linux-latest'
+    vmImage: 'ubuntu-latest'
   steps:
     - pwsh: |
         bash -c "echo output1"
