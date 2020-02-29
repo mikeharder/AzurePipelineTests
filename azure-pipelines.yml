@@ -1,8 +1,12 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
-
-pool:
-  vmImage: '$(os.vmImage)'
-
-steps:
-  - powershell: pwd
+jobs:
+- job: Windows
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+    - pwsh: |
+        cmd /c "echo output1"
+        cmd /c "echo error1 1>&2"
+        cmd /c "echo output2"
+        cmd /c "echo error2 1>&2"
+        cmd /c "echo output3"
+        cmd /c "echo error3 1>&2"
