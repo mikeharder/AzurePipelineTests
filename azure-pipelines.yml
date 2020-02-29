@@ -2,7 +2,7 @@ jobs:
 
 - job: Windows2016
   pool:
-    vmImage: 'windows-2016'
+    vmImage: 'vs2017-win2016'
   steps:
     - pwsh: |
         cmd /c "echo output1"
