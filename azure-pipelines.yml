@@ -4,11 +4,21 @@ variables:
 pool:
   vmImage: '$(os.vmImage)'
 
-steps:
-  - script: echo none
-
+jobs:
+- job: a
+  steps:
+  - script: echo a
   - script: echo skipped
     condition: and(succeeded(), ne(variables['skip1'], 'true'))
-
   - script: echo succeeded
     condition: and(succeeded(), ne(variables['skip2'], 'true'))
+
+- job: b
+  condition: and(succeeded(), ne(variables['skip1'], 'true'))
+  steps:
+  - script: echo b
+
+- job: c
+  condition: and(succeeded(), ne(variables['skip2'], 'true'))
+  steps:
+  - script: echo c
