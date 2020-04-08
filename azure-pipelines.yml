@@ -33,7 +33,7 @@ jobs:
   - script: echo d
 
 - job: e
-  condition: cancelled()
+  condition: canceled()
   dependsOn: b
   steps:
   - script: echo e
