@@ -18,6 +18,7 @@ jobs:
   dependsOn: a
   steps:
   - script: echo b
+  - script: sleep 60
 
 - job: c
   condition: and(succeeded(), ne(variables['skip2'], 'true'))
