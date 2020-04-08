@@ -11,4 +11,4 @@ steps:
     condition: and(succeeded(), eq('foo', 'bar'))
 
   - script: echo succeeded
-    condition: and(succeeded(), eq('foo', foo))
+    condition: and(succeeded(), eq('foo', 'foo'))
