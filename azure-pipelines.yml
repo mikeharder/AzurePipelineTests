@@ -8,7 +8,7 @@ steps:
   - script: echo none
 
   - script: echo skipped
-    condition: and(succeeded(), eq('foo', 'bar'))
+    condition: and(succeeded(), ne(variables['skip1'], 'true'))
 
   - script: echo succeeded
-    condition: and(succeeded(), eq('foo', 'foo'))
+    condition: and(succeeded(), ne(variables['skip2'], 'true'))
