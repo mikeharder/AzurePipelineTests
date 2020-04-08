@@ -31,3 +31,9 @@ jobs:
   dependsOn: b
   steps:
   - script: echo d
+
+- job: e
+  condition: cancelled()
+  dependsOn: b
+  steps:
+  - script: echo e
