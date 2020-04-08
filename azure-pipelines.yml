@@ -24,3 +24,9 @@ jobs:
   dependsOn: b
   steps:
   - script: echo c
+
+- job: d
+  condition: and(failed(), ne(variables['skip2'], 'true'))
+  dependsOn: b
+  steps:
+  - script: echo d
