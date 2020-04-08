@@ -8,7 +8,7 @@ steps:
   - script: echo none
 
   - script: echo skipped
-    condition: eq('foo', 'bar')
+    condition: and(succeeded(), eq('foo', 'bar'))
 
   - script: echo succeeded
-    condition: succeeded()
+    condition: and(succeeded(), eq('foo', foo))
