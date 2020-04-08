@@ -15,10 +15,12 @@ jobs:
 
 - job: b
   condition: and(succeeded(), ne(variables['skip1'], 'true'))
+  dependsOn: a
   steps:
   - script: echo b
 
 - job: c
   condition: and(succeeded(), ne(variables['skip2'], 'true'))
+  dependsOn: b
   steps:
   - script: echo c
