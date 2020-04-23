@@ -1,11 +1,9 @@
-process.once('SIGINT', function (code) {
+process.on('SIGINT', function (code) {
     console.log('SIGINT');
-    process.exit(1);
 });
 
-process.once('SIGTERM', function (code) {
+process.on('SIGTERM', function (code) {
     console.log('SIGTERM');
-    process.exit(1);
 });
 
 (async () => {
