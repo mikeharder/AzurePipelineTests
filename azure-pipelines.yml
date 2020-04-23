@@ -3,9 +3,9 @@ pool:
 
 steps:
   - bash: |
-      trap "{ echo SIGHUP; exit 1; }" SIGHUP
-      trap "{ echo SIGINT; exit 1; }" SIGINT
-      trap "{ echo SIGQUIT; exit 1; }" SIGQUIT
-      trap "{ echo SIGKILL; exit 1; }" SIGKILL
-      trap "{ echo SIGTERM; exit 1; }" SIGTERM
-      while true; do sleep 1; echo .; done
+      trap "{ echo SIGHUP; }" SIGHUP
+      trap "{ echo SIGINT; }" SIGINT
+      trap "{ echo SIGQUIT; }" SIGQUIT
+      trap "{ echo SIGKILL; }" SIGKILL
+      trap "{ echo SIGTERM; }" SIGTERM
+      for i in {1..60}; do sleep 1; echo .; done
