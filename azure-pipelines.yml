@@ -2,4 +2,4 @@ pool:
   vmImage: 'ubuntu-18.04'
 
 steps:
-  - script: sleep 10m
+  - script: node -e "(async () => { await new Promise(r => setTimeout(r, 600000)); })();"
