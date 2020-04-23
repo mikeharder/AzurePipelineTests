@@ -2,4 +2,6 @@ pool:
   vmImage: 'ubuntu-18.04'
 
 steps:
-  - script: node test.js
+  - script: bash test.sh
+
+  - script: cat signals.txt
