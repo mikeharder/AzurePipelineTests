@@ -3,6 +3,7 @@ pool:
 
 steps:
   - script: bash test.sh
+    condition: eq('foo', 'foo')
 
   - script: cat signals.txt
     condition: always()
