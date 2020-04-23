@@ -2,4 +2,10 @@ pool:
   vmImage: 'ubuntu-18.04'
 
 steps:
-  - script: node -e "(async () => { await new Promise(r => setTimeout(r, 600000)); })();"
+  - bash: |
+      trap "{ echo SIGHUP; exit 1; }" SIGHUP
+      trap "{ echo SIGINT; exit 1; }" SIGINT
+      trap "{ echo SIGQUIT; exit 1; }" SIGQUIT
+      trap "{ echo SIGKILL; exit 1; }" SIGKILL
+      trap "{ echo SIGTERM; exit 1; }" SIGTERM
+      while true; do sleep 1; echo .; done
