@@ -5,3 +5,4 @@ steps:
   - script: bash test.sh
 
   - script: cat signals.txt
+    condition: always()
