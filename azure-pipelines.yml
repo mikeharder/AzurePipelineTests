@@ -2,11 +2,4 @@ pool:
   vmImage: 'ubuntu-18.04'
 
 steps:
-  - bash: |
-      trap "{ echo HUP; }" HUP
-      trap "{ echo INT; }" INT
-      trap "{ echo QUIT; }" QUIT
-      trap "{ echo KILL; }" KILL
-      trap "{ echo TERM; }" TERM
-      trap "{ echo EXIT; }" EXIT
-      for i in {1..60}; do sleep 1; echo .; done
+  - script: node test.js
