@@ -37,10 +37,10 @@ jobs:
   - script: |
       sudo systemd-resolve --status
       sudo systemd-resolve --statistics
-      sudo systemd-resolve --flush-cache
+      sudo systemd-resolve --flush-caches
       sudo systemd-resolve --status
       sudo systemd-resolve --statistics
-    displayName: systemd-resolve --flush-cache
+    displayName: systemd-resolve --flush-caches
     condition: always()
 
   - script: dig mharder-formrec.cognitiveservices.azure.com
