@@ -10,4 +10,7 @@ pool:
 
 steps:
   - script: nslookup mharder-formrec.cognitiveservices.azure.com
+    condition: always()
+
   - script: dig mharder-formrec.cognitiveservices.azure.com
+    condition: always()
