@@ -5,6 +5,7 @@ jobs:
     vmImage: 'ubuntu-16.04'
   steps:
   - script: dig mharder-formrec.cognitiveservices.azure.com
+    displayName: dig
 
 - job: ubuntu18
   pool:
