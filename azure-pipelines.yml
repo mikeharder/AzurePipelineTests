@@ -1,33 +1,26 @@
-strategy:
-  matrix:
-    ubuntu16:
-      os.vmImage: 'ubuntu-16.04'
-    ubuntu18:
-      os.vmImage: 'ubuntu-18.04'
-  
-pool:
-  vmImage: '$(os.vmImage)'
+jobs:
 
-steps:
-  - script: ls -l /etc/resolve.conf
+- job: ubuntu16
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: dig mharder-formrec.cognitiveservices.azure.com
     condition: always()
 
-  - script: nslookup mharder-formrec.cognitiveservices.azure.com
-    condition: always()
-
+- job: ubuntu18
+  pool:
+    vmImage: 'ubuntu-18.04'
+  steps:
   - script: dig mharder-formrec.cognitiveservices.azure.com
     condition: always()
 
   - script: |
-      sudo rm -f /etc/resolv.conf
-      sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
-      sudo ls -l /etc/resolve.conf
-      sudo systemctl daemon-reload
-      sudo systemctl restart systemd-networkd
+      # sudo rm -f /etc/resolv.conf
+      # sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+      # sudo ls -l /etc/resolve.conf
+      # sudo systemctl daemon-reload
+      # sudo systemctl restart systemd-networkd
       sudo systemctl restart systemd-resolved
-    condition: always()
-
-  - script: nslookup mharder-formrec.cognitiveservices.azure.com
     condition: always()
 
   - script: dig mharder-formrec.cognitiveservices.azure.com
