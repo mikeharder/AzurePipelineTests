@@ -35,11 +35,12 @@ jobs:
   #   condition: always()
 
   - script: |
-      cat /etc/resolv.conf
-      sudo systemctl daemon-reload
-      sudo systemctl restart systemd-networkd
-      sudo systemctl restart systemd-resolved
-    displayName: Dump /etc/resolv.conf
+      sudo systemd-resolve --status
+      sudo systemd-resolve --statistics
+      sudo systemd-resolve --flush-cache
+      sudo systemd-resolve --status
+      sudo systemd-resolve --statistics
+    displayName: systemd-resolve --flush-cache
     condition: always()
 
   - script: dig mharder-formrec.cognitiveservices.azure.com
