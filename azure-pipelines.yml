@@ -27,7 +27,7 @@ steps:
       sudo systemctl restart systemd-resolved
     condition: always()
 
-    - script: nslookup mharder-formrec.cognitiveservices.azure.com
+  - script: nslookup mharder-formrec.cognitiveservices.azure.com
     condition: always()
 
   - script: dig mharder-formrec.cognitiveservices.azure.com
