@@ -15,12 +15,23 @@ jobs:
     displayName: dig
     condition: always()
 
+    # - script: |
+    #   sudo sed -i 's/#DNS=/DNS=8.8.8.8 8.8.4.4/g' /etc/systemd/resolved.conf
+    #   sudo systemctl daemon-reload
+    #   sudo systemctl restart systemd-networkd
+    #   sudo systemctl restart systemd-resolved
+    # displayName: Set DNS to 8.8.8.8
+    # condition: always()
+
   - script: |
-      sudo sed -i 's/#DNS=/DNS=8.8.8.8 8.8.4.4/g' /etc/systemd/resolved.conf
+      sudo ls -l /etc/resolv.conf
+      sudo rm /etc/resolv.conf
+      sudo ln -s /run/resolvconf/resolv.conf /etc/resolv.conf
+      sudo ls -l /etc/resolv.conf
       sudo systemctl daemon-reload
       sudo systemctl restart systemd-networkd
       sudo systemctl restart systemd-resolved
-    displayName: Set DNS to 8.8.8.8
+    displayName: Fix /etc/resolv.conf
     condition: always()
 
   - script: dig mharder-formrec.cognitiveservices.azure.com
