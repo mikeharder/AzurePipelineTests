@@ -23,15 +23,23 @@ jobs:
     # displayName: Set DNS to 8.8.8.8
     # condition: always()
 
+  # - script: |
+  #     sudo ls -l /etc/resolv.conf
+  #     sudo rm /etc/resolv.conf
+  #     sudo ln -s /run/resolvconf/resolv.conf /etc/resolv.conf
+  #     sudo ls -l /etc/resolv.conf
+  #     sudo systemctl daemon-reload
+  #     sudo systemctl restart systemd-networkd
+  #     sudo systemctl restart systemd-resolved
+  #   displayName: Fix /etc/resolv.conf
+  #   condition: always()
+
   - script: |
-      sudo ls -l /etc/resolv.conf
-      sudo rm /etc/resolv.conf
-      sudo ln -s /run/resolvconf/resolv.conf /etc/resolv.conf
-      sudo ls -l /etc/resolv.conf
+      cat /etc/resolv.conf
       sudo systemctl daemon-reload
       sudo systemctl restart systemd-networkd
       sudo systemctl restart systemd-resolved
-    displayName: Fix /etc/resolv.conf
+    displayName: Dump /etc/resolv.conf
     condition: always()
 
   - script: dig mharder-formrec.cognitiveservices.azure.com
