@@ -34,14 +34,22 @@ jobs:
   #   displayName: Fix /etc/resolv.conf
   #   condition: always()
 
-  - script: |
-      sudo systemd-resolve --status
-      sudo systemd-resolve --statistics
-      sudo systemd-resolve --flush-caches
-      sudo systemd-resolve --status
-      sudo systemd-resolve --statistics
-    displayName: systemd-resolve --flush-caches
+    - script: |
+      sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+      sudo systemctl daemon-reload
+      sudo systemctl restart systemd-networkd
+      sudo systemctl restart systemd-resolved
+    displayName: Change symlink of /etc/resolv.conf
     condition: always()
+
+  # - script: |
+  #     sudo systemd-resolve --status
+  #     sudo systemd-resolve --statistics
+  #     sudo systemd-resolve --flush-caches
+  #     sudo systemd-resolve --status
+  #     sudo systemd-resolve --statistics
+  #   displayName: systemd-resolve --flush-caches
+  #   condition: always()
 
   - script: dig mharder-formrec.cognitiveservices.azure.com
     displayName: dig
