@@ -2,5 +2,4 @@ pool:
   vmImage: 'ubuntu-18.04'
 
 steps:
-  - script: lsb_release -a
-  - script: apt list systemd
+  - script: nslookup mharder-formrec.cognitiveservices.azure.com
