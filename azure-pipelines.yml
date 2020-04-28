@@ -1,11 +1,11 @@
 jobs:
 
-- job: ubuntu16
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - script: dig mharder-formrec.cognitiveservices.azure.com
-    condition: always()
+# - job: ubuntu16
+#   pool:
+#     vmImage: 'ubuntu-16.04'
+#   steps:
+#   - script: dig mharder-formrec.cognitiveservices.azure.com
+#     condition: always()
 
 - job: ubuntu18
   pool:
