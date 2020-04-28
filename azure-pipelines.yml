@@ -12,15 +12,17 @@ jobs:
     vmImage: 'ubuntu-18.04'
   steps:
   - script: dig mharder-formrec.cognitiveservices.azure.com
+    displayName: dig
     condition: always()
 
-  - name: Set 8.8.8.8 as dns server
-    run: |
+  - script: |
       sudo sed -i 's/#DNS=/DNS=8.8.8.8 8.8.4.4/g' /etc/systemd/resolved.conf
       sudo systemctl daemon-reload
       sudo systemctl restart systemd-networkd
       sudo systemctl restart systemd-resolved
+    displayName: Set DNS to 8.8.8.8
     condition: always()
 
   - script: dig mharder-formrec.cognitiveservices.azure.com
+    displayName: dig
     condition: always()
