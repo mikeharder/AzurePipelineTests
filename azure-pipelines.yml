@@ -3,3 +3,4 @@ pool:
 
 steps:
   - script: nslookup mharder-formrec.cognitiveservices.azure.com
+  - script: dig mharder-formrec.cognitiveservices.azure.com
