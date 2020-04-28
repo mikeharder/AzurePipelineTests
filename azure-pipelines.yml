@@ -14,10 +14,9 @@ jobs:
   - script: dig mharder-formrec.cognitiveservices.azure.com
     condition: always()
 
-  - script: |
-      # sudo rm -f /etc/resolv.conf
-      # sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
-      # sudo ls -l /etc/resolve.conf
+  - name: Set 8.8.8.8 as dns server
+    run: |
+      sudo sed -i 's/#DNS=/DNS=8.8.8.8 8.8.4.4/g' /etc/systemd/resolved.conf
       sudo systemctl daemon-reload
       sudo systemctl restart systemd-networkd
       sudo systemctl restart systemd-resolved
