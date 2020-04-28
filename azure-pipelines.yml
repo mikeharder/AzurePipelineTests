@@ -1,5 +1,12 @@
+strategy:
+  matrix:
+    ubuntu16:
+      os.vmImage: 'ubuntu-16.04'
+    ubuntu18:
+      os.vmImage: 'ubuntu-18.04'
+  
 pool:
-  vmImage: 'ubuntu-18.04'
+  vmImage: '$(os.vmImage)'
 
 steps:
   - script: nslookup mharder-formrec.cognitiveservices.azure.com
