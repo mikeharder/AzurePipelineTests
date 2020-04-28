@@ -34,7 +34,7 @@ jobs:
   #   displayName: Fix /etc/resolv.conf
   #   condition: always()
 
-    - script: |
+  - script: |
       sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
       sudo systemctl daemon-reload
       sudo systemctl restart systemd-networkd
