@@ -18,8 +18,8 @@ jobs:
       # sudo rm -f /etc/resolv.conf
       # sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
       # sudo ls -l /etc/resolve.conf
-      # sudo systemctl daemon-reload
-      # sudo systemctl restart systemd-networkd
+      sudo systemctl daemon-reload
+      sudo systemctl restart systemd-networkd
       sudo systemctl restart systemd-resolved
     condition: always()
 
