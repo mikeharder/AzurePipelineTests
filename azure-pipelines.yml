@@ -1,11 +1,11 @@
 jobs:
 
-# - job: ubuntu16
-#   pool:
-#     vmImage: 'ubuntu-16.04'
-#   steps:
-#   - script: dig mharder-formrec.cognitiveservices.azure.com
-#     condition: always()
+- job: ubuntu16
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: dig mharder-formrec.cognitiveservices.azure.com
+    condition: always()
 
 - job: ubuntu18
   pool:
@@ -15,47 +15,11 @@ jobs:
     displayName: dig
     condition: always()
 
-  - script: dig mharder-textanalytics.cognitiveservices.azure.com
-    displayName: dig
+  # https://bugs.launchpad.net/ubuntu/+source/systemd/+bug/1822416
+  - script: sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+    displayName: Bypass local DNS server to workaround issue resolving cognitiveservices names
     condition: always()
-
-    # - script: |
-    #   sudo sed -i 's/#DNS=/DNS=8.8.8.8 8.8.4.4/g' /etc/systemd/resolved.conf
-    #   sudo systemctl daemon-reload
-    #   sudo systemctl restart systemd-networkd
-    #   sudo systemctl restart systemd-resolved
-    # displayName: Set DNS to 8.8.8.8
-    # condition: always()
-
-  # - script: |
-  #     sudo ls -l /etc/resolv.conf
-  #     sudo rm /etc/resolv.conf
-  #     sudo ln -s /run/resolvconf/resolv.conf /etc/resolv.conf
-  #     sudo ls -l /etc/resolv.conf
-  #     sudo systemctl daemon-reload
-  #     sudo systemctl restart systemd-networkd
-  #     sudo systemctl restart systemd-resolved
-  #   displayName: Fix /etc/resolv.conf
-  #   condition: always()
-
-  - script: |
-      sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
-    displayName: Bypass local DNS cache
-    condition: always()
-
-  # - script: |
-  #     sudo systemd-resolve --status
-  #     sudo systemd-resolve --statistics
-  #     sudo systemd-resolve --flush-caches
-  #     sudo systemd-resolve --status
-  #     sudo systemd-resolve --statistics
-  #   displayName: systemd-resolve --flush-caches
-  #   condition: always()
 
   - script: dig mharder-formrec.cognitiveservices.azure.com
-    displayName: dig
-    condition: always()
-
-  - script: dig mharder-textanalytics.cognitiveservices.azure.com
     displayName: dig
     condition: always()
