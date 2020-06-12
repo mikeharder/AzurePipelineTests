@@ -12,7 +12,7 @@ steps:
   - task: NodeTool@0
     inputs:
       versionSpec: ${{ parameters.NodeVersion }}
-    displayName: "Use NodeJS ${{ parameters.NodeVersion }}"
+    displayName: "Use Node ${{ parameters.NodeVersion }}"
 
   - pwsh: |
       $expectedVersion = "${{ parameters.NodeVersion }}"
@@ -27,4 +27,4 @@ steps:
       if ($expectedMajorVersion -eq $actualMajorVersion) {
         exit 1
       }
-    displayName: Verify Node Version
+    displayName: "Verify Node Version"
