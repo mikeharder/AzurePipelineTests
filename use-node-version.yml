@@ -1,0 +1,24 @@
+parameters:
+  - name: NodeVersion
+    type: string
+    default: $(NodeVersion)
+    values:
+    - 8.x
+    - 10.x
+    - 12.x
+    - 14.x
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: ${{ parameters.NodeVersion }}
+    displayName: "Use NodeJS ${{ parameters.NodeVersion }}"
+
+  - script: |
+      node --version && npm --version
+    displayName: Node versions
+
+  - pwsh: |
+      $expectedVersion = "${{ parameters.NodeVersion }}".Split(".")[0]
+      $actualVersion = (node --version).Substring(1).Split(".")[0]
+    displayName: Verify Node Version

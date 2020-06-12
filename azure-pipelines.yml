@@ -1,8 +1,7 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
-
 pool:
-  vmImage: '$(os.vmImage)'
+  vmImage: "ubuntu-18.04"
 
 steps:
-  - powershell: pwd
+  - template: use-node-version.yml
+    parameters:
+      NodeVersion: "7.x"
