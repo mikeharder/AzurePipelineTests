@@ -1,8 +1,10 @@
-# variables:
-#   NodeVersion: "14.x"
+variables:
+  NodeVersion: "14.x"
 
 pool:
   vmImage: "ubuntu-18.04"
 
 steps:
   - template: use-node-version.yml
+    parameters:
+      NodeVersion: "8.x"
