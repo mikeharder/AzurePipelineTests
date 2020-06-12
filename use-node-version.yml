@@ -24,7 +24,7 @@ steps:
 
       $expectedMajorVersion = $expectedVersion.Split(".")[0]
       $actualMajorVersion = $actualVersion.Split(".")[0]
-      if ($expectedMajorVersion -eq $actualMajorVersion) {
+      if ($expectedMajorVersion -ne $actualMajorVersion) {
         Write-Host "Error: Expected node version does not match actual node version"
         exit 1
       }
