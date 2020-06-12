@@ -14,10 +14,6 @@ steps:
       versionSpec: ${{ parameters.NodeVersion }}
     displayName: "Use NodeJS ${{ parameters.NodeVersion }}"
 
-  - script: |
-      node --version && npm --version
-    displayName: Node versions
-
   - pwsh: |
       $expectedVersion = "${{ parameters.NodeVersion }}"
       Write-Host "Expected Node Version: $expectedVersion"
@@ -28,7 +24,7 @@ steps:
 
       $expectedMajorVersion = $expectedVersion.Split(".")[0]
       $actualMajorVersion = $actualVersion.Split(".")[0]
-      if ($expectedMajorVersion -ne $actualMajorVersion) {
+      if ($expectedMajorVersion -eq $actualMajorVersion) {
         exit 1
       }
     displayName: Verify Node Version
