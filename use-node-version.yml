@@ -19,6 +19,16 @@ steps:
     displayName: Node versions
 
   - pwsh: |
-      $expectedVersion = "${{ parameters.NodeVersion }}".Split(".")[0]
-      $actualVersion = (node --version).Substring(1).Split(".")[0]
+      $expectedVersion = "${{ parameters.NodeVersion }}"
+      Write-Host "Expected Node Version: $expectedVersion"
+
+      $actualVersion = (node --version).Substring(1)
+      Write-Host "Actual Node Version: $actualVersion"
+      Write-Host "Actual NPM Version: $(npm --version)"
+
+      $expectedMajorVersion = $expectedVersion.Split(".")[0]
+      $actualMajorVersion = $actualVersion.Split(".")[0]
+      if ($expectedMajorVersion -ne $actualMajorVersion) {
+        exit 1
+      }
     displayName: Verify Node Version
