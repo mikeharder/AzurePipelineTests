@@ -28,5 +28,3 @@ variables:
 
 steps:
   - task: Maven@3
-    inputs:
-      mavenOptions: '-v'
