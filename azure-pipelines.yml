@@ -1,8 +1,14 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
+strategy:
+  matrix:
+    Linux:
+      VM_IMAGE: 'ubuntu-20.04'
+    Windows:
+      VM_IMAGE: 'windows-2019'
+    Mac:
+      VM_IMAGE: 'maxOS-10.15'
 
 pool:
-  vmImage: '$(os.vmImage)'
+  vmImage: '$(VM_IMAGE)'
 
 steps:
-  - powershell: pwd
+  - script: java --version
