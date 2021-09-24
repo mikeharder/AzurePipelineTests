@@ -5,10 +5,10 @@ strategy:
     Windows:
       VM_IMAGE: 'windows-2019'
     Mac:
-      VM_IMAGE: 'maxOS-10.15'
+      VM_IMAGE: 'macOS-10.15'
 
 pool:
   vmImage: '$(VM_IMAGE)'
 
 steps:
-  - script: java --version
+  - script: java -version
