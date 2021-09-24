@@ -22,6 +22,7 @@ pool:
   vmImage: '$(VM_IMAGE)'
 
 variables:
+  System.Debug: true
   skipComponentGovernanceDetection: true
   NugetSecurityAnalysisWarningLevel: 'none'
 
