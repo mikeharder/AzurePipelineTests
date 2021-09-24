@@ -1,14 +1,31 @@
 strategy:
   matrix:
-    Linux:
+    Linux_Pipelines:
+      POOL_NAME: 'Azure Pipelines'
       VM_IMAGE: 'ubuntu-20.04'
-    Windows:
+    Windows_Pipelines:
+      POOL_NAME: 'Azure Pipelines'
       VM_IMAGE: 'windows-2019'
-    Mac:
+    Mac_Pipelines:
+      POOL_NAME: 'Azure Pipelines'
       VM_IMAGE: 'macOS-10.15'
+    Linux_MMS:
+      POOL_NAME: 'azsdk-pool-mms-ubuntu-2004-general'
+      VM_IMAGE: 'ubuntu-20.04'
+    Windows_MMS:
+      POOL_NAME: 'azsdk-pool-mms-win-2019-general'
+      VM_IMAGE: 'windows-2019'
+
 
 pool:
+  name: '$(POOL_NAME)'
   vmImage: '$(VM_IMAGE)'
 
+variables:
+  skipComponentGovernanceDetection: true
+  NugetSecurityAnalysisWarningLevel: 'none'
+
 steps:
-  - script: java -version
+  - task: Maven@3
+    inputs:
+      mavenOptions: '-v'
