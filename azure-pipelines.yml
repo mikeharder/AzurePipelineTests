@@ -1,8 +1,5 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
-
 pool:
-  vmImage: '$(os.vmImage)'
+  vmImage: 'ubuntu-20.04'
 
 steps:
-  - powershell: pwd
+  - pwsh: start-sleep -Seconds 60
