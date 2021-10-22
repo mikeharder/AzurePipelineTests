@@ -1,8 +1,9 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
-
 pool:
-  vmImage: '$(os.vmImage)'
+  vmImage: 'ubuntu-18.04'
 
 steps:
-  - powershell: pwd
+  - script: |
+      curl -v --location --request GET "$FR_URL" --header "$FR_KEY" --header 'Content-Type: application/json'
+    env:
+      FR_URL: $(fr-url)
+      FR_KEY: $(fr-key)
