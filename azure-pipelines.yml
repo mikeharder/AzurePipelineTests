@@ -2,6 +2,15 @@ pool:
   vmImage: 'ubuntu-18.04'
 
 steps:
+  - script: sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+    displayName: Bypass local DNS server to workaround issue resolving cognitiveservices names
+    condition: |
+      and(
+        succeededOrFailed(),
+        contains(variables['OSVmImage'], 'ubuntu'),
+        eq(variables['Container'], '')
+      )
+
   - script: |
       curl -v --location --request GET "$FR_URL" --header "$FR_KEY" --header 'Content-Type: application/json'
     env:
