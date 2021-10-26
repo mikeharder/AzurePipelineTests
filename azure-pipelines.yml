@@ -9,7 +9,9 @@ steps:
       versionSpec: '3.7'
   
   - script: |
+      echo $PATH
       which python
       which python3
-      python3 -m venv env-perf
+      python --version
+      python3 --version
 
