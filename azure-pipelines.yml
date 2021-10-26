@@ -1,8 +1,13 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
-
 pool:
-  vmImage: '$(os.vmImage)'
+  name: 'azsdk-pool-mms-ubuntu-2004-general'
+  vmImage: 'MMSUbuntu20.04'
 
 steps:
-  - powershell: pwd
+  - task: UsePythonVersion@0
+    displayName: "Use Python 3.7"
+    inputs:
+      versionSpec: '3.7'
+  
+  - script: |
+      which python
+      which python3
