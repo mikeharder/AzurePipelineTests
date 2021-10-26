@@ -18,3 +18,7 @@ steps:
       python --version
       python3 --version
 
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'run'
+      projects: 'net-test/net-test.csproj'
