@@ -10,11 +10,11 @@ namespace net_test
     {
         static async Task Main(string[] args)
         {
-            // var result = await Util.RunAsync("python3", "--version", ".", throwOnError: true);
-            // Console.WriteLine("--- Output ---");
-            // Console.WriteLine(result.StandardOutput);
-            // Console.WriteLine("--- Error ---");
-            // Console.WriteLine(result.StandardError);
+            var result = await Util.RunAsync("python3", "--version", ".", throwOnError: true);
+            Console.WriteLine("--- Output ---");
+            Console.WriteLine(result.StandardOutput);
+            Console.WriteLine("--- Error ---");
+            Console.WriteLine(result.StandardError);
 
             var process = new Process() {
                 StartInfo = {
