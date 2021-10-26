@@ -2,6 +2,9 @@ pool:
   name: 'azsdk-pool-mms-ubuntu-2004-general'
   vmImage: 'MMSUbuntu20.04'
 
+variables:
+  System.Debug: 'true'
+
 steps:
   - task: UsePythonVersion@0
     displayName: "Use Python 3.7"
