@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Sdk.Tools.PerfAutomation;
@@ -8,20 +9,28 @@ namespace net_test
 {
     class Program
     {
+        private const string _env = "env-perf";
+        private static readonly string _envBin = Util.IsWindows ? "scripts" : "bin";
+        private static readonly string _python = Util.IsWindows ? "python" : "python3";
+
         static async Task Main(string[] args)
         {
-            var result = await Util.RunAsync("python3", "--version", ".", throwOnError: true);
+            var env = _env;
+
+            var result = await Util.RunAsync("python3", $"-m venv {env}", ".", throwOnError: true);
             Console.WriteLine("--- Output ---");
             Console.WriteLine(result.StandardOutput);
             Console.WriteLine("--- Error ---");
             Console.WriteLine(result.StandardError);
 
-            result = await Util.RunAsync("python3", "-m venv env-perf", ".", throwOnError: true);
+            var python = Path.Combine(env, _envBin, "python");
+            var pip = Path.Combine(env, _envBin, "pip");
+
+            result = await Util.RunAsync(pip, "--version", ".", throwOnError: true);
             Console.WriteLine("--- Output ---");
             Console.WriteLine(result.StandardOutput);
             Console.WriteLine("--- Error ---");
             Console.WriteLine(result.StandardError);
-
 
         //     var process = new Process() {
         //         StartInfo = {
