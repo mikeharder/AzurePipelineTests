@@ -22,3 +22,6 @@ steps:
     inputs:
       command: 'run'
       projects: 'net-test/net-test.csproj'
+
+  - script: dotnet run
+    workingDirectory: 'net-test'
