@@ -13,7 +13,5 @@ steps:
 
   - script: reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\FipsAlgorithmPolicy /v Enabled /t REG_DWORD /d 1 /f
 
-  - pwsh: start-sleep 10
-
   - powershell: New-Object -TypeName System.Security.Cryptography.MD5CryptoServiceProvider
     continueOnError: 'true'
