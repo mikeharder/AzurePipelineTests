@@ -15,4 +15,4 @@ steps:
 
   - powershell: |
       New-Object -TypeName System.Security.Cryptography.MD5CryptoServiceProvider
-    continueOnError: 'true'
+    ignoreLASTEXITCODE: 'true'
