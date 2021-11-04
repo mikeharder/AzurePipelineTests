@@ -1,8 +1,17 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
-
 pool:
-  vmImage: '$(os.vmImage)'
+  # vmImage: 'ubuntu-20.04'
+  vmImage: 'windows-2019'
+
+variables:
+  System.Debug: 'true'
+  skipComponentGovernanceDetection: 'true'
+  NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  - powershell: pwd
+  - pwsh: New-Object -TypeName System.Security.Cryptography.MD5CryptoServiceProvider
+    continueOnError: 'true'
+
+  - script: reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\FipsAlgorithmPolicy /v Enabled /t REG_DWORD /d 1 /f
+  
+  - pwsh: New-Object -TypeName System.Security.Cryptography.MD5CryptoServiceProvider
+    continueOnError: 'true'
