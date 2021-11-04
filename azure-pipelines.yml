@@ -1,8 +1,12 @@
-variables:
-  os.vmImage: 'ubuntu-16.04'
-
 pool:
-  vmImage: '$(os.vmImage)'
+  vmImage: 'ubuntu-20.04'
+  # vmImage: 'windows-2019'
+
+variables:
+  System.Debug: 'true'
+  skipComponentGovernanceDetection: true
+  NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  - powershell: pwd
+  - script: |
+      echo hello
