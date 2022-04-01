@@ -3,7 +3,6 @@ pool:
   # vmImage: 'windows-2019'
 
 variables:
-  System.Debug: 'true'
   skipComponentGovernanceDetection: true
   NugetSecurityAnalysisWarningLevel: 'none'
 
