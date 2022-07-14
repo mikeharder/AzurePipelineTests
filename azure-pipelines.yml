@@ -1,6 +1,6 @@
-# variables:
-#   - name: v3
-#     value: l3
+variables:
+  - name: v3
+    value: l3
 
 extends:
   template: layer2.yml
