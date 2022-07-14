@@ -8,18 +8,18 @@ parameters:
   - name: p3
     type: string
     default: ''
-  # - name: variables
-  #   type: object
-  #   default: []
+  - name: variables
+    type: object
+    default: []
 
-# variables:
-#   - name: skipComponentGovernanceDetection
-#     value: true
-#   - name: NugetSecurityAnalysisWarningLevel
-#     value: 'none'
-#   - name: v1
-#     value: l1
-#   - ${{ parameters.variables }}
+variables:
+  - name: skipComponentGovernanceDetection
+    value: true
+  - name: NugetSecurityAnalysisWarningLevel
+    value: 'none'
+  - name: v1
+    value: l1
+  - ${{ parameters.variables }}
 
 jobs:
 - job: Job1
