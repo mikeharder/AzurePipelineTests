@@ -14,14 +14,17 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
   v1: l1
 
-pool:
-  vmImage: 'ubuntu-20.04'
+jobs:
+- job: Job1
 
-steps:
-  - script: |
-      echo p1: '${{ parameters.p1 }}'
-      echo p2: '${{ parameters.p2 }}'
-      echo p3: '${{ parameters.p3 }}'
-      echo v1: '$(v1)'
-      echo v2: '$(v2)'
-      echo v3: '$(v3)'
+  pool:
+    vmImage: 'ubuntu-20.04'
+
+  steps:
+    - script: |
+        echo p1: '${{ parameters.p1 }}'
+        echo p2: '${{ parameters.p2 }}'
+        echo p3: '${{ parameters.p3 }}'
+        echo v1: '$(v1)'
+        echo v2: '$(v2)'
+        echo v3: '$(v3)'
