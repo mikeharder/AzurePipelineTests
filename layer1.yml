@@ -12,17 +12,17 @@ parameters:
     type: object
     default: []
 
-variables:
-  - name: skipComponentGovernanceDetection
-    value: true
-  - name: NugetSecurityAnalysisWarningLevel
-    value: 'none'
-  - name: v1
-    value: l1
-  - ${{ parameters.variables }}
-
 jobs:
 - job: Job1
+
+  variables:
+    - name: skipComponentGovernanceDetection
+      value: true
+    - name: NugetSecurityAnalysisWarningLevel
+      value: 'none'
+    - name: v1
+      value: l1
+    - ${{ parameters.variables }}
 
   pool:
     vmImage: 'ubuntu-20.04'
