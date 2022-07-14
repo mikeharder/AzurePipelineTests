@@ -1,7 +1,6 @@
-variables:
-  v2: l2
-
 extends:
   template: layer1.yml
   parameters:
     p2: l2
+    variables:
+      v2: l1
