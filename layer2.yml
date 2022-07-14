@@ -1,3 +1,10 @@
+parameters:
+  - name: p2
+    type: string
+    default: 'p2'
+  - name: p3
+    type: string
+    default: ''
 # variables:
 #   - name: skipComponentGovernanceDetection
 #     value: true
@@ -9,7 +16,8 @@
 extends:
   template: layer1.yml
   parameters:
-    p2: l2
+    p2: ${{ parameters.p2 }}
+    p3: ${{ parameters.p3 }}
 #    variables:
 #      - name: v2
 #        value: l2
