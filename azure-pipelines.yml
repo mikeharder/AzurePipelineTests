@@ -3,4 +3,5 @@ extends:
   parameters:
     p2: l2
     variables:
-      v2: l1
+      - name: v2
+        value: l2

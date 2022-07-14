@@ -13,10 +13,13 @@ parameters:
     default: []
 
 variables:
-  skipComponentGovernanceDetection: true
-  NugetSecurityAnalysisWarningLevel: 'none'
-  v1: l1
-  ${{ parameters.variables }}
+  - name: skipComponentGovernanceDetection
+    value: true
+  - name: NugetSecurityAnalysisWarningLevel
+    value: 'none'
+  - name: v1
+    value: l1
+  - ${{ parameters.variables }}
 
 jobs:
 - job: Job1
