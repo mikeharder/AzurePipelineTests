@@ -5,16 +5,19 @@ parameters:
   - name: p3
     type: string
     default: ''
-  - name: variables
-    type: object
-    default: []
+  # - name: variables
+  #   type: object
+  #   default: []
 
 jobs:
   - template: layer1.yml
+    variables:
+      - name: v2
+        value: l2
     parameters:
       p2: ${{ parameters.p2 }}
       p3: ${{ parameters.p3 }}
-      variables:
-        - name: v2
-          value: l2
-        - ${{ parameters.variables }}
+      # variables:
+      #   - name: v2
+      #     value: l2
+      #   - ${{ parameters.variables }}

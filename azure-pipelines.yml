@@ -1,7 +1,7 @@
 jobs:
   - template: layer2.yml
+    variables:
+      - name: v3
+        value: l3
     parameters:
       p3: l3
-      variables:
-        - name: v3
-          value: l3

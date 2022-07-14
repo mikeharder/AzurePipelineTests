@@ -8,9 +8,9 @@ parameters:
   - name: p3
     type: string
     default: ''
-  - name: variables
-    type: object
-    default: []
+  # - name: variables
+  #   type: object
+  #   default: []
 
 jobs:
 - job: Job1
@@ -22,7 +22,7 @@ jobs:
       value: 'none'
     - name: v1
       value: l1
-    - ${{ parameters.variables }}
+    # - ${{ parameters.variables }}
 
   pool:
     vmImage: 'ubuntu-20.04'
