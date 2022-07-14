@@ -1,7 +1,7 @@
-extends:
-  template: layer2.yml
-  parameters:
-    p3: l3
-    variables:
-      - name: v3
-        value: l3
+jobs:
+  - template: layer2.yml
+    parameters:
+      p3: l3
+      variables:
+        - name: v3
+          value: l3
