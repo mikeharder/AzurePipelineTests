@@ -1,11 +1,4 @@
-pool:
-  vmImage: 'ubuntu-20.04'
-  # vmImage: 'windows-2019'
-
-variables:
-  skipComponentGovernanceDetection: true
-  NugetSecurityAnalysisWarningLevel: 'none'
-
-steps:
-  - script: |
-      echo hello
+extends:
+  template: layer1.yml
+  parameters:
+    p2: l2
