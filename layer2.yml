@@ -9,11 +9,12 @@ parameters:
   #   type: object
   #   default: []
 
+variables:
+  - name: v2
+    value: l2
+
 jobs:
   - template: layer1.yml
-    variables:
-      - name: v2
-        value: l2
     parameters:
       p2: ${{ parameters.p2 }}
       p3: ${{ parameters.p3 }}
