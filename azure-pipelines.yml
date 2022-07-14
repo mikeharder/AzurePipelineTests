@@ -1,15 +1,8 @@
 variables:
-  - name: skipComponentGovernanceDetection
-    value: true
-  - name: NugetSecurityAnalysisWarningLevel
-    value: 'none'
-  - name: v2
-    value: l2
+  - name: v3
+    value: l3
 
 extends:
-  template: layer1.yml
+  template: layer2.yml
   parameters:
-    p2: l2
-#    variables:
-#      - name: v2
-#        value: l2
+    p3: l3
