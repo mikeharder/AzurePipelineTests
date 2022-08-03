@@ -24,7 +24,7 @@ steps:
       ifconfig
     displayName: ifconfig
 
-  - task: Maven@3
+  - task: Maven@3.205.1
     inputs:
       goals: compile
     displayName: mvn compile
