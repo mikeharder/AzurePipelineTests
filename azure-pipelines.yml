@@ -1,6 +1,15 @@
+strategy:
+  matrix:
+    Linux1ES:
+      Pool: 'azsdk-pool-mms-ubuntu-2004-general'
+      OsVmImage: 'MMSUbuntu20.04'
+    LinuxHosted:
+      Pool: 'Azure Pipelines'
+      OsVmImage: 'ubuntu-20.04'
+
 pool:
-  vmImage: 'ubuntu-20.04'
-  # vmImage: 'windows-2019'
+  name: $(Pool)
+  vmImage: $(OSVmImage)
 
 variables:
   skipComponentGovernanceDetection: true
@@ -8,4 +17,4 @@ variables:
 
 steps:
   - script: |
-      echo hello
+      hostname
