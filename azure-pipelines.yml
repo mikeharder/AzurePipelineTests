@@ -18,3 +18,8 @@ variables:
 steps:
   - script: |
       hostname
+    displayName: hostname
+
+  - script: |
+      ifconfig
+    displayName: ifconfig
