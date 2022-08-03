@@ -23,3 +23,12 @@ steps:
   - script: |
       ifconfig
     displayName: ifconfig
+
+  - task: Maven@3
+    inputs:
+      goals: compile
+    displayName: mvn compile
+
+  - script: |
+      java -cp target/classes com.example.App
+    displayName: java com.example.App
