@@ -44,9 +44,25 @@ steps:
     displayName: wsl --install -d Ubuntu-20.04
     condition: succeededOrFailed()
 
-  - script: wsl -e sudo apt install squid
-    displayName: wsl -e sudo apt install squid
+  # - script: wsl --status
+  #   displayName: wsl --status
+  #   condition: succeededOrFailed()
+
+  - script: wsl -l -v
+    displayName: wsl -l -v
     condition: succeededOrFailed()
+
+  - script: timeout 30
+    displayName: timeout 30
+    condition: succeededOrFailed()
+
+  - script: wsl -l -v
+    displayName: wsl -l -v
+    condition: succeededOrFailed()
+
+  # - script: wsl -e sudo apt install squid
+  #   displayName: wsl -e sudo apt install squid
+  #   condition: succeededOrFailed()
 
   # - script: wsl --status
   #   displayName: wsl --status
