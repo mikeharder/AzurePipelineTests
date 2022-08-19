@@ -52,8 +52,8 @@ steps:
     displayName: wsl -l -v
     condition: succeededOrFailed()
 
-  - script: timeout 30
-    displayName: timeout 30
+  - script: timeout 30 /nobreak
+    displayName: timeout 30 /nobreak
     condition: succeededOrFailed()
 
   - script: wsl -l -v
