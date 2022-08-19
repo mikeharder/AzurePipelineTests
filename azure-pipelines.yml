@@ -58,18 +58,6 @@ steps:
           write-host $wsl
       }
 
-  - script: wsl -l -v
-    displayName: wsl -l -v
-    condition: succeededOrFailed()
-
-  - script: timeout 30 /nobreak
-    displayName: timeout 30 /nobreak
-    condition: succeededOrFailed()
-
-  - script: wsl -l -v
-    displayName: wsl -l -v
-    condition: succeededOrFailed()
-
   # - script: wsl -e sudo apt install squid
   #   displayName: wsl -e sudo apt install squid
   #   condition: succeededOrFailed()
