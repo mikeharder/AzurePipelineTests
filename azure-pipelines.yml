@@ -63,7 +63,7 @@ steps:
     displayName: Wait until distro is running
     condition: succeededOrFailed()
 
-  - script: wsl -e sudo apt install squid
+  - script: wsl -e sudo apt-get -y install squid
     displayName: wsl -e sudo apt install squid
     condition: succeededOrFailed()
 
