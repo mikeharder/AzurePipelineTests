@@ -16,37 +16,9 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  # - script: docker info
-  #   displayName: docker info
-  #   condition: succeededOrFailed()
-
-  # - script: docker run -d --name squid-container -e TZ=UTC -p 3128:3128 ubuntu/squid
-  #   displayName: docker run ubuntu/squid
-  #   condition: succeededOrFailed()
-
-  # - script: wsl --help
-  #   displayName: wsl --help
-  #   condition: succeededOrFailed()
-
-  # - script: wsl --status
-  #   displayName: wsl --status
-  #   condition: succeededOrFailed()
-
-  # - script: wsl -l -v
-  #   displayName: wsl -l -v
-  #   condition: succeededOrFailed()
-
-  # - script: wsl --list --online
-  #   displayName: wsl --list --online
-  #   condition: succeededOrFailed()
-
   - script: wsl --install -d Ubuntu-20.04
     displayName: wsl --install -d Ubuntu-20.04
     condition: succeededOrFailed()
-
-  # - script: wsl --status
-  #   displayName: wsl --status
-  #   condition: succeededOrFailed()
 
   - pwsh: |
       # wsl output is UTF-16, so the console encoding must be changed to correctly capture the output
@@ -82,24 +54,3 @@ steps:
   - script: curl -x http://localhost:3128 -v http://www.example.org
     displayName: curl -x http://localhost:3128 -v http://www.example.org
     condition: succeededOrFailed()
-
-  # - script: wsl -e sudo apt install squid
-  #   displayName: wsl -e sudo apt install squid
-  #   condition: succeededOrFailed()
-
-  # - script: wsl --status
-  #   displayName: wsl --status
-  #   condition: succeededOrFailed()
-
-  # - script: wsl -l -v
-  #   displayName: wsl -l -v
-  #   condition: succeededOrFailed()
-
-  # - script: wsl --install
-  #   displayName: wsl --install
-  #   condition: succeededOrFailed()
-
-  # - script: wsl --update
-  #   displayName: wsl --update
-  #   condition: succeededOrFailed()
-
