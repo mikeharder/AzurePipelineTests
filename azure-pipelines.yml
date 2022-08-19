@@ -60,6 +60,28 @@ steps:
           $wsl = wsl -l -v | out-string
           write-host $wsl
       }
+    displayName: Wait until distro is running
+    condition: succeededOrFailed()
+
+  - script: wsl -e sudo apt install squid
+    displayName: wsl -e sudo apt install squid
+    condition: succeededOrFailed()
+
+  - script: wsl -e sudo squid
+    displayName: wsl -e sudo squid
+    condition: succeededOrFailed()
+
+  - script: wsl -e ps auxf
+    displayName: wsl -e ps axuf
+    condition: succeededOrFailed()
+
+  - script: curl -v http://www.example.org
+    displayName: curl -v http://www.example.org
+    condition: succeededOrFailed()
+
+  - script: curl -x http://localhost:3128 -v http://www.example.org
+    displayName: curl -x http://localhost:3128 -v http://www.example.org
+    condition: succeededOrFailed()
 
   # - script: wsl -e sudo apt install squid
   #   displayName: wsl -e sudo apt install squid
