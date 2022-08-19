@@ -49,12 +49,15 @@ steps:
   #   condition: succeededOrFailed()
 
   - pwsh: |
-      $wsl = wsl -l -v
+      # wsl output is UTF-16, so the console encoding must be changed to correctly capture the output
+      [console]::OutputEncoding = New-Object System.Text.UnicodeEncoding
+
+      $wsl = wsl -l -v | out-string
       write-host $wsl
 
-      while ($wsl -match "installing") {
+      while ($wsl -match 'installing') {
           start-sleep -seconds 1
-          $wsl = wsl -l -v
+          $wsl = wsl -l -v | out-string
           write-host $wsl
       }
 
