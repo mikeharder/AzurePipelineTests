@@ -40,6 +40,10 @@ steps:
     displayName: wsl --list --online
     condition: succeededOrFailed()
 
+  - script: wsl --install -d Ubuntu-20.04
+    displayName: wsl --install -d Ubuntu-20.04
+    condition: succeededOrFailed()
+
   # - script: wsl --install
   #   displayName: wsl --install
   #   condition: succeededOrFailed()
