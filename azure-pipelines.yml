@@ -16,4 +16,7 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  - script: docker info
+  - script: |
+      docker info
+      wsl --status
+      wsl -l -v
