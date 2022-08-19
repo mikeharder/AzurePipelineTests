@@ -16,38 +16,42 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  - script: docker info
-    displayName: docker info
-    condition: succeededOrFailed()
+  # - script: docker info
+  #   displayName: docker info
+  #   condition: succeededOrFailed()
 
   # - script: docker run -d --name squid-container -e TZ=UTC -p 3128:3128 ubuntu/squid
   #   displayName: docker run ubuntu/squid
   #   condition: succeededOrFailed()
 
-  - script: wsl --help
-    displayName: wsl --help
+  # - script: wsl --help
+  #   displayName: wsl --help
+  #   condition: succeededOrFailed()
+
+  # - script: wsl --status
+  #   displayName: wsl --status
+  #   condition: succeededOrFailed()
+
+  # - script: wsl -l -v
+  #   displayName: wsl -l -v
+  #   condition: succeededOrFailed()
+
+  - script: wsl --list --online
+    displayName: wsl --list --online
     condition: succeededOrFailed()
 
-  - script: wsl --status
-    displayName: wsl --status
-    condition: succeededOrFailed()
-
-  - script: wsl -l -v
-    displayName: wsl -l -v
-    condition: succeededOrFailed()
-
-  - script: wsl --install
-    displayName: wsl --install
-    condition: succeededOrFailed()
+  # - script: wsl --install
+  #   displayName: wsl --install
+  #   condition: succeededOrFailed()
 
   # - script: wsl --update
   #   displayName: wsl --update
   #   condition: succeededOrFailed()
 
-  - script: wsl --status
-    displayName: wsl --status
-    condition: succeededOrFailed()
+  # - script: wsl --status
+  #   displayName: wsl --status
+  #   condition: succeededOrFailed()
 
-  - script: wsl -l -v
-    displayName: wsl -l -v
-    condition: succeededOrFailed()
+  # - script: wsl -l -v
+  #   displayName: wsl -l -v
+  #   condition: succeededOrFailed()
