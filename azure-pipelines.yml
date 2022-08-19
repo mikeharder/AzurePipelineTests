@@ -48,6 +48,16 @@ steps:
   #   displayName: wsl --status
   #   condition: succeededOrFailed()
 
+  - pwsh: |
+      $wsl = wsl -l -v
+      write-host $wsl
+
+      while ($wsl -match "installing") {
+          start-sleep -seconds 1
+          $wsl = wsl -l -v
+          write-host $wsl
+      }
+
   - script: wsl -l -v
     displayName: wsl -l -v
     condition: succeededOrFailed()
