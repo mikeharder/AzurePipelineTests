@@ -36,12 +36,20 @@ steps:
   #   displayName: wsl -l -v
   #   condition: succeededOrFailed()
 
-  - script: wsl --list --online
-    displayName: wsl --list --online
-    condition: succeededOrFailed()
+  # - script: wsl --list --online
+  #   displayName: wsl --list --online
+  #   condition: succeededOrFailed()
 
   - script: wsl --install -d Ubuntu-20.04
     displayName: wsl --install -d Ubuntu-20.04
+    condition: succeededOrFailed()
+
+  - script: wsl --status
+    displayName: wsl --status
+    condition: succeededOrFailed()
+
+  - script: wsl -l -v
+    displayName: wsl -l -v
     condition: succeededOrFailed()
 
   # - script: wsl --install
@@ -52,10 +60,3 @@ steps:
   #   displayName: wsl --update
   #   condition: succeededOrFailed()
 
-  # - script: wsl --status
-  #   displayName: wsl --status
-  #   condition: succeededOrFailed()
-
-  # - script: wsl -l -v
-  #   displayName: wsl -l -v
-  #   condition: succeededOrFailed()
