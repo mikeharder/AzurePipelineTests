@@ -35,16 +35,27 @@ steps:
     displayName: Wait until distro is running
     condition: succeededOrFailed()
 
-  - script: wsl -e sudo apt-get -y install squid
+  - script: wsl sudo apt-get -y install squid
     displayName: wsl -e sudo apt install squid
     condition: succeededOrFailed()
 
-  - script: wsl -e sudo squid
+  - script: wsl sudo squid
     displayName: wsl -e sudo squid
     condition: succeededOrFailed()
 
-  - script: wsl -e ps auxf
+  - script: wsl cp /etc/squid/squid.conf /tmp/squid.conf; sed -i 's\http_port 3128\http_port 3129\' /tmp/squid.conf; sed -i 's\# pid_filename /var/run/squid.pid\pid_filename /var/run/squid2.pid\' /tmp/squid.conf;
+    displayName: Create /tmp/squid.conf
+
+  - script: wsl sudo squid -f /tmp/squid.conf
+    displayName: wsl -e sudo squid -f /tmp/squid.conf
+    condition: succeededOrFailed()
+
+  - script: wsl ps auxf
     displayName: wsl -e ps axuf
+    condition: succeededOrFailed()
+
+  - script: wsl netstat -an
+    displayName: wsl -e netstat -an
     condition: succeededOrFailed()
 
   - script: curl -v http://www.example.org
@@ -53,4 +64,8 @@ steps:
 
   - script: curl -x http://localhost:3128 -v http://www.example.org
     displayName: curl -x http://localhost:3128 -v http://www.example.org
+    condition: succeededOrFailed()
+
+  - script: curl -x http://localhost:3129 -v http://www.example.org
+    displayName: curl -x http://localhost:3129 -v http://www.example.org
     condition: succeededOrFailed()
