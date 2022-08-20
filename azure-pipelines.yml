@@ -36,26 +36,26 @@ steps:
     condition: succeededOrFailed()
 
   - script: wsl sudo apt-get -y install squid
-    displayName: wsl -e sudo apt install squid
+    displayName: wsl sudo apt install squid
     condition: succeededOrFailed()
 
   - script: wsl sudo squid
-    displayName: wsl -e sudo squid
+    displayName: wsl sudo squid
     condition: succeededOrFailed()
 
   - script: wsl cp /etc/squid/squid.conf /tmp/squid.conf; sed -i 's\http_port 3128\http_port 3129\' /tmp/squid.conf; sed -i 's\# pid_filename /var/run/squid.pid\pid_filename /var/run/squid2.pid\' /tmp/squid.conf;
     displayName: Create /tmp/squid.conf
 
   - script: wsl sudo squid -f /tmp/squid.conf
-    displayName: wsl -e sudo squid -f /tmp/squid.conf
+    displayName: wsl sudo squid -f /tmp/squid.conf
     condition: succeededOrFailed()
 
   - script: wsl ps auxf
-    displayName: wsl -e ps axuf
+    displayName: wsl ps axuf
     condition: succeededOrFailed()
 
   - script: wsl netstat -an
-    displayName: wsl -e netstat -an
+    displayName: wsl netstat -an
     condition: succeededOrFailed()
 
   - script: curl -v http://www.example.org
