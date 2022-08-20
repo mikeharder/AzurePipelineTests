@@ -35,7 +35,7 @@ steps:
     displayName: Wait until distro is running
     condition: succeededOrFailed()
 
-  - script: wsl sudo apt-get -y install squid net-tools
+  - script: wsl sudo apt-get -y install squid
     displayName: wsl sudo apt install squid net-tools
     condition: succeededOrFailed()
 
@@ -52,10 +52,6 @@ steps:
 
   - script: wsl ps auxf
     displayName: wsl ps axuf
-    condition: succeededOrFailed()
-
-  - script: wsl netstat -an
-    displayName: wsl netstat -an
     condition: succeededOrFailed()
 
   - script: curl -v http://www.example.org
