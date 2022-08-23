@@ -35,6 +35,10 @@ steps:
     displayName: Wait until distro is running
     condition: succeededOrFailed()
 
+  - script: dir \\wsl$\Ubuntu-20.04
+    displayName: dir \\wsl$\Ubuntu-20.04
+    condition: succeededOrFailed()
+
   - script: wsl sudo apt-get -y install squid
     displayName: wsl sudo apt install squid net-tools
     condition: succeededOrFailed()
