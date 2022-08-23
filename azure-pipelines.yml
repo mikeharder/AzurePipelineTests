@@ -27,7 +27,7 @@ steps:
       $wsl = wsl -l -v | out-string
       write-host $wsl
 
-      while ($wsl -match 'installing') {
+      while ($wsl -notmatch 'Ubuntu-20\.04\s+Running') {
           start-sleep -seconds 1
           $wsl = wsl -l -v | out-string
           write-host $wsl
