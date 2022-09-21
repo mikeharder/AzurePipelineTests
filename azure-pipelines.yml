@@ -10,15 +10,11 @@ strategy:
       Pool: Azure Pipelines
       OSVmImage: "macos-11"
 
-${{ if eq(variables['Pool'], 'azsdk-pool-mms-win-2019-general'}}:
-  pool:
-    name: $(Pool)
-    vmImage: $(OSVmImage)
+pool:
+  name: $(Pool)
+  vmImage: $(OSVmImage)
+  ${{ if eq(variables['Pool'], 'azsdk-pool-mms-win-2019-general'}}:
     demands: 'ImageVersionOverride -equals 61.0.0'
-${{ else }}:
-  pool:
-    name: $(Pool)
-    vmImage: $(OSVmImage)
 
 variables:
   skipComponentGovernanceDetection: true
