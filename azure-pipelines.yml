@@ -16,7 +16,7 @@ strategy:
 pool:
   name: $(Pool)
   vmImage: $(OSVmImage)
-  demands: variables['Demands']
+  demands: ${{ variables.Demands }}
 
 variables:
   skipComponentGovernanceDetection: true
