@@ -22,5 +22,13 @@ steps:
   - script: curl -v https://cvbp-secondary.z19.web.core.windows.net/datasets/image_classification/fridgeObjects.zip --output fridgeObjects-curl.zip
 
   - script: |
+      python --version
+
+  - script: |
       python app.py
       ls -l
+
+  - script: |
+      git clone https://github.com/azure/azure-sdk-for-python
+      cd azure-sdk-for-python
+      python ./scripts/devops_tasks/trust_proxy_cert.py
