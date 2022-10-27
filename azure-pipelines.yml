@@ -27,8 +27,16 @@ steps:
   - script: |
       python app.py
       ls -l
+      rm fridgeObjects-py.zip
 
   - script: |
       git clone https://github.com/azure/azure-sdk-for-python
       cd azure-sdk-for-python
       python ./scripts/devops_tasks/trust_proxy_cert.py
+
+  - script: |
+      export SSL_CERT_DIR=/mnt/vss/_work/1/s/azure-sdk-for-python/.certificate
+      export REQUESTS_CA_BUNDLE=/mnt/vss/_work/1/s/azure-sdk-for-python/.certificate/dotnet-devcert.pem
+      curl -v https://cvbp-secondary.z19.web.core.windows.net/datasets/image_classification/fridgeObjects.zip --output fridgeObjects-curl-2.zip
+      python app.py
+      ls -l
