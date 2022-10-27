@@ -19,4 +19,6 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  - script: curl -v https://cvbp-secondary.z19.web.core.windows.net/datasets/image_classification/fridgeObjects.zip --output fridgeObjects.zip
+  - script: curl -v https://cvbp-secondary.z19.web.core.windows.net/datasets/image_classification/fridgeObjects.zip --output fridgeObjects-curl.zip
+
+  - script: python app.py
