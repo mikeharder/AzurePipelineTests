@@ -19,18 +19,4 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  - script: echo $(Agent.OS)
-    displayName: print Agent.OS
-
-  - script: echo Linux
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Linux'))
-    displayName: Condition Linux
-
-  - script: echo Windows
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Windows_NT'))
-    displayName: Condition Windows_NT
-
-  - script: echo Mac
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
-    displayName: Condition Darwin
-    
+  - script: curl -v https://cvbp-secondary.z19.web.core.windows.net/datasets/image_classification/fridgeObjects.zip --output fridgeObjects.zip
