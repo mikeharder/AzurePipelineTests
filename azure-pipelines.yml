@@ -22,3 +22,6 @@ steps:
   - script: wsl --install -d Ubuntu-20.04
     displayName: wsl --install -d Ubuntu-20.04
     condition: succeededOrFailed()
+
+  - script: wsl -l -v
+    displayName: wsl -l -v
