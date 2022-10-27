@@ -25,3 +25,4 @@ steps:
 
   - script: wsl -l -v
     displayName: wsl -l -v
+    condition: succeededOrFailed()
