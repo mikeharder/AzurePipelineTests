@@ -33,6 +33,28 @@ steps:
     displayName: cmd.exe --version
     condition: succeededOrFailed()
 
+  - script: dir "C:\ProgramData\Microsoft\Windows"
+    displayName: dir
+    condition: succeededOrFailed()
+
+  - powershell: |
+      $folder = "WslLogs"
+      mkdir -p $folder
+      $LogProfile = "$folder/wsl.wprp"
+      Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/microsoft/WSL/master/diagnostics/wsl.wprp" -OutFile $LogProfile
+      reg.exe export HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss $folder/HKCU.reg
+      reg.exe export HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Lxss $folder/HKLM.reg
+      reg.exe export HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\P9NP $folder/P9NP.reg
+      $wslconfig = "$env:USERPROFILE/.wslconfig"
+      if (Test-Path $wslconfig)
+      {
+          Copy-Item $wslconfig $folder
+      }
+      get-appxpackage MicrosoftCorporationII.WindowsSubsystemforLinux > $folder/appxpackage.txt
+      wpr.exe -start $LogProfile -filemode 
+    displayName: start logs
+    condition: succeededOrFailed()
+
   - script: wsl --status
     displayName: wsl --status
     condition: succeededOrFailed()
@@ -62,11 +84,13 @@ steps:
     condition: succeededOrFailed()
 
   - powershell: |
-      Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/microsoft/WSL/master/diagnostics/collect-wsl-logs.ps1" -OutFile collect-wsl-logs.ps1
-      Set-ExecutionPolicy Bypass -Scope Process -Force
-      .\collect-wsl-logs.ps1
-    displayName: collect-wsl-logs
-    condition: succeededOrFailed()
+      $folder = "WslLogs"
+      wpr.exe -stop $folder/logs.etl
+      $logArchive = "$(Resolve-Path $folder).zip"
+      Compress-Archive -Path $folder -DestinationPath $logArchive
+
+  - publish: WslLogs.zip
+    artifact: WslLogs
 
   # - script: ping 127.0.0.1 -n 120
   #   displayName: sleep 2 mins
