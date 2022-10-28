@@ -29,6 +29,10 @@ steps:
   #   displayName: dism
   #   condition: succeededOrFailed()
 
+  - script: cmd.exe --version
+    displayName: cmd.exe --version
+    condition: succeededOrFailed()
+
   - script: wsl --status
     displayName: wsl --status
     condition: succeededOrFailed()
@@ -37,9 +41,9 @@ steps:
   #   displayName: wsl --set-default-version 2
   #   condition: succeededOrFailed()
 
-  - script: wsl --status
-    displayName: wsl --status
-    condition: succeededOrFailed()
+  # - script: wsl --status
+  #   displayName: wsl --status
+  #   condition: succeededOrFailed()
 
   # - script: wsl --update
   #   displayName: wsl --update
@@ -55,6 +59,13 @@ steps:
 
   - script: wsl -l -v
     displayName: wsl -l -v
+    condition: succeededOrFailed()
+
+  - pwsh: |
+      Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/microsoft/WSL/master/diagnostics/collect-wsl-logs.ps1" -OutFile collect-wsl-logs.ps1
+      Set-ExecutionPolicy Bypass -Scope Process -Force
+      .\collect-wsl-logs.ps1
+    displayName: collect-wsl-logs
     condition: succeededOrFailed()
 
   # - script: ping 127.0.0.1 -n 120
