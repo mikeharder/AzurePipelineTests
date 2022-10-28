@@ -88,9 +88,12 @@ steps:
       wpr.exe -stop $folder/logs.etl
       $logArchive = "$(Resolve-Path $folder).zip"
       Compress-Archive -Path $folder -DestinationPath $logArchive
+    displayName: stop logs
+    condition: succeededOrFailed()
 
   - publish: WslLogs.zip
     artifact: WslLogs
+    condition: succeededOrFailed()
 
   # - script: ping 127.0.0.1 -n 120
   #   displayName: sleep 2 mins
