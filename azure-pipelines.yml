@@ -1,7 +1,8 @@
 strategy:
   matrix:
     1ES:
-      Pool: azsdk-pool-mms-win-2022-general
+      # Pool: azsdk-pool-mms-win-2022-general
+      Pool: azsdk-pool-mms-win-2019-perf
       OSVmImage: windows-2022
     DevOps:
       Pool: Azure Pipelines
@@ -16,33 +17,25 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  - script: |
-      fsutil volume diskfree c:
-      fsutil volume diskfree d:
-      fsutil volume diskfree e:
-    displayName: diskfree
-    condition: succeededOrFailed()
+  # - script: |
+  #     fsutil volume diskfree c:
+  #     fsutil volume diskfree d:
+  #     fsutil volume diskfree e:
+  #   displayName: diskfree
+  #   condition: succeededOrFailed()
 
-  - script: |
-      dism /online /get-featureinfo /featurename:Microsoft-Windows-Subsystem-Linux
-    displayName: dism
-    condition: succeededOrFailed()
+  # - script: |
+  #     dism /online /get-featureinfo /featurename:Microsoft-Windows-Subsystem-Linux
+  #   displayName: dism
+  #   condition: succeededOrFailed()
 
   - script: wsl --status
     displayName: wsl --status
     condition: succeededOrFailed()
 
-  - script: wsl --update
-    displayName: wsl --update
-    condition: succeededOrFailed()
-
-  - script: wsl --install -d Ubuntu-20.04
-    displayName: wsl --install -d Ubuntu-20.04
-    condition: succeededOrFailed()
-
-  - script: ping 127.0.0.1 -n 120
-    displayName: sleep 2 mins
-    condition: succeededOrFailed()
+  # - script: wsl --update
+  #   displayName: wsl --update
+  #   condition: succeededOrFailed()
 
   - script: wsl -l -v
     displayName: wsl -l -v
@@ -52,6 +45,18 @@ steps:
     displayName: wsl --install -d Ubuntu-20.04
     condition: succeededOrFailed()
 
-  - script: wsl --status
-    displayName: wsl --status
+  - script: wsl -l -v
+    displayName: wsl -l -v
     condition: succeededOrFailed()
+
+  # - script: ping 127.0.0.1 -n 120
+  #   displayName: sleep 2 mins
+  #   condition: succeededOrFailed()
+
+  # - script: wsl --install -d Ubuntu-20.04
+  #   displayName: wsl --install -d Ubuntu-20.04
+  #   condition: succeededOrFailed()
+
+  # - script: wsl --status
+  #   displayName: wsl --status
+  #   condition: succeededOrFailed()
