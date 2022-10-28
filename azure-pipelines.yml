@@ -40,6 +40,10 @@ steps:
     displayName: wsl --install -d Ubuntu-20.04
     condition: succeededOrFailed()
 
+  - script: ping 127.0.0.1 -n 120
+    displayName: sleep 2 mins
+    condition: succeededOrFailed()
+
   - script: wsl -l -v
     displayName: wsl -l -v
     condition: succeededOrFailed()
