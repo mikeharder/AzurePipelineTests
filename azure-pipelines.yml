@@ -1,8 +1,8 @@
 strategy:
   matrix:
     1ES:
-      # Pool: azsdk-pool-mms-win-2022-general
-      Pool: azsdk-pool-mms-win-2019-perf
+      Pool: azsdk-pool-mms-win-2022-general
+      # Pool: azsdk-pool-mms-win-2019-perf
       OSVmImage: windows-2022
     DevOps:
       Pool: Azure Pipelines
