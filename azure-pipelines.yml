@@ -33,6 +33,14 @@ steps:
     displayName: wsl --status
     condition: succeededOrFailed()
 
+  - script: wsl --set-default-version 2
+    displayName: wsl --set-default-version 2
+    condition: succeededOrFailed()
+
+  - script: wsl --status
+    displayName: wsl --status
+    condition: succeededOrFailed()
+
   # - script: wsl --update
   #   displayName: wsl --update
   #   condition: succeededOrFailed()
