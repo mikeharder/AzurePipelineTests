@@ -16,8 +16,21 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
+  - script: |
+      fsutil volume diskfree c:
+      fsutil volume diskfree d:
+      fsutil volume diskfree e:
+    displayName: diskfree
+    condition: succeededOrFailed()
+
+  - script: |
+      dism /online /get-featureinfo /featurename:Microsoft-Windows-Subsystem-Linux
+    displayName: dism
+    condition: succeededOrFailed()
+
   - script: wsl --status
     displayName: wsl --status
+    condition: succeededOrFailed()
 
   - script: wsl --install -d Ubuntu-20.04
     displayName: wsl --install -d Ubuntu-20.04
@@ -25,4 +38,12 @@ steps:
 
   - script: wsl -l -v
     displayName: wsl -l -v
+    condition: succeededOrFailed()
+
+  - script: wsl --install -d Ubuntu-20.04
+    displayName: wsl --install -d Ubuntu-20.04
+    condition: succeededOrFailed()
+
+  - script: wsl --status
+    displayName: wsl --status
     condition: succeededOrFailed()
