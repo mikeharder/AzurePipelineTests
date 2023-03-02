@@ -1,12 +1,27 @@
 strategy:
   matrix:
-    Linux:
+    1ESUbuntu1804:
+      Pool: "azsdk-pool-mms-ubuntu-1804-general"
+      OSVmImage: "ubuntu-18.04"
+    1ESUbuntu2004:
       Pool: "azsdk-pool-mms-ubuntu-2004-general"
-      OSVmImage: "MMSUbuntu20.04"
-    Windows:
+      OSVmImage: "ubuntu-20.04"
+    1ESUbuntu2204:
+      Pool: "azsdk-pool-mms-ubuntu-2204-general"
+      OSVmImage: "ubuntu-22.04"
+    1ESWindows2019:
       Pool: "azsdk-pool-mms-win-2019-general"
-      OSVmImage: "MMS2019"
-    Mac:
+      OSVmImage: "windows-2019"
+    1ESWindows2022:
+      Pool: "azsdk-pool-mms-win-2022-general"
+      OSVmImage: "windows-2022"
+    DevOpsUbuntu2204:
+      Pool: Azure Pipelines
+      OSVmImage: "ubuntu-22.04"
+    DevOpsWindows2022:
+      Pool: Azure Pipelines
+      OSVmImage: "windows-2022"
+    DevOpsMac:
       Pool: Azure Pipelines
       OSVmImage: "macos-11"
 
@@ -19,18 +34,4 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  - script: echo $(Agent.OS)
-    displayName: print Agent.OS
-
-  - script: echo Linux
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Linux'))
-    displayName: Condition Linux
-
-  - script: echo Windows
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Windows_NT'))
-    displayName: Condition Windows_NT
-
-  - script: echo Mac
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
-    displayName: Condition Darwin
-    
+  - script: pwsh -v
