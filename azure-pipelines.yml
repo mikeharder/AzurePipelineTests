@@ -24,12 +24,12 @@ steps:
   - script: echo Before Conditions
     displayName: Before Conditions
 
-  - ${{ if (parameters.Outer) }}
+  - ${{ if parameters.Outer }}:
     - script: echo Inside Outer
       displayName: Inside Outer
-    - ${{ if (parameters.Inner) }}
+    - ${{ if parameters.Inner }}:
       - script: echo Inside Inner
         displayName: Inside Inner
-    - ${{ if (and(parameters.Outer, parameters.Inner)) }}
+    - ${{ if and(parameters.Outer, parameters.Inner) }}:
       - script: echo Inside Outer and Inner
         displayName: Inside Outer and Inner
