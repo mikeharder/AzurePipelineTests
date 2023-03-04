@@ -22,5 +22,8 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
+  - script: wsl --update --web-download
+    displayName: wsl --update --web-download
+
   - script: wsl --version
     displayName: wsl --version
