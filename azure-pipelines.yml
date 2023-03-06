@@ -40,8 +40,8 @@ steps:
   #   displayName: wsl --install -d Ubuntu
   #   condition: succeededOrFailed()
 
-  - script: wsl --install --distribution Ubuntu-20.04 --web-download -no-launch
-    displayName: wsl --install --distribution Ubuntu-20.04 --web-download -no-launch
+  - script: wsl --install --distribution Ubuntu-20.04 --web-download --no-launch
+    displayName: wsl --install --distribution Ubuntu-20.04 --web-download --no-launch
     condition: succeededOrFailed()
 
   # - script: wsl -l -v
