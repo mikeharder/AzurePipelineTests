@@ -21,3 +21,9 @@ steps:
 
   - script: wsl --version
     displayName: wsl --version
+
+  - script: wsl --install -d Ubuntu-20.04 --web-download
+    displayName: wsl --install -d Ubuntu-20.04 --web-download
+
+  - script: wsl -l -v
+    displayName: wsl -l -v
