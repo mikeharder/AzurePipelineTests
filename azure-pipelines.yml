@@ -16,20 +16,20 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  # - script: wsl --update
-  #   displayName: wsl --update
-  #   condition: succeededOrFailed()
+  - script: wsl --update
+    displayName: wsl --update
+    condition: succeededOrFailed()
 
   - script: wsl --status
     displayName: wsl --status
     condition: succeededOrFailed()
 
-  - script: wsl --list --online
-    displayName: wsl --list --online
-    condition: succeededOrFailed()
-
   - script: wsl --version
     displayName: wsl --version
+    condition: succeededOrFailed()
+
+  - script: wsl --list --online
+    displayName: wsl --list --online
     condition: succeededOrFailed()
 
   - script: wsl --install -d Ubuntu
