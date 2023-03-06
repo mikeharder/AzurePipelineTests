@@ -32,8 +32,8 @@ steps:
     displayName: wsl --version
     condition: succeededOrFailed()
 
-  - script: wsl --install
-    displayName: wsl --install
+  - script: wsl --install -d Ubuntu
+    displayName: wsl --install -d Ubuntu
     condition: succeededOrFailed()
 
   # - script: wsl --install -d Ubuntu-20.04
