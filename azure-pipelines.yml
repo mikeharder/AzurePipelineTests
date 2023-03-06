@@ -44,6 +44,15 @@ steps:
     displayName: wsl --install --distribution Ubuntu-20.04 --web-download --no-launch
     condition: succeededOrFailed()
 
-  # - script: wsl -l -v
-  #   displayName: wsl -l -v
-  #   condition: succeededOrFailed()
+  - pwsh: |
+      write-host "Launch WSL"
+      $wsl = wsl -l -v | out-string
+      write-host $wsl
+      while ($wsl -notmatch 'Ubuntu-20.04.*running') {
+        start-sleep -seconds 1
+        $wsl = wsl -l -v | out-string
+        write-host $wsl
+      }
+      write-host "Ubuntu installed."
+    displayName: Launch WSL
+    condition: succeededOrFailed()
