@@ -28,31 +28,31 @@ steps:
     displayName: wsl --version
     condition: succeededOrFailed()
 
-  - script: wsl --set-default-version 1
-    displayName: wsl --set-default-version 1
-    condition: succeededOrFailed()
+  # - script: wsl --set-default-version 1
+  #   displayName: wsl --set-default-version 1
+  #   condition: succeededOrFailed()
 
-  - script: wsl --list --online
-    displayName: wsl --list --online
-    condition: succeededOrFailed()
+  # - script: wsl --list --online
+  #   displayName: wsl --list --online
+  #   condition: succeededOrFailed()
 
   # - script: wsl --install -d Ubuntu
   #   displayName: wsl --install -d Ubuntu
   #   condition: succeededOrFailed()
 
-  - script: wsl --install --distribution Ubuntu-20.04 --web-download --no-launch
-    displayName: wsl --install --distribution Ubuntu-20.04 --web-download --no-launch
+  - script: wsl --install --distribution Debian
+    displayName: wsl --install --distribution Debian
     condition: succeededOrFailed()
 
-  - pwsh: |
-      write-host "Launch WSL"
-      $wsl = wsl -l -v | out-string
-      write-host $wsl
-      while ($wsl -notmatch 'Ubuntu-20.04.*running') {
-        start-sleep -seconds 1
-        $wsl = wsl -l -v | out-string
-        write-host $wsl
-      }
-      write-host "Ubuntu installed."
-    displayName: Launch WSL
-    condition: succeededOrFailed()
+  # - pwsh: |
+  #     write-host "Launch WSL"
+  #     $wsl = wsl -l -v | out-string
+  #     write-host $wsl
+  #     while ($wsl -notmatch 'Ubuntu-20.04.*running') {
+  #       start-sleep -seconds 1
+  #       $wsl = wsl -l -v | out-string
+  #       write-host $wsl
+  #     }
+  #     write-host "Ubuntu installed."
+  #   displayName: Launch WSL
+  #   condition: succeededOrFailed()
