@@ -1,11 +1,45 @@
 strategy:
   matrix:
-    1ESWindows2022:
+    1ESWindows2022Python3.7:
       Pool: "azsdk-pool-mms-win-2022-general"
       OSVmImage: "windows-2022"
-    DevOpsWindows2022:
+      PythonVersion: "3.7"
+    1ESWindows2022Python3.8:
+      Pool: "azsdk-pool-mms-win-2022-general"
+      OSVmImage: "windows-2022"
+      PythonVersion: "3.8"
+    1ESWindows2022Python3.9:
+      Pool: "azsdk-pool-mms-win-2022-general"
+      OSVmImage: "windows-2022"
+      PythonVersion: "3.9"
+    1ESWindows2022Python3.10:
+      Pool: "azsdk-pool-mms-win-2022-general"
+      OSVmImage: "windows-2022"
+      PythonVersion: "3.10"
+    1ESWindows2022Python3.11:
+      Pool: "azsdk-pool-mms-win-2022-general"
+      OSVmImage: "windows-2022"
+      PythonVersion: "3.11"
+    DevOpsWindows2022Python3.7:
       Pool: Azure Pipelines
       OSVmImage: "windows-2022"
+      PythonVersion: "3.7"
+    DevOpsWindows2022Python3.8:
+      Pool: Azure Pipelines
+      OSVmImage: "windows-2022"
+      PythonVersion: "3.8"
+    DevOpsWindows2022Python3.9:
+      Pool: Azure Pipelines
+      OSVmImage: "windows-2022"
+      PythonVersion: "3.9"
+    DevOpsWindows2022Python3.10:
+      Pool: Azure Pipelines
+      OSVmImage: "windows-2022"
+      PythonVersion: "3.10"
+    DevOpsWindows2022Python3.11:
+      Pool: Azure Pipelines
+      OSVmImage: "windows-2022"
+      PythonVersion: "3.11"
 
 pool:
   name: $(Pool)
@@ -17,26 +51,6 @@ variables:
 
 steps:
   - task: UsePythonVersion@0
-    displayName: "Use Python 3.11"
+    displayName: "Use Python $(PythonVersion)"
     inputs:
-      versionSpec: "3.11"
-
-  - task: UsePythonVersion@0
-    displayName: "Use Python 3.10"
-    inputs:
-      versionSpec: "3.10"
-
-  - task: UsePythonVersion@0
-    displayName: "Use Python 3.9"
-    inputs:
-      versionSpec: "3.9"
-
-  - task: UsePythonVersion@0
-    displayName: "Use Python 3.8"
-    inputs:
-      versionSpec: "3.8"
-
-  - task: UsePythonVersion@0
-    displayName: "Use Python 3.7"
-    inputs:
-      versionSpec: "3.7"
+      versionSpec: $(PythonVersion)
