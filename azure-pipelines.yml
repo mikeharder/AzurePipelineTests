@@ -17,19 +17,9 @@ variables:
 
 steps:
   - task: UsePythonVersion@0
-    displayName: "Use Python 3.7"
+    displayName: "Use Python 3.11"
     inputs:
-      versionSpec: "3.7"
-
-  - task: UsePythonVersion@0
-    displayName: "Use Python 3.8"
-    inputs:
-      versionSpec: "3.8"
-
-  - task: UsePythonVersion@0
-    displayName: "Use Python 3.9"
-    inputs:
-      versionSpec: "3.9"
+      versionSpec: "3.11"
 
   - task: UsePythonVersion@0
     displayName: "Use Python 3.10"
@@ -37,6 +27,16 @@ steps:
       versionSpec: "3.10"
 
   - task: UsePythonVersion@0
-    displayName: "Use Python 3.11"
+    displayName: "Use Python 3.9"
     inputs:
-      versionSpec: "3.11"
+      versionSpec: "3.9"
+
+  - task: UsePythonVersion@0
+    displayName: "Use Python 3.8"
+    inputs:
+      versionSpec: "3.8"
+
+  - task: UsePythonVersion@0
+    displayName: "Use Python 3.7"
+    inputs:
+      versionSpec: "3.7"
