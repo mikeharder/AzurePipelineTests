@@ -54,3 +54,10 @@ steps:
     displayName: "Use Python $(PythonVersion)"
     inputs:
       versionSpec: $(PythonVersion)
+  - pwsh: |
+      pip install packaging==20.4
+    displayName: Prep Environment
+  - task: PythonScript@0
+    displayName: Crashing Import
+    inputs:
+     scriptPath: 'hello.py'
