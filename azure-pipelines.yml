@@ -78,12 +78,23 @@ steps:
   - script: |
       python --version
       pip --version
-      python -m pip --version
 
       pip install packaging==20.4
 
       pip list
       pip freeze
+
+      python -c "from packaging.version import Version, InvalidVersion"
+    displayName: Test pip and python
+
+  - script: |
+      python --version
+      python -m pip --version
+
+      python -m pip install packaging==20.4
+
+      python -m pip list
+      python -m pip freeze
 
       python -c "from packaging.version import Version, InvalidVersion"
     displayName: Test pip and python
