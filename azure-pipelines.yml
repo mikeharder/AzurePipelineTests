@@ -21,23 +21,23 @@ strategy:
       OSVmImage: "windows-2022"
       PythonVersion: "3.11"
     1ESWindows2022LatestPython3.7:
-      Pool: "azsdk-pool-mms-win-2022-general"
+      Pool: "azsdk-pool-mms-win-2022-latest"
       OSVmImage: "windows-2022-latest"
       PythonVersion: "3.7"
     1ESWindows2022LatestPython3.8:
-      Pool: "azsdk-pool-mms-win-2022-general"
+      Pool: "azsdk-pool-mms-win-2022-latest"
       OSVmImage: "windows-2022-latest"
       PythonVersion: "3.8"
     1ESWindows2022LatestPython3.9:
-      Pool: "azsdk-pool-mms-win-2022-general"
+      Pool: "azsdk-pool-mms-win-2022-latest"
       OSVmImage: "windows-2022-latest"
       PythonVersion: "3.9"
     1ESWindows2022LatestPython3.10:
-      Pool: "azsdk-pool-mms-win-2022-general"
+      Pool: "azsdk-pool-mms-win-2022-latest"
       OSVmImage: "windows-2022-latest"
       PythonVersion: "3.10"
     1ESWindows2022LatestPython3.11:
-      Pool: "azsdk-pool-mms-win-2022-general"
+      Pool: "azsdk-pool-mms-win-2022-latest"
       OSVmImage: "windows-2022-latest"
       PythonVersion: "3.11"
     DevOpsWindows2022Python3.7:
@@ -64,7 +64,6 @@ strategy:
 pool:
   name: $(Pool)
   vmImage: $(OSVmImage)
-  demands: ImageOverride -equals $(OSVmImage)
 
 variables:
   skipComponentGovernanceDetection: true
@@ -75,10 +74,15 @@ steps:
     displayName: "Use Python $(PythonVersion)"
     inputs:
       versionSpec: $(PythonVersion)
-  - pwsh: |
+
+  - script: |
+      python --version
+      pip --version
+
       pip install packaging==20.4
-    displayName: Prep Environment
-  - task: PythonScript@0
-    displayName: Crashing Import
-    inputs:
-     scriptPath: 'hello.py'
+
+      pip list
+      pip freeze
+
+      python -c "from packaging.version import Version, InvalidVersion"
+    displayName: Test pip and python
