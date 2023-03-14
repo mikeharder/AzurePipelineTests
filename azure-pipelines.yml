@@ -20,6 +20,26 @@ strategy:
       Pool: "azsdk-pool-mms-win-2022-general"
       OSVmImage: "windows-2022"
       PythonVersion: "3.11"
+    1ESWindows2022LatestPython3.7:
+      Pool: "azsdk-pool-mms-win-2022-general"
+      OSVmImage: "windows-2022-latest"
+      PythonVersion: "3.7"
+    1ESWindows2022LatestPython3.8:
+      Pool: "azsdk-pool-mms-win-2022-general"
+      OSVmImage: "windows-2022-latest"
+      PythonVersion: "3.8"
+    1ESWindows2022LatestPython3.9:
+      Pool: "azsdk-pool-mms-win-2022-general"
+      OSVmImage: "windows-2022-latest"
+      PythonVersion: "3.9"
+    1ESWindows2022LatestPython3.10:
+      Pool: "azsdk-pool-mms-win-2022-general"
+      OSVmImage: "windows-2022-latest"
+      PythonVersion: "3.10"
+    1ESWindows2022LatestPython3.11:
+      Pool: "azsdk-pool-mms-win-2022-general"
+      OSVmImage: "windows-2022-latest"
+      PythonVersion: "3.11"
     DevOpsWindows2022Python3.7:
       Pool: Azure Pipelines
       OSVmImage: "windows-2022"
@@ -44,6 +64,7 @@ strategy:
 pool:
   name: $(Pool)
   vmImage: $(OSVmImage)
+  demands: ImageOverride -equals $(OSVmImage)
 
 variables:
   skipComponentGovernanceDetection: true
