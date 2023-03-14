@@ -78,6 +78,7 @@ steps:
   - script: |
       python --version
       pip --version
+      python -m pip --version
 
       pip install packaging==20.4
 
