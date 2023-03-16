@@ -15,6 +15,9 @@ strategy:
     1ESWindows2022:
       Pool: "azsdk-pool-mms-win-2022-general"
       OSVmImage: "windows-2022"
+    1ESWindows2022Latest:
+      Pool: "azsdk-pool-mms-win-2022-latest"
+      OSVmImage: "windows-2022-latest"
     DevOpsUbuntu1804:
       Pool: Azure Pipelines
       OSVmImage: "ubuntu-18.04"
@@ -49,18 +52,11 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  - script: echo $(Agent.OS)
-    displayName: print Agent.OS
+  - task: NodeTool@0
+    inputs:
+      versionSpec: 18.x
+    displayName: Use Node.js 18.x
 
-  - script: echo Linux
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Linux'))
-    displayName: Condition Linux
-
-  - script: echo Windows
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Windows_NT'))
-    displayName: Condition Windows_NT
-
-  - script: echo Mac
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
-    displayName: Condition Darwin
-    
+  - script: |
+      node --version
+      npm --version
