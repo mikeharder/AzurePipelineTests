@@ -15,15 +15,30 @@ strategy:
     1ESWindows2022:
       Pool: "azsdk-pool-mms-win-2022-general"
       OSVmImage: "windows-2022"
+    DevOpsUbuntu1804:
+      Pool: Azure Pipelines
+      OSVmImage: "ubuntu-18.04"
+    DevOpsUbuntu2004:
+      Pool: Azure Pipelines
+      OSVmImage: "ubuntu-20.04"
     DevOpsUbuntu2204:
       Pool: Azure Pipelines
       OSVmImage: "ubuntu-22.04"
+    DevOpsWindows2019:
+      Pool: Azure Pipelines
+      OSVmImage: "windows-2019"
     DevOpsWindows2022:
       Pool: Azure Pipelines
       OSVmImage: "windows-2022"
-    DevOpsMac:
+    DevOpsMac1015:
+      Pool: Azure Pipelines
+      OSVmImage: "macos-10.15"
+    DevOpsMac11:
       Pool: Azure Pipelines
       OSVmImage: "macos-11"
+    DevOpsMac12:
+      Pool: Azure Pipelines
+      OSVmImage: "macos-12"
 
 pool:
   name: $(Pool)
