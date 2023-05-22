@@ -70,8 +70,14 @@ steps:
   - script: nohup http-fault-injector > "$(Build.SourcesDirectory)/http-fault-injector.log" &
     displayName: Start http-fault-injector
 
+  - script: netstat -tan
+    displayName: netstat -tan
+
   - script: sleep 30
     displayName: sleep 30
+
+  - script: netstat -tan
+    displayName: netstat -tan
 
   - script: cat "$(Build.SourcesDirectory)/http-fault-injector.log"
     displayName: Print http-fault-injector.log
