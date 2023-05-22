@@ -67,5 +67,9 @@ steps:
   - script: dotnet tool install azure.sdk.tools.httpfaultinjector --global --prerelease --add-source https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-net/nuget/v3/index.json
     displayName: Install http-fault-injector
 
-  - script: nohup http-fault-injector
+  - script: nohup http-fault-injector &
     displayName: Start http-fault-injector
+
+  # - script: |
+  #     git clone https://github.com/Azure/azure-sdk-tools
+  #     cd azure-sdk-tools/tools/http-fault-injector/sample-clients
