@@ -73,7 +73,7 @@ steps:
   - script: sleep 30
     displayName: sleep 30
 
-    - script: cat "$(Build.SourcesDirectory)/http-fault-injector.log"
+  - script: cat "$(Build.SourcesDirectory)/http-fault-injector.log"
     displayName: Print http-fault-injector.log
 
   # - script: |
