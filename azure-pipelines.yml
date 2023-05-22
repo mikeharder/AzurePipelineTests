@@ -63,4 +63,9 @@ steps:
   - script: echo Mac
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
     displayName: Condition Darwin
-    
+
+  - script: dotnet tool install azure.sdk.tools.httpfaultinjector --global --prerelease --add-source https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-net/nuget/v3/index.json
+    displayName: Install http-fault-injector
+
+  - script: nohup http-fault-injector
+    displayName: Start http-fault-injector
