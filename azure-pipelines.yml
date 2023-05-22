@@ -1,44 +1,44 @@
 strategy:
   matrix:
-    1ESUbuntu1804:
-      Pool: "azsdk-pool-mms-ubuntu-1804-general"
-      OSVmImage: "ubuntu-18.04"
+    # 1ESUbuntu1804:
+    #   Pool: "azsdk-pool-mms-ubuntu-1804-general"
+    #   OSVmImage: "ubuntu-18.04"
     1ESUbuntu2004:
       Pool: "azsdk-pool-mms-ubuntu-2004-general"
       OSVmImage: "ubuntu-20.04"
-    1ESUbuntu2204:
-      Pool: "azsdk-pool-mms-ubuntu-2204-general"
-      OSVmImage: "ubuntu-22.04"
-    1ESWindows2019:
-      Pool: "azsdk-pool-mms-win-2019-general"
-      OSVmImage: "windows-2019"
-    1ESWindows2022:
-      Pool: "azsdk-pool-mms-win-2022-general"
-      OSVmImage: "windows-2022"
-    DevOpsUbuntu1804:
-      Pool: Azure Pipelines
-      OSVmImage: "ubuntu-18.04"
-    DevOpsUbuntu2004:
-      Pool: Azure Pipelines
-      OSVmImage: "ubuntu-20.04"
-    DevOpsUbuntu2204:
-      Pool: Azure Pipelines
-      OSVmImage: "ubuntu-22.04"
-    DevOpsWindows2019:
-      Pool: Azure Pipelines
-      OSVmImage: "windows-2019"
-    DevOpsWindows2022:
-      Pool: Azure Pipelines
-      OSVmImage: "windows-2022"
-    DevOpsMac1015:
-      Pool: Azure Pipelines
-      OSVmImage: "macos-10.15"
+    # 1ESUbuntu2204:
+    #   Pool: "azsdk-pool-mms-ubuntu-2204-general"
+    #   OSVmImage: "ubuntu-22.04"
+    # 1ESWindows2019:
+    #   Pool: "azsdk-pool-mms-win-2019-general"
+    #   OSVmImage: "windows-2019"
+    # 1ESWindows2022:
+    #   Pool: "azsdk-pool-mms-win-2022-general"
+    #   OSVmImage: "windows-2022"
+    # DevOpsUbuntu1804:
+    #   Pool: Azure Pipelines
+    #   OSVmImage: "ubuntu-18.04"
+    # DevOpsUbuntu2004:
+    #   Pool: Azure Pipelines
+    #   OSVmImage: "ubuntu-20.04"
+    # DevOpsUbuntu2204:
+    #   Pool: Azure Pipelines
+    #   OSVmImage: "ubuntu-22.04"
+    # DevOpsWindows2019:
+    #   Pool: Azure Pipelines
+    #   OSVmImage: "windows-2019"
+    # DevOpsWindows2022:
+    #   Pool: Azure Pipelines
+    #   OSVmImage: "windows-2022"
+    # DevOpsMac1015:
+    #   Pool: Azure Pipelines
+    #   OSVmImage: "macos-10.15"
     DevOpsMac11:
       Pool: Azure Pipelines
       OSVmImage: "macos-11"
-    DevOpsMac12:
-      Pool: Azure Pipelines
-      OSVmImage: "macos-12"
+    # DevOpsMac12:
+    #   Pool: Azure Pipelines
+    #   OSVmImage: "macos-12"
 
 pool:
   name: $(Pool)
