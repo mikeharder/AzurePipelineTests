@@ -56,4 +56,4 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  - script: git --version& git merge main
+  - script: git --version& git merge origin/main
