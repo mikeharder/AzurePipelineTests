@@ -49,6 +49,4 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  - script: git config -l
-    displayName: git config -l
-
+  - script: hostname; whoami; git config -l
