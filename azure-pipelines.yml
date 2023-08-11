@@ -40,7 +40,7 @@ strategy:
     #   Pool: Azure Pipelines
     #   OSVmImage: "macos-12"
 
-${{ if eq(variables.Pool, 'Azure Pipelines')}}:
+${{ if eq(variables.Pool, 'Azure Pipelines') }}:
   pool:
     name: $(Pool)
     vmImage: $(OSVmImage)
