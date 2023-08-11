@@ -56,4 +56,6 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  - script: git --version& git merge origin/main
+  - script: git --version
+  
+  - script: git checkout -b test1& git checkout -b test2& git commit -m "test" --allow-empty& git checkout test1& git merge test2
