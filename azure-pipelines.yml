@@ -43,6 +43,7 @@ strategy:
 pool:
   name: $(Pool)
   vmImage: $(OSVmImage)
+  demands: ImageOverride -equals $(OSVmImage)
 
 variables:
   skipComponentGovernanceDetection: true
