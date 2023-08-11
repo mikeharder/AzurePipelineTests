@@ -16,7 +16,7 @@ strategy:
       Pool: "azsdk-pool-mms-win-2022-general"
       OSVmImage: "windows-2022"
       Demands:
-      - ImageOverride -equals $(OSVmImage)
+      - 
     # DevOpsUbuntu1804:
     #   Pool: Azure Pipelines
     #   OSVmImage: "ubuntu-18.04"
@@ -42,11 +42,15 @@ strategy:
     #   Pool: Azure Pipelines
     #   OSVmImage: "macos-12"
 
-pool:
-  name: $(Pool)
-  vmImage: $(OSVmImage)
-  demands:
-  - $(Demands)
+${{ if eq(variables.Pool, "Azure Pipelines")}}:
+  pool:
+    name: $(Pool)
+    vmImage: $(OSVmImage)
+${{ else }}:
+  pool:
+    name: $(Pool)
+    vmImage: $(OSVmImage)
+    demands: ImageOverride -equals $(OSVmImage)
 
 variables:
   skipComponentGovernanceDetection: true
