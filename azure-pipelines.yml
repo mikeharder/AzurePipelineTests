@@ -56,4 +56,4 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  - script: hostname& whoami& git config -l
+  - script: git --version& git merge main
