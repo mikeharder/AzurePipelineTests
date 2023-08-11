@@ -15,7 +15,8 @@ strategy:
     1ESWindows2022:
       Pool: "azsdk-pool-mms-win-2022-general"
       OSVmImage: "windows-2022"
-      Demands: "ImageOverride -equals $(OSVmImage)"
+      Demands:
+      - ImageOverride -equals $(OSVmImage)
     # DevOpsUbuntu1804:
     #   Pool: Azure Pipelines
     #   OSVmImage: "ubuntu-18.04"
@@ -31,7 +32,6 @@ strategy:
     DevOpsWindows2022:
       Pool: Azure Pipelines
       OSVmImage: "windows-2022"
-      Demands: "Agent.Version -gtVersion 1.0.0"
     # DevOpsMac1015:
     #   Pool: Azure Pipelines
     #   OSVmImage: "macos-10.15"
@@ -45,7 +45,8 @@ strategy:
 pool:
   name: $(Pool)
   vmImage: $(OSVmImage)
-  demands: $(Demands)
+  demands:
+  - $(Demands)
 
 variables:
   skipComponentGovernanceDetection: true
