@@ -1,8 +1,5 @@
 strategy:
   matrix:
-    1ESUbuntu1804:
-      Pool: "azsdk-pool-mms-ubuntu-1804-general"
-      OSVmImage: "ubuntu-18.04"
     1ESUbuntu2004:
       Pool: "azsdk-pool-mms-ubuntu-2004-general"
       OSVmImage: "ubuntu-20.04"
@@ -15,9 +12,6 @@ strategy:
     1ESWindows2022:
       Pool: "azsdk-pool-mms-win-2022-general"
       OSVmImage: "windows-2022"
-    DevOpsUbuntu1804:
-      Pool: Azure Pipelines
-      OSVmImage: "ubuntu-18.04"
     DevOpsUbuntu2004:
       Pool: Azure Pipelines
       OSVmImage: "ubuntu-20.04"
@@ -39,6 +33,9 @@ strategy:
     DevOpsMac12:
       Pool: Azure Pipelines
       OSVmImage: "macos-12"
+    DevOpsMac13:
+      Pool: Azure Pipelines
+      OSVmImage: "macos-13"
 
 pool:
   name: $(Pool)
