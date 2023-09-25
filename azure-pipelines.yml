@@ -49,18 +49,8 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  - script: echo $(Agent.OS)
-    displayName: print Agent.OS
+  - task: UseDotNet@2
+    inputs:
+      version: 6.0.x
 
-  - script: echo Linux
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Linux'))
-    displayName: Condition Linux
-
-  - script: echo Windows
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Windows_NT'))
-    displayName: Condition Windows_NT
-
-  - script: echo Mac
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
-    displayName: Condition Darwin
-    
+  - script: dotnet --version
