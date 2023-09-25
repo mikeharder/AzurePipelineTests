@@ -46,8 +46,12 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
+  - script: dotnet --info
+  - script: dotnet --version
+
   - task: UseDotNet@2
     inputs:
       version: 6.x
 
+  - script: dotnet --info
   - script: dotnet --version
