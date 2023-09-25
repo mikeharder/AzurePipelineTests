@@ -24,9 +24,6 @@ strategy:
     DevOpsWindows2022:
       Pool: Azure Pipelines
       OSVmImage: "windows-2022"
-    DevOpsMac1015:
-      Pool: Azure Pipelines
-      OSVmImage: "macos-10.15"
     DevOpsMac11:
       Pool: Azure Pipelines
       OSVmImage: "macos-11"
