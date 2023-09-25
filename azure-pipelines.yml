@@ -49,5 +49,5 @@ variables:
   NugetSecurityAnalysisWarningLevel: 'none'
 
 steps:
-  - script: ! mkdir foo
+  - script: '! mkdir foo'
     retryCountOnTaskFailure: 3
