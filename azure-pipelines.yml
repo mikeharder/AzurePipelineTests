@@ -51,3 +51,4 @@ variables:
 steps:
   - script: fail
     displayName: fail
+    retryCountOnTaskFailure: 3
