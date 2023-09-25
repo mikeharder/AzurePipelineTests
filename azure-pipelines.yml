@@ -52,3 +52,10 @@ steps:
 
   - script: dotnet --info
   - script: dotnet --version
+
+  - task: UseDotNet@2
+    inputs:
+      version: 7.x
+
+  - script: dotnet --info
+  - script: dotnet --version
