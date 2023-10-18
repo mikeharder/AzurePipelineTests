@@ -55,6 +55,9 @@ steps:
   - script: npm --version
     displayName: npm --version --loglevel info
 
+  - script: node --version
+    displayName: node --version
+
   - script: echo Linux
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Linux'))
     displayName: Condition Linux
