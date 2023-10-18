@@ -33,6 +33,9 @@ strategy:
     DevOpsMac13:
       Pool: Azure Pipelines
       OSVmImage: "macos-13"
+    DevOpsMac13Arm64:
+      Pool: Azure Pipelines
+      OSVmImage: "macos-13-arm64"
 
 pool:
   name: $(Pool)
@@ -45,6 +48,9 @@ variables:
 steps:
   - script: echo $(Agent.OS)
     displayName: print Agent.OS
+
+  - script: uname -m
+    displayName: uname -m
 
   - script: echo Linux
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Linux'))
