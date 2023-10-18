@@ -52,7 +52,7 @@ steps:
   - script: uname -m
     displayName: uname -m
 
-    - script: echo Linux
+  - script: echo Linux
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Linux'))
     displayName: Condition Linux
 
