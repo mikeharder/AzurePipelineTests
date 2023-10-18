@@ -49,7 +49,10 @@ steps:
   - script: echo $(Agent.OS)
     displayName: print Agent.OS
 
-  - script: echo Linux
+  - script: uname -m
+    displayName: uname -m
+
+    - script: echo Linux
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Linux'))
     displayName: Condition Linux
 
