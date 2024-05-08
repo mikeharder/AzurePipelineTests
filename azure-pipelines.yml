@@ -52,7 +52,7 @@ steps:
   - script: uname -m
     displayName: uname -m
 
-  - script: curl -s ifconfig.me
+  - script: curl icanhazip.com
     displayName: Get Client IP
 
   - script: echo Linux
