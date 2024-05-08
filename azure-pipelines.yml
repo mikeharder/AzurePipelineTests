@@ -52,8 +52,8 @@ steps:
   - script: uname -m
     displayName: uname -m
 
-  - script: get client IP
-    displayName: curl -v ifconfig.me
+  - script: curl -v ifconfig.me
+    displayName: Get Client IP
 
   - script: echo Linux
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Linux'))
