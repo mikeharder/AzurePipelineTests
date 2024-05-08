@@ -52,7 +52,7 @@ steps:
   - script: uname -m
     displayName: uname -m
 
-  - script: curl ifconfig.me
+  - script: curl -4 ifconfig.me
     displayName: Get Client IP
 
   - script: echo Linux
