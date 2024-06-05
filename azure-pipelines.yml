@@ -49,10 +49,10 @@ steps:
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
-    script: node -e "process.exit(19);"
+    script: node -e "process.exit(19); write-output $LASTEXITCODE;"
 
 - task: AzurePowerShell@5
   inputs:
     azureSubscription: "Azure SDK Developer Playground"
     ScriptType: InlineScript
-    Inline: node -e "process.exit(19);"
+    Inline: node -e "process.exit(19); write-output $LASTEXITCODE;"
