@@ -17,7 +17,7 @@ strategy:
     #   OSVmImage: "ubuntu-20.04"
     DevOpsUbuntu2204:
       Pool: Azure Pipelines
-      OSVmImage: "ubuntu-22.04"
+      OSVmImage: ubuntu-22.04
     # DevOpsWindows2019:
     #   Pool: Azure Pipelines
     #   OSVmImage: "windows-2019"
@@ -43,20 +43,20 @@ pool:
 
 variables:
   skipComponentGovernanceDetection: true
-  NugetSecurityAnalysisWarningLevel: 'none'
+  NugetSecurityAnalysisWarningLevel: none
   system.debug: true
 
 steps:
 - task: PowerShell@2
   inputs:
-    targetType: 'inline'
+    targetType: inline
     script: node -e "process.exit(19);"; write-output $LASTEXITCODE;
   continueOnError: true
 
 - task: AzurePowerShell@5
   inputs:
     azurePowerShellVersion: LatestVersion
-    azureSubscription: "Azure SDK Developer Playground"
+    azureSubscription: Azure SDK Developer Playground
     ScriptType: InlineScript
     Inline: node -e "process.exit(19);"; write-output $LASTEXITCODE;
   continueOnError: true
