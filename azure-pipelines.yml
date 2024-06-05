@@ -44,6 +44,7 @@ pool:
 variables:
   skipComponentGovernanceDetection: true
   NugetSecurityAnalysisWarningLevel: 'none'
+  system.debug: true
 
 steps:
   - script: echo $(Agent.OS)
