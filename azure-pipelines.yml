@@ -3,9 +3,9 @@ strategy:
     # 1ESUbuntu2004:
     #   Pool: "azsdk-pool-mms-ubuntu-2004-general"
     #   OSVmImage: "ubuntu-20.04"
-    1ESUbuntu2204:
-      Pool: "azsdk-pool-mms-ubuntu-2204-general"
-      OSVmImage: "ubuntu-22.04"
+    # 1ESUbuntu2204:
+    #   Pool: "azsdk-pool-mms-ubuntu-2204-general"
+    #   OSVmImage: "ubuntu-22.04"
     # 1ESWindows2019:
     #   Pool: "azsdk-pool-mms-win-2019-general"
     #   OSVmImage: "windows-2019"
@@ -15,9 +15,9 @@ strategy:
     # DevOpsUbuntu2004:
     #   Pool: Azure Pipelines
     #   OSVmImage: "ubuntu-20.04"
-    # DevOpsUbuntu2204:
-    #   Pool: Azure Pipelines
-    #   OSVmImage: "ubuntu-22.04"
+    DevOpsUbuntu2204:
+      Pool: Azure Pipelines
+      OSVmImage: "ubuntu-22.04"
     # DevOpsWindows2019:
     #   Pool: Azure Pipelines
     #   OSVmImage: "windows-2019"
@@ -55,6 +55,7 @@ steps:
 
 - task: AzurePowerShell@5
   inputs:
+    azurePowerShellVersion: LatestVersion
     azureSubscription: "Azure SDK Developer Playground"
     ScriptType: InlineScript
     Inline: node -e "process.exit(19);"; write-output $LASTEXITCODE;
