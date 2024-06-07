@@ -30,12 +30,18 @@ strategy:
     # DevOpsMac11:
     #   Pool: Azure Pipelines
     #   OSVmImage: "macos-11"
-    # DevOpsMac12:
-    #   Pool: Azure Pipelines
-    #   OSVmImage: "macos-12"
-    # DevOpsMac13:
-    #   Pool: Azure Pipelines
-    #   OSVmImage: "macos-13"
+    DevOpsMac12:
+      Pool: Azure Pipelines
+      OSVmImage: "macos-12"
+    DevOpsMac13:
+      Pool: Azure Pipelines
+      OSVmImage: "macos-13"
+    DevOpsMac13Separate1:
+      Pool: Azure Pipelines
+      OSVmImage: "macos-13"
+    DevOpsMac13Separate2:
+      Pool: Azure Pipelines
+      OSVmImage: "macos-13"
     # DevOpsMac13Arm64:
     #   Pool: Azure Pipelines
     #   OSVmImage: "macos-13-arm64"
@@ -69,4 +75,4 @@ steps:
   - script: echo Mac
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
     displayName: Condition Darwin
-    
+
