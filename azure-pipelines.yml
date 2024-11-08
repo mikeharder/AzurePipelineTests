@@ -73,7 +73,7 @@ steps:
       cd openssl-1.1.1w
       ./Configure darwin64-x86_64-cc --prefix=/usr/local/openssl-1.1.1
       make
-      make install
+      sudo make install
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
     displayName: Download and Build OpenSSL
 
