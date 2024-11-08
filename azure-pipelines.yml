@@ -71,21 +71,12 @@ steps:
       wget https://www.openssl.org/source/openssl-1.1.1w.tar.gz
       tar -xvf openssl-1.1.1w.tar.gz
       cd openssl-1.1.1w
-      ./Configure darwin64-x86_64-cc --prefix=/usr/local/openssl-1.1.1
+      ./config --prefix=/usr/local/openssl
       make
-      make install
+      sudo make install
+      export PATH=/usr/local/openssl/bin:$PATH
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
-    displayName: Download and Build OpenSSL
-
-  - script: |
-      echo "##vso[task.setvariable variable=PATH;]$(Build.SourcesDirectory)/openssl-1.1.1/bin:$(PATH)"
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
-    displayName: Update PATH for OpenSSL
-
-  - script: |
-      openssl version
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
-    displayName: Verify OpenSSL Version
+    displayName: Install OpenSSL 1.1 manually
 
   - task: UsePythonVersion@0
     inputs:
