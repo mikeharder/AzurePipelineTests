@@ -65,19 +65,6 @@ steps:
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
     displayName: Condition Darwin
 
-  # [macOS] OpenSSL 1.1 will be removed and OpenSSL 3 will be the default for all macOS images from November 4
-  # https://github.com/actions/runner-images/issues/10817
-  - script: |
-      wget https://www.openssl.org/source/openssl-1.1.1w.tar.gz
-      tar -xvf openssl-1.1.1w.tar.gz
-      cd openssl-1.1.1w
-      ./config --prefix=/usr/local/openssl
-      make
-      sudo make install
-      export PATH=/usr/local/openssl/bin:$PATH
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
-    displayName: Install OpenSSL 1.1 manually
-
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '3.10'
