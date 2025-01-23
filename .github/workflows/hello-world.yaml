@@ -11,3 +11,21 @@ jobs:
 
     steps:
       - run: echo "Hello, World!"
+
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const head_sha = context.payload.pull_request ? context.payload.pull_request.head.sha : context.sha;
+
+            const checkRun = await github.rest.checks.create({
+              owner,
+              repo,
+              name: "Hellow World 2",
+              head_sha: head_sha,
+              status: "queued",
+              output: {
+                title: "Manually Added Check",
+                summary: "This check run was added manually to the existing check suite."
+              }
+            });
