@@ -1,0 +1,12 @@
+name: Hello World
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - run: echo "Hello, World!"
