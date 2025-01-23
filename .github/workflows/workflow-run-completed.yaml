@@ -1,0 +1,13 @@
+name: Workflow Run Completed
+
+on:
+  workflow_run:
+    workflows: ['Hello World']
+    types: [completed]
+
+jobs:
+  check-suite:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - run: echo '${{ toJSON(github.event) }}'

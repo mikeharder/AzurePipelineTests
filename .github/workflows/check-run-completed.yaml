@@ -1,0 +1,12 @@
+name: Check Run Completed
+
+on:
+  check_run:
+    types: [completed]
+
+jobs:
+  check-run:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - run: echo '${{ toJSON(github.event) }}'

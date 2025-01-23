@@ -1,0 +1,12 @@
+name: Check Suite Completed
+
+on:
+  check_suite:
+    types: [completed]
+
+jobs:
+  check-suite:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - run: echo '${{ toJSON(github.event) }}'
