@@ -13,13 +13,14 @@ module.exports = async ({ github, context, core }) => {
         context.payload
       );
 
-    const owner = payload.repository.owner.login;
-    const repo = payload.repository.name;
+    let owner = process.env.OWNER || payload.repository.owner.login;
+    let repo = process.env.REPO || payload.repository.name;
+    let head_sha = process.env.HEAD_SHA || payload.check_suite.head_sha;
 
     const checkSuites = await github.rest.checks.listSuitesForRef({
       owner: owner,
       repo: repo,
-      ref: payload.check_suite.head_sha,
+      ref: head_sha,
     });
 
     for (const suite of checkSuites.data.check_suites) {
