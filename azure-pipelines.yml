@@ -19,9 +19,9 @@ strategy:
     # 1ESWindows2022:
     #   Pool: "azsdk-pool-mms-win-2022-general"
     #   OSVmImage: "windows-2022"
-    # DevOpsUbuntu2004:
-    #   Pool: Azure Pipelines
-    #   OSVmImage: "ubuntu-20.04"
+    DevOpsUbuntu2004:
+      Pool: Azure Pipelines
+      OSVmImage: 'ubuntu-20.04'
     DevOpsUbuntu2204:
       Pool: Azure Pipelines
       OSVmImage: 'ubuntu-22.04'

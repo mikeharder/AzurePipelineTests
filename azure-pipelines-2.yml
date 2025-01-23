@@ -1,0 +1,34 @@
+trigger: none
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  name: Azure Pipelines
+  vmImage: 'ubuntu-22.04'
+
+variables:
+  skipComponentGovernanceDetection: true
+  NugetSecurityAnalysisWarningLevel: 'none'
+  system.debug: true
+
+steps:
+  - script: echo $(Agent.OS)
+    displayName: print Agent.OS
+
+  - script: uname -m
+    displayName: uname -m
+
+  - script: echo Linux
+    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Linux'))
+    displayName: Condition Linux
+
+  - script: echo Windows
+    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Windows_NT'))
+    displayName: Condition Windows_NT
+
+  - script: echo Mac
+    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
+    displayName: Condition Darwin
