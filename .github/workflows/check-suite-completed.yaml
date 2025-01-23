@@ -10,3 +10,9 @@ jobs:
 
     steps:
       - run: echo '${{ toJSON(github.event) }}'
+
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const script = require('./.github/workflows/check-suite-completed.js')
+            await script({ github, context, core });
