@@ -1,22 +1,20 @@
 name: Summary
 
 on:
-  # TODO: Any more triggers?
   check_suite:
+    # Depends on check_run status, so must re-evaluate whenever a check_suite is completed.
+    # Could instead trigger on check_run events, but I think this is unnecessarily noisy.
     types: [completed]
   pull_request:
     types:
-      # result depends on labels, so must re-evaluate whenever a label is manually added or removed
+      # Depends on labels, so must re-evaluate whenever a label is manually added or removed.
       - labeled
       - unlabeled
-      # may be unnecessary to run on open/reopen, but included for safety
+      # Depends on check_run status, so must re-evaluate whenever checks could be re-run
       - opened
+      - edited
       - reopened
-      # result depends on check_run status, so must re-evaluate whenever a commit is pushed
       - synchronize
-  # workflow_run:
-  #   workflows: ['Hello World', 'Hello World 2']
-  #   types: [completed]
   workflow_dispatch:
     inputs:
       owner:
