@@ -54,13 +54,13 @@ module.exports = async ({ github, context, core }) => {
       issue_number: issue_number,
     })
   ).data.map((label) => label.name);
-  const checkSuites = (
-    await github.rest.checks.listSuitesForRef({
-      owner: owner,
-      repo: repo,
-      ref: head_sha,
-    })
-  ).data.check_suites;
+  // const checkSuites = (
+  //   await github.rest.checks.listSuitesForRef({
+  //     owner: owner,
+  //     repo: repo,
+  //     ref: head_sha,
+  //   })
+  // ).data.check_suites;
   const checkRuns = (
     await github.rest.checks.listForRef({
       owner: owner,
@@ -75,21 +75,21 @@ module.exports = async ({ github, context, core }) => {
     console.log(`  ${label}`);
   }
 
-  console.log();
-  console.log('# Check Suites');
-  for (const suite of checkSuites) {
-    console.log(`${suite.app?.name}: ${suite.status}, ${suite.conclusion}`);
+  // console.log();
+  // console.log('# Check Suites');
+  // for (const suite of checkSuites) {
+  //   console.log(`${suite.app?.name}: ${suite.status}, ${suite.conclusion}`);
 
-    const checkRuns = await github.rest.checks.listForSuite({
-      owner: owner,
-      repo: repo,
-      check_suite_id: suite.id,
-    });
+  //   const checkRuns = await github.rest.checks.listForSuite({
+  //     owner: owner,
+  //     repo: repo,
+  //     check_suite_id: suite.id,
+  //   });
 
-    for (const run of checkRuns.data.check_runs) {
-      console.log(`  ${run.name}: ${run.status}, ${run.conclusion}`);
-    }
-  }
+  //   for (const run of checkRuns.data.check_runs) {
+  //     console.log(`  ${run.name}: ${run.status}, ${run.conclusion}`);
+  //   }
+  // }
 
   console.log();
   console.log('# Check Runs');
