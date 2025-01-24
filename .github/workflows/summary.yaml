@@ -1,10 +1,19 @@
 name: Summary
 
 on:
+  # TODO: Any more triggers?
   check_suite:
     types: [completed]
   pull_request:
-    types: [labeled, unlabeled]
+    types:
+      # result depends on labels, so must re-evaluate whenever a label is manually added or removed
+      - labeled
+      - unlabeled
+      # may be unnecessary to run on open/reopen, but included for safety
+      - opened
+      - reopened
+      # result depends on check_run status, so must re-evaluate whenever a commit is pushed
+      - synchronize
   # workflow_run:
   #   workflows: ['Hello World', 'Hello World 2']
   #   types: [completed]
