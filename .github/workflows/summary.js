@@ -70,7 +70,7 @@ module.exports = async ({ github, context, core }) => {
   ).data.check_runs;
 
   //#region Log Labels, Check Suites, and Check Runs
-  console.log('# Labels');
+  console.log('\n# Labels');
   for (const label of labels) {
     console.log(`  ${label}`);
   }
@@ -108,7 +108,6 @@ module.exports = async ({ github, context, core }) => {
   const allLabelsMatch =
     labels.includes('ARMReview') &&
     !labels.includes('NotReadyForARMReview') &&
-    labels.includes('ARMReview') &&
     labels.includes('ARMBestPractices') &&
     labels.includes('rp-service-existing') &&
     labels.includes('typespec-incremental') &&
@@ -117,5 +116,25 @@ module.exports = async ({ github, context, core }) => {
 
   const armAutomatedSignOff = swaggerLintDiffSucceeded && allLabelsMatch;
 
-  console.log(`armAutomatedSignOff: ${armAutomatedSignOff}`);
+  console.log('\n# ArmAutomatedSignOff');
+  console.log(`  result: ${armAutomatedSignOff}`);
+  console.log(`  swaggerLintDiffSucceeded: ${swaggerLintDiffSucceeded}`);
+  console.log('  labels:');
+  console.log(`    ARMReview: ${labels.includes('ARMReview')}`);
+  console.log(
+    `    NotReadyForARMReview: ${labels.includes('NotReadyForARMReview')}`,
+  );
+  console.log(`    ARMBestPractices: ${labels.includes('ARMBestPractices')}`);
+  console.log(
+    `    rp-service-existing: ${labels.includes('rp-service-existing')}`,
+  );
+  console.log(
+    `    typespec-incremental: ${labels.includes('typespec-incremental')}`,
+  );
+  console.log(
+    `  SuppressionReviewRequired: ${labels.includes('SuppressionReviewRequired')}`,
+  );
+  console.log(
+    `  Suppression-Approved: ${labels.includes('Suppression-Approved')}`,
+  );
 };
