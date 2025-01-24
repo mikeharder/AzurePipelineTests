@@ -94,30 +94,6 @@ module.exports = async ({ github, context, core }) => {
 
   const armAutomatedSignOff = swaggerLintDiffSucceeded && allLabelsMatch;
 
-  //#region Log ARMAutomatedSignOff
-  console.log('\n# ARMAutomatedSignOff');
-  console.log(`  result: ${armAutomatedSignOff}`);
-  console.log(`  swaggerLintDiffSucceeded: ${swaggerLintDiffSucceeded}`);
-  console.log('  labels:');
-  console.log(`    ARMReview: ${labels.includes('ARMReview')}`);
-  console.log(
-    `    NotReadyForARMReview: ${labels.includes('NotReadyForARMReview')}`,
-  );
-  console.log(`    ARMBestPractices: ${labels.includes('ARMBestPractices')}`);
-  console.log(
-    `    rp-service-existing: ${labels.includes('rp-service-existing')}`,
-  );
-  console.log(
-    `    typespec-incremental: ${labels.includes('typespec-incremental')}`,
-  );
-  console.log(
-    `    SuppressionReviewRequired: ${labels.includes('SuppressionReviewRequired')}`,
-  );
-  console.log(
-    `    Suppression-Approved: ${labels.includes('Suppression-Approved')}`,
-  );
-  //#endregion
-
   if (armAutomatedSignOff) {
     await github.rest.issues.addLabels({
       repo: repo,
@@ -141,4 +117,28 @@ module.exports = async ({ github, context, core }) => {
       }
     }
   }
+
+  //#region Log ARMAutomatedSignOff
+  console.log('\n# ARMAutomatedSignOff');
+  console.log(`  result: ${armAutomatedSignOff}`);
+  console.log(`  swaggerLintDiffSucceeded: ${swaggerLintDiffSucceeded}`);
+  console.log('  labels:');
+  console.log(`    ARMReview: ${labels.includes('ARMReview')}`);
+  console.log(
+    `    NotReadyForARMReview: ${labels.includes('NotReadyForARMReview')}`,
+  );
+  console.log(`    ARMBestPractices: ${labels.includes('ARMBestPractices')}`);
+  console.log(
+    `    rp-service-existing: ${labels.includes('rp-service-existing')}`,
+  );
+  console.log(
+    `    typespec-incremental: ${labels.includes('typespec-incremental')}`,
+  );
+  console.log(
+    `    SuppressionReviewRequired: ${labels.includes('SuppressionReviewRequired')}`,
+  );
+  console.log(
+    `    Suppression-Approved: ${labels.includes('Suppression-Approved')}`,
+  );
+  //#endregion
 };
