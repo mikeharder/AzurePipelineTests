@@ -45,13 +45,23 @@ module.exports = async ({ github, context, core }) => {
     issue_number = issue_number || payload.workflow_run.pull_requests[0].number;
   }
 
+  console.log('# Labels');
+  const labels = await github.rest.issues.listLabelsOnIssue({
+    owner: owner,
+    repo: repo,
+    issue_number: issue_number,
+  });
+  for (const label of labels.data) {
+    console.log(`  ${label.name}`);
+  }
+
+  console.log();
+  console.log('# Check Suites');
   const checkSuites = await github.rest.checks.listSuitesForRef({
     owner: owner,
     repo: repo,
     ref: head_sha,
   });
-
-  console.log('# Check Suites');
   for (const suite of checkSuites.data.check_suites) {
     console.log(`${suite.app?.name}: ${suite.status}, ${suite.conclusion}`);
 
@@ -67,13 +77,13 @@ module.exports = async ({ github, context, core }) => {
   }
 
   console.log();
-  console.log('# Labels');
-  const labels = await github.rest.issues.listLabelsOnIssue({
+  console.log('# Check Runs');
+  const checkRuns = await github.rest.checks.listForRef({
     owner: owner,
     repo: repo,
-    issue_number: issue_number,
+    ref: head_sha,
   });
-  for (const label of labels.data) {
-    console.log(`  ${label.name}`);
+  for (const run of checkRuns.data.check_runs) {
+    console.log(`  ${run.name}: ${run.status}, ${run.conclusion}`);
   }
 };
