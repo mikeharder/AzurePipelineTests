@@ -31,6 +31,10 @@ jobs:
             .github
 
       - uses: actions/github-script@v7
+        env:
+          OWNER: ${{ inputs.owner }}
+          REPO: ${{ inputs.repo }}
+          HEAD_SHA: ${{ inputs.head_sha }}
         with:
           script: |
             const script = require('./.github/workflows/check-suite-completed.js')

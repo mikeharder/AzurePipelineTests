@@ -10,7 +10,7 @@ module.exports = async ({ github, context, core }) => {
 
   if (context.eventName === 'check_suite') {
     const payload =
-      /** @type {import("@octokit/webhooks-types").CheckSuiteCompletedEvent} */ (
+      /** @type {import("@octokit/webhooks-types").CheckSuiteEvent} */ (
         context.payload
       );
 
