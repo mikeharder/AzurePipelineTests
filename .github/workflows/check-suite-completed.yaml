@@ -3,6 +3,8 @@ name: Check Suite Completed
 on:
   check_suite:
     types: [completed]
+  workflow_run:
+    types: [completed]
   workflow_dispatch:
     inputs:
       owner:

@@ -17,6 +17,15 @@ module.exports = async ({ github, context, core }) => {
     owner = owner || payload.repository.owner.login;
     repo = repo || payload.repository.name;
     head_sha = head_sha || payload.check_suite.head_sha;
+  } else if (context.eventName === 'workflow_run') {
+    const payload =
+      /** @type {import("@octokit/webhooks-types").WorkflowRunEvent} */ (
+        context.payload
+      );
+
+    owner = owner || payload.repository.owner.login;
+    repo = repo || payload.repository.name;
+    head_sha = head_sha || payload.workflow_run.head_sha;
   }
 
   const checkSuites = await github.rest.checks.listSuitesForRef({
@@ -26,7 +35,7 @@ module.exports = async ({ github, context, core }) => {
   });
 
   for (const suite of checkSuites.data.check_suites) {
-    console.log(JSON.stringify(suite));
+    console.log(`${suite.app?.name}: ${suite.status}, ${suite.conclusion}`);
 
     const checkRuns = await github.rest.checks.listForSuite({
       owner: owner,
@@ -35,7 +44,7 @@ module.exports = async ({ github, context, core }) => {
     });
 
     for (const run of checkRuns.data.check_runs) {
-      console.log(JSON.stringify(run));
+      console.log(`  ${run.name}: ${run.status}, ${run.conclusion}`);
     }
   }
 };
