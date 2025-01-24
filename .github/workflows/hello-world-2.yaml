@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  hello-world:
+  hello-world-2:
     runs-on: ubuntu-24.04
 
     steps:
