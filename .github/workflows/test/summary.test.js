@@ -5,7 +5,19 @@ test('hello', async ({ expect }) => {
   expect(0).toBe(0);
 });
 
-test('null', async ({ expect }) => {
+test('mock', async ({ expect }) => {
+  const github = {
+    rest: {
+      issues: {
+        listLabelsOnIssue: () =>
+          Promise.resolve({
+            data: [{ name: 'TestLabel' }],
+          }),
+        removeLabel: () => Promise.resolve(),
+      },
+    },
+  };
+
   const context = {
     eventName: 'check_suite',
     payload: {
@@ -26,5 +38,5 @@ test('null', async ({ expect }) => {
     },
   };
 
-  await summary({ github: null, context: context, core: null });
+  await summary({ github: github, context: context, core: null });
 });
