@@ -132,9 +132,9 @@ module.exports = async ({ github, context, core }) => {
     `    typespec-incremental: ${labels.includes('typespec-incremental')}`,
   );
   console.log(
-    `  SuppressionReviewRequired: ${labels.includes('SuppressionReviewRequired')}`,
+    `    SuppressionReviewRequired: ${labels.includes('SuppressionReviewRequired')}`,
   );
   console.log(
-    `  Suppression-Approved: ${labels.includes('Suppression-Approved')}`,
+    `    Suppression-Approved: ${labels.includes('Suppression-Approved')}`,
   );
 };
