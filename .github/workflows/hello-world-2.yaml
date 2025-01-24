@@ -1,0 +1,13 @@
+name: Hello World 2
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - run: echo "Hello, World 2!"
