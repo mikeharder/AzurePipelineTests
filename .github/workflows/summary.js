@@ -21,6 +21,16 @@ module.exports = async ({ github, context, core }) => {
 
     // TODO: May not work in fork PRs, manually triggered check suites, etc
     issue_number = issue_number || payload.check_suite.pull_requests[0].number;
+  } else if (context.eventName === 'pull_request') {
+    const payload =
+      /** @type {import("@octokit/webhooks-types").PullRequestEvent} */ (
+        context.payload
+      );
+
+    owner = owner || payload.repository.owner.login;
+    repo = repo || payload.repository.name;
+    head_sha = head_sha || payload.pull_request.head.sha;
+    issue_number = issue_number || payload.pull_request.number;
   } else if (context.eventName === 'workflow_run') {
     const payload =
       /** @type {import("@octokit/webhooks-types").WorkflowRunEvent} */ (
