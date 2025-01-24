@@ -32,14 +32,17 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - run: echo '${{ toJSON(github.event) }}'
+      - name: Log Event
+        run: echo '${{ toJSON(github.event) }}'
 
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           sparse-checkout: |
             .github
 
-      - uses: actions/github-script@v7
+      - name: Summary
+        uses: actions/github-script@v7
         env:
           OWNER: ${{ inputs.owner }}
           REPO: ${{ inputs.repo }}
