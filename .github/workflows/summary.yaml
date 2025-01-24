@@ -16,6 +16,10 @@ on:
         description: The name of the repository without the .git extension. The name is not case sensitive.
         required: true
         type: string
+      issue_number:
+        description: The number of the pull request.
+        required: true
+        type: string
       head_sha:
         description: The SHA of the commit.
         required: true
@@ -37,6 +41,7 @@ jobs:
         env:
           OWNER: ${{ inputs.owner }}
           REPO: ${{ inputs.repo }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
           HEAD_SHA: ${{ inputs.head_sha }}
         with:
           script: |

@@ -6,6 +6,7 @@
 module.exports = async ({ github, context, core }) => {
   let owner = process.env.OWNER || '';
   let repo = process.env.REPO || '';
+  let issue_number = parseInt(process.env.ISSUE_NUMBER || '');
   let head_sha = process.env.HEAD_SHA || '';
 
   if (context.eventName === 'check_suite') {
@@ -17,6 +18,9 @@ module.exports = async ({ github, context, core }) => {
     owner = owner || payload.repository.owner.login;
     repo = repo || payload.repository.name;
     head_sha = head_sha || payload.check_suite.head_sha;
+
+    // TODO: May not work in fork PRs, manually triggered check suites, etc
+    issue_number = issue_number || payload.check_suite.pull_requests[0].id;
   } else if (context.eventName === 'workflow_run') {
     const payload =
       /** @type {import("@octokit/webhooks-types").WorkflowRunEvent} */ (
@@ -26,6 +30,9 @@ module.exports = async ({ github, context, core }) => {
     owner = owner || payload.repository.owner.login;
     repo = repo || payload.repository.name;
     head_sha = head_sha || payload.workflow_run.head_sha;
+
+    // TODO: May not work in fork PRs, manually triggered check suites, etc
+    issue_number = issue_number || payload.workflow_run.pull_requests[0].id;
   }
 
   const checkSuites = await github.rest.checks.listSuitesForRef({
@@ -34,6 +41,7 @@ module.exports = async ({ github, context, core }) => {
     ref: head_sha,
   });
 
+  console.log('# Check Suites');
   for (const suite of checkSuites.data.check_suites) {
     console.log(`${suite.app?.name}: ${suite.status}, ${suite.conclusion}`);
 
@@ -46,5 +54,16 @@ module.exports = async ({ github, context, core }) => {
     for (const run of checkRuns.data.check_runs) {
       console.log(`  ${run.name}: ${run.status}, ${run.conclusion}`);
     }
+  }
+
+  console.log();
+  console.log('# Labels');
+  const labels = await github.rest.issues.listLabelsOnIssue({
+    owner: owner,
+    repo: repo,
+    issue_number: issue_number,
+  });
+  for (const label of labels.data) {
+    console.log(`  ${label.name}`);
   }
 };
