@@ -54,13 +54,7 @@ module.exports = async ({ github, context, core }) => {
       issue_number: issue_number,
     })
   ).data.map((label) => label.name);
-  // const checkSuites = (
-  //   await github.rest.checks.listSuitesForRef({
-  //     owner: owner,
-  //     repo: repo,
-  //     ref: head_sha,
-  //   })
-  // ).data.check_suites;
+
   const checkRuns = (
     await github.rest.checks.listForRef({
       owner: owner,
@@ -74,22 +68,6 @@ module.exports = async ({ github, context, core }) => {
   for (const label of labels) {
     console.log(`  ${label}`);
   }
-
-  // console.log();
-  // console.log('# Check Suites');
-  // for (const suite of checkSuites) {
-  //   console.log(`${suite.app?.name}: ${suite.status}, ${suite.conclusion}`);
-
-  //   const checkRuns = await github.rest.checks.listForSuite({
-  //     owner: owner,
-  //     repo: repo,
-  //     check_suite_id: suite.id,
-  //   });
-
-  //   for (const run of checkRuns.data.check_runs) {
-  //     console.log(`  ${run.name}: ${run.status}, ${run.conclusion}`);
-  //   }
-  // }
 
   console.log();
   console.log('# Check Runs');
@@ -116,7 +94,8 @@ module.exports = async ({ github, context, core }) => {
 
   const armAutomatedSignOff = swaggerLintDiffSucceeded && allLabelsMatch;
 
-  console.log('\n# ArmAutomatedSignOff');
+  //#region Log ARMAutomatedSignOff
+  console.log('\n# ARMAutomatedSignOff');
   console.log(`  result: ${armAutomatedSignOff}`);
   console.log(`  swaggerLintDiffSucceeded: ${swaggerLintDiffSucceeded}`);
   console.log('  labels:');
@@ -137,4 +116,29 @@ module.exports = async ({ github, context, core }) => {
   console.log(
     `    Suppression-Approved: ${labels.includes('Suppression-Approved')}`,
   );
+  //#endregion
+
+  if (armAutomatedSignOff) {
+    await github.rest.issues.addLabels({
+      repo: repo,
+      owner: owner,
+      issue_number: issue_number,
+      labels: ['ARMAutomatedSignOff'],
+    });
+  } else {
+    try {
+      await github.rest.issues.removeLabel({
+        owner: owner,
+        repo: repo,
+        issue_number: issue_number,
+        name: 'ARMAutomatedSignOff',
+      });
+    } catch (error) {
+      if (error.status === 404) {
+        core.info(`Ignoring error: ${error.status} - ${error.message}`);
+      } else {
+        throw error;
+      }
+    }
+  }
 };
