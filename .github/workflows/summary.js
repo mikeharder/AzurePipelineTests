@@ -55,32 +55,23 @@ module.exports = async ({ github, context, core }) => {
     })
   ).data.map((label) => label.name);
 
-  const checkRuns = (
-    await github.rest.checks.listForRef({
-      owner: owner,
-      repo: repo,
-      ref: head_sha,
-    })
-  ).data.check_runs;
-
-  //#region Log Labels, Check Suites, and Check Runs
-  console.log('\n# Labels');
-  for (const label of labels) {
-    console.log(`  ${label}`);
-  }
-
-  console.log();
-  console.log('# Check Runs');
-  for (const run of checkRuns) {
-    console.log(`  ${run.name}: ${run.status}, ${run.conclusion}`);
-  }
-  //#endregion
-
-  const swaggerLintDiffSucceeded = checkRuns.some(
-    (run) =>
-      run.name === 'Swagger LintDiff' &&
-      run.status === 'completed' &&
-      run.conclusion === 'success',
+  console.log('labels:');
+  console.log(`  ARMReview: ${labels.includes('ARMReview')}`);
+  console.log(
+    `  NotReadyForARMReview: ${labels.includes('NotReadyForARMReview')}`,
+  );
+  console.log(`  ARMBestPractices: ${labels.includes('ARMBestPractices')}`);
+  console.log(
+    `  rp-service-existing: ${labels.includes('rp-service-existing')}`,
+  );
+  console.log(
+    `  typespec-incremental: ${labels.includes('typespec-incremental')}`,
+  );
+  console.log(
+    `  SuppressionReviewRequired: ${labels.includes('SuppressionReviewRequired')}`,
+  );
+  console.log(
+    `  Suppression-Approved: ${labels.includes('Suppression-Approved')}`,
   );
 
   const allLabelsMatch =
@@ -92,17 +83,58 @@ module.exports = async ({ github, context, core }) => {
     (!labels.includes('SuppressionReviewRequired') ||
       labels.includes('Suppression-Approved'));
 
-  const armAutomatedSignOff = swaggerLintDiffSucceeded && allLabelsMatch;
+  /** @type {boolean?} */
+  // true: Add Label
+  // false: Remove Label
+  // null|undefined: No-op
+  var addAutoSignOff = null;
 
-  if (armAutomatedSignOff) {
+  if (allLabelsMatch) {
+    const checkRuns = (
+      await github.rest.checks.listForRef({
+        owner: owner,
+        repo: repo,
+        ref: head_sha,
+      })
+    ).data.check_runs;
+
+    console.log();
+    console.log('# Check Runs');
+    for (const run of checkRuns) {
+      console.log(`  ${run.name}: ${run.status}, ${run.conclusion}`);
+    }
+
+    const swaggerLintDiffs = checkRuns.filter(
+      (run) => run.name === 'Swagger LintDiff',
+    );
+
+    if (swaggerLintDiffs.length > 1) {
+      throw new Error(
+        `Unexpected number of checks named 'Swagger LintDiff': ${swaggerLintDiffs.length}`,
+      );
+    }
+
+    const swaggerLintDiff =
+      swaggerLintDiffs.length == 1 ? swaggerLintDiffs[0] : undefined;
+
+    if (swaggerLintDiff && swaggerLintDiff.status === 'completed') {
+      addAutoSignOff = swaggerLintDiff.conclusion === 'success';
+    }
+  } else {
+    addAutoSignOff = true;
+  }
+
+  if (addAutoSignOff === true) {
+    console.log("Adding label 'ARMAutomatedSignOff'");
     await github.rest.issues.addLabels({
       repo: repo,
       owner: owner,
       issue_number: issue_number,
       labels: ['ARMAutomatedSignOff'],
     });
-  } else {
+  } else if (addAutoSignOff === false) {
     try {
+      console.log("Removing label 'ARMAutomatedSignOff'");
       await github.rest.issues.removeLabel({
         owner: owner,
         repo: repo,
@@ -116,29 +148,7 @@ module.exports = async ({ github, context, core }) => {
         throw error;
       }
     }
+  } else {
+    console.log('No-op');
   }
-
-  //#region Log ARMAutomatedSignOff
-  console.log('\n# ARMAutomatedSignOff');
-  console.log(`  result: ${armAutomatedSignOff}`);
-  console.log(`  swaggerLintDiffSucceeded: ${swaggerLintDiffSucceeded}`);
-  console.log('  labels:');
-  console.log(`    ARMReview: ${labels.includes('ARMReview')}`);
-  console.log(
-    `    NotReadyForARMReview: ${labels.includes('NotReadyForARMReview')}`,
-  );
-  console.log(`    ARMBestPractices: ${labels.includes('ARMBestPractices')}`);
-  console.log(
-    `    rp-service-existing: ${labels.includes('rp-service-existing')}`,
-  );
-  console.log(
-    `    typespec-incremental: ${labels.includes('typespec-incremental')}`,
-  );
-  console.log(
-    `    SuppressionReviewRequired: ${labels.includes('SuppressionReviewRequired')}`,
-  );
-  console.log(
-    `    Suppression-Approved: ${labels.includes('Suppression-Approved')}`,
-  );
-  //#endregion
 };
