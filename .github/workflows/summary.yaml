@@ -1,4 +1,4 @@
-name: Check Suite Completed
+name: Summary
 
 on:
   check_suite:
@@ -22,7 +22,7 @@ on:
         type: string
 
 jobs:
-  check-suite:
+  summary:
     runs-on: ubuntu-24.04
 
     steps:
@@ -40,5 +40,5 @@ jobs:
           HEAD_SHA: ${{ inputs.head_sha }}
         with:
           script: |
-            const script = require('./.github/workflows/check-suite-completed.js')
+            const script = require('./.github/workflows/summary.js')
             await script({ github, context, core });
