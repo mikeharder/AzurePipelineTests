@@ -20,7 +20,7 @@ module.exports = async ({ github, context, core }) => {
     head_sha = head_sha || payload.check_suite.head_sha;
 
     // TODO: May not work in fork PRs, manually triggered check suites, etc
-    issue_number = issue_number || payload.check_suite.pull_requests[0].id;
+    issue_number = issue_number || payload.check_suite.pull_requests[0].number;
   } else if (context.eventName === 'workflow_run') {
     const payload =
       /** @type {import("@octokit/webhooks-types").WorkflowRunEvent} */ (
@@ -32,7 +32,7 @@ module.exports = async ({ github, context, core }) => {
     head_sha = head_sha || payload.workflow_run.head_sha;
 
     // TODO: May not work in fork PRs, manually triggered check suites, etc
-    issue_number = issue_number || payload.workflow_run.pull_requests[0].id;
+    issue_number = issue_number || payload.workflow_run.pull_requests[0].number;
   }
 
   const checkSuites = await github.rest.checks.listSuitesForRef({
