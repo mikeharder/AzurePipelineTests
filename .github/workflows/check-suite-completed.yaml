@@ -4,6 +4,7 @@ on:
   check_suite:
     types: [completed]
   workflow_run:
+    workflows: ['Hello World', 'Hello World 2']
     types: [completed]
   workflow_dispatch:
     inputs:
