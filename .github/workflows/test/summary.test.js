@@ -1,11 +1,7 @@
 import { test } from 'vitest';
-import summary from '../summary';
+import summary from '../src/summary';
 
-test('hello', async ({ expect }) => {
-  expect(0).toBe(0);
-});
-
-test('mock', async ({ expect }) => {
+test('check_suite', async ({ expect }) => {
   const github = {
     rest: {
       issues: {
