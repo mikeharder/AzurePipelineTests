@@ -43,24 +43,24 @@ module.exports = async ({ github, context, core }) => {
     })
   ).data.map((label) => label.name);
 
-  // console.log('labels:');
-  // console.log(`  ARMReview: ${labels.includes('ARMReview')}`);
-  // console.log(
-  //   `  NotReadyForARMReview: ${labels.includes('NotReadyForARMReview')}`,
-  // );
-  // console.log(`  ARMBestPractices: ${labels.includes('ARMBestPractices')}`);
-  // console.log(
-  //   `  rp-service-existing: ${labels.includes('rp-service-existing')}`,
-  // );
-  // console.log(
-  //   `  typespec-incremental: ${labels.includes('typespec-incremental')}`,
-  // );
-  // console.log(
-  //   `  SuppressionReviewRequired: ${labels.includes('SuppressionReviewRequired')}`,
-  // );
-  // console.log(
-  //   `  Suppression-Approved: ${labels.includes('Suppression-Approved')}`,
-  // );
+  console.log('labels:');
+  console.log(`  ARMReview: ${labels.includes('ARMReview')}`);
+  console.log(
+    `  NotReadyForARMReview: ${labels.includes('NotReadyForARMReview')}`,
+  );
+  console.log(`  ARMBestPractices: ${labels.includes('ARMBestPractices')}`);
+  console.log(
+    `  rp-service-existing: ${labels.includes('rp-service-existing')}`,
+  );
+  console.log(
+    `  typespec-incremental: ${labels.includes('typespec-incremental')}`,
+  );
+  console.log(
+    `  SuppressionReviewRequired: ${labels.includes('SuppressionReviewRequired')}`,
+  );
+  console.log(
+    `  Suppression-Approved: ${labels.includes('Suppression-Approved')}`,
+  );
 
   const allLabelsMatch =
     labels.includes('ARMReview') &&
@@ -122,7 +122,7 @@ module.exports = async ({ github, context, core }) => {
     });
   } else if (addAutoSignOff === false) {
     try {
-      // console.log("Removing label 'ARMAutomatedSignOff'");
+      console.log("Removing label 'ARMAutomatedSignOff'");
       await github.rest.issues.removeLabel({
         owner: owner,
         repo: repo,
