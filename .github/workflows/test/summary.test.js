@@ -1,22 +1,21 @@
-import { describe, it } from 'vitest';
+import { describe, it, vi } from 'vitest';
 import summary from '../src/summary';
 
 describe('summary', () => {
-  it('check_suite', async ({ expect }) => {
+  it('removes ArmAutoSignOff if labels do not match', async ({ expect }) => {
     const github = {
       rest: {
         issues: {
-          listLabelsOnIssue: () =>
-            Promise.resolve({
-              data: [{ name: 'TestLabel' }],
-            }),
-          removeLabel: () => Promise.resolve(),
+          listLabelsOnIssue: vi.fn().mockResolvedValue({
+            data: [{ name: 'TestLabel' }],
+          }),
+          removeLabel: vi.fn().mockResolvedValue(),
         },
       },
     };
 
     const context = {
-      eventName: 'check_suite',
+      eventName: 'pull_request',
       payload: {
         repository: {
           name: 'TestRepoName',
@@ -24,17 +23,22 @@ describe('summary', () => {
             login: 'TestRepoOwnerLogin',
           },
         },
-        check_suite: {
-          head_sha: 'abc123',
-          pull_requests: [
-            {
-              number: 123,
-            },
-          ],
+        pull_request: {
+          head: {
+            sha: 'abc123',
+          },
+          number: 123,
         },
       },
     };
 
-    await summary({ github: github, context: context, core: null });
+    await summary({ github, context, core: undefined });
+
+    expect(github.rest.issues.removeLabel).toHaveBeenCalledWith({
+      owner: context.payload.repository.owner.login,
+      repo: context.payload.repository.name,
+      issue_number: context.payload.pull_request.number,
+      name: 'ARMAutomatedSignOff',
+    });
   });
 });
