@@ -64,6 +64,12 @@ function createMockContextPullRequest() {
   };
 }
 
+function createMockCore() {
+  return {
+    info: vi.fn(),
+  };
+}
+
 describe('summary', () => {
   describe('removes label if labels not match', () => {
     it.each([
@@ -98,8 +104,10 @@ describe('summary', () => {
       ],
     });
 
+    const core = createMockCore();
+
     // Before check starts running
-    await summary({ github, context, core: undefined });
+    await summary({ github, context, core });
     expect(github.rest.issues.addLabels).toBeCalledTimes(0);
     expect(github.rest.issues.removeLabel).toBeCalledTimes(0);
 
@@ -115,7 +123,7 @@ describe('summary', () => {
         ],
       },
     });
-    await summary({ github, context, core: undefined });
+    await summary({ github, context, core });
     expect(github.rest.issues.addLabels).toBeCalledTimes(0);
     expect(github.rest.issues.removeLabel).toBeCalledTimes(0);
 
@@ -131,7 +139,7 @@ describe('summary', () => {
         ],
       },
     });
-    await summary({ github, context, core: undefined });
+    await summary({ github, context, core });
     expect(github.rest.issues.addLabels).toHaveBeenCalledWith({
       owner: context.payload.repository.owner.login,
       repo: context.payload.repository.name,
@@ -142,6 +150,7 @@ describe('summary', () => {
 
     // Check completed with failure
     github.rest.issues.addLabels.mockReset();
+    github.rest.issues.removeLabel.mockReset();
     github.rest.checks.listForRef.mockResolvedValue({
       data: {
         check_runs: [
@@ -153,7 +162,7 @@ describe('summary', () => {
         ],
       },
     });
-    await summary({ github, context, core: undefined });
+    await summary({ github, context, core });
     expect(github.rest.issues.addLabels).toBeCalledTimes(0);
     expect(github.rest.issues.removeLabel).toHaveBeenCalledWith({
       owner: context.payload.repository.owner.login,
@@ -161,5 +170,42 @@ describe('summary', () => {
       issue_number: 123,
       name: 'ARMAutomatedSignOff',
     });
+
+    // Ignore 404 from removeLabel()
+    github.rest.issues.addLabels.mockReset();
+    github.rest.issues.removeLabel.mockReset();
+    github.rest.issues.removeLabel.mockRejectedValue({ status: 404 });
+    await summary({ github, context, core });
+    expect(github.rest.issues.addLabels).toBeCalledTimes(0);
+    expect(github.rest.issues.removeLabel).toHaveBeenCalledWith({
+      owner: context.payload.repository.owner.login,
+      repo: context.payload.repository.name,
+      issue_number: 123,
+      name: 'ARMAutomatedSignOff',
+    });
+
+    // Invalid: multiple check runs named "Swagger LintDiff"
+    github.rest.issues.addLabels.mockReset();
+    github.rest.issues.removeLabel.mockReset();
+    github.rest.checks.listForRef.mockResolvedValue({
+      data: {
+        check_runs: [
+          {
+            name: 'Swagger LintDiff',
+            status: 'completed',
+            conclusion: 'success',
+          },
+          {
+            name: 'Swagger LintDiff',
+            status: 'completed',
+            conclusion: 'failure',
+          },
+        ],
+      },
+    });
+
+    expect(summary({ github, context, core: undefined })).rejects.toThrow();
+    expect(github.rest.issues.addLabels).toBeCalledTimes(0);
+    expect(github.rest.issues.removeLabel).toBeCalledTimes(0);
   });
 });
