@@ -4,7 +4,15 @@ import summary from '../src/summary';
 function createMockGithub() {
   return {
     rest: {
+      checks: {
+        listForRef: vi.fn().mockResolvedValue({
+          data: {
+            check_runs: [],
+          },
+        }),
+      },
       issues: {
+        addLabels: vi.fn().mockResolvedValue(),
         listLabelsOnIssue: vi.fn().mockResolvedValue({
           data: [],
         }),
@@ -72,6 +80,40 @@ describe('summary', () => {
         issue_number: 123,
         name: 'ARMAutomatedSignOff',
       });
+    });
+  });
+
+  it('adds label if labels and checks match', async () => {
+    const context = createMockContextCheckSuite();
+
+    const github = createMockGithub();
+    github.rest.issues.listLabelsOnIssue.mockResolvedValue({
+      data: [
+        { name: 'ARMReview' },
+        { name: 'ARMBestPractices' },
+        { name: 'rp-service-existing' },
+        { name: 'typespec-incremental' },
+      ],
+    });
+    github.rest.checks.listForRef.mockResolvedValue({
+      data: {
+        check_runs: [
+          {
+            name: 'Swagger LintDiff',
+            status: 'completed',
+            conclusion: 'success',
+          },
+        ],
+      },
+    });
+
+    await summary({ github, context, core: undefined });
+
+    expect(github.rest.issues.addLabels).toHaveBeenCalledWith({
+      owner: context.payload.repository.owner.login,
+      repo: context.payload.repository.name,
+      issue_number: 123,
+      labels: ['ARMAutomatedSignOff'],
     });
   });
 });
