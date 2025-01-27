@@ -184,6 +184,19 @@ describe('summary', () => {
       name: 'ARMAutomatedSignOff',
     });
 
+    // Throw if other error from removeLabel()
+    github.rest.issues.addLabels.mockReset();
+    github.rest.issues.removeLabel.mockReset();
+    github.rest.issues.removeLabel.mockRejectedValue({ status: 500 });
+    await expect(summary({ github, context, core })).rejects.toThrow();
+    expect(github.rest.issues.addLabels).toBeCalledTimes(0);
+    expect(github.rest.issues.removeLabel).toHaveBeenCalledWith({
+      owner: context.payload.repository.owner.login,
+      repo: context.payload.repository.name,
+      issue_number: 123,
+      name: 'ARMAutomatedSignOff',
+    });
+
     // Invalid: multiple check runs named "Swagger LintDiff"
     github.rest.issues.addLabels.mockReset();
     github.rest.issues.removeLabel.mockReset();
@@ -204,7 +217,7 @@ describe('summary', () => {
       },
     });
 
-    expect(summary({ github, context, core: undefined })).rejects.toThrow();
+    await expect(summary({ github, context, core })).rejects.toThrow();
     expect(github.rest.issues.addLabels).toBeCalledTimes(0);
     expect(github.rest.issues.removeLabel).toBeCalledTimes(0);
   });
