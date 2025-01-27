@@ -83,7 +83,7 @@ describe('summary', () => {
     });
   });
 
-  it('adds label if labels and checks match', async () => {
+  it('adds and removes label based on check status', async () => {
     const context = createMockContextCheckSuite();
 
     const github = createMockGithub();
@@ -93,8 +93,33 @@ describe('summary', () => {
         { name: 'ARMBestPractices' },
         { name: 'rp-service-existing' },
         { name: 'typespec-incremental' },
+        { name: 'SuppressionReviewRequired' },
+        { name: 'Suppression-Approved' },
       ],
     });
+
+    // Before check starts running
+    await summary({ github, context, core: undefined });
+    expect(github.rest.issues.addLabels).toBeCalledTimes(0);
+    expect(github.rest.issues.removeLabel).toBeCalledTimes(0);
+
+    // Check in-progress
+    github.rest.checks.listForRef.mockResolvedValue({
+      data: {
+        check_runs: [
+          {
+            name: 'Swagger LintDiff',
+            status: 'in_progress',
+            conclusion: null,
+          },
+        ],
+      },
+    });
+    await summary({ github, context, core: undefined });
+    expect(github.rest.issues.addLabels).toBeCalledTimes(0);
+    expect(github.rest.issues.removeLabel).toBeCalledTimes(0);
+
+    // Check completed with success
     github.rest.checks.listForRef.mockResolvedValue({
       data: {
         check_runs: [
@@ -106,14 +131,35 @@ describe('summary', () => {
         ],
       },
     });
-
     await summary({ github, context, core: undefined });
-
     expect(github.rest.issues.addLabels).toHaveBeenCalledWith({
       owner: context.payload.repository.owner.login,
       repo: context.payload.repository.name,
       issue_number: 123,
       labels: ['ARMAutomatedSignOff'],
+    });
+    expect(github.rest.issues.removeLabel).toBeCalledTimes(0);
+
+    // Check completed with failure
+    github.rest.issues.addLabels.mockReset();
+    github.rest.checks.listForRef.mockResolvedValue({
+      data: {
+        check_runs: [
+          {
+            name: 'Swagger LintDiff',
+            status: 'completed',
+            conclusion: 'failure',
+          },
+        ],
+      },
+    });
+    await summary({ github, context, core: undefined });
+    expect(github.rest.issues.addLabels).toBeCalledTimes(0);
+    expect(github.rest.issues.removeLabel).toHaveBeenCalledWith({
+      owner: context.payload.repository.owner.login,
+      repo: context.payload.repository.name,
+      issue_number: 123,
+      name: 'ARMAutomatedSignOff',
     });
   });
 });
