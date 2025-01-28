@@ -1,5 +1,7 @@
 // @ts-check
 
+const { extractInputs } = require('../../context');
+
 /**
  * @param {import('github-script').AsyncFunctionArguments} AsyncFunctionArguments
  */
@@ -9,31 +11,13 @@ module.exports = async ({ github, context, core }) => {
   let issue_number = parseInt(process.env.ISSUE_NUMBER || '');
   let head_sha = process.env.HEAD_SHA || '';
 
-  //#region Extract inputs from context
-  if (context.eventName === 'check_suite') {
-    const payload =
-      /** @type {import("@octokit/webhooks-types").CheckSuiteEvent} */ (
-        context.payload
-      );
-
-    owner = owner || payload.repository.owner.login;
-    repo = repo || payload.repository.name;
-    head_sha = head_sha || payload.check_suite.head_sha;
-
-    // TODO: May not work in fork PRs, manually triggered check suites, etc
-    issue_number = issue_number || payload.check_suite.pull_requests[0].number;
-  } else if (context.eventName === 'pull_request') {
-    const payload =
-      /** @type {import("@octokit/webhooks-types").PullRequestEvent} */ (
-        context.payload
-      );
-
-    owner = owner || payload.repository.owner.login;
-    repo = repo || payload.repository.name;
-    head_sha = head_sha || payload.pull_request.head.sha;
-    issue_number = issue_number || payload.pull_request.number;
+  if (!owner || !repo || !issue_number || !head_sha) {
+    let inputs = await extractInputs(github, context, core);
+    owner = owner || inputs.owner;
+    repo = repo || inputs.repo;
+    issue_number = issue_number || inputs.issue_number;
+    head_sha = head_sha || inputs.head_sha;
   }
-  //#endregion
 
   const labels = (
     await github.rest.issues.listLabelsOnIssue({
