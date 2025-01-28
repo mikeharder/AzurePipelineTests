@@ -1,6 +1,6 @@
 // @ts-check
 
-const { extractInputs } = require('../../context');
+const { extractInputs } = require('../../src/context');
 
 /**
  * @param {import('github-script').AsyncFunctionArguments} AsyncFunctionArguments
