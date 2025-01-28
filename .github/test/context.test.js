@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest';
 
-import { extractInputs } from '../src/context';
+import { extractInputs } from '../src/context.js';
 
 describe('context', () => {
   it('context', async () => {

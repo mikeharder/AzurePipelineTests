@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import summary from '../src/summary';
+import summary from '../src/summary.js';
 
 describe('summary', () => {
   it('loads inputs from env', async () => {
