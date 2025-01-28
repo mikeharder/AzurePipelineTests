@@ -151,7 +151,7 @@ describe('summary', () => {
         expectThrow: true,
       },
     ])(
-      '%s',
+      '$name',
       async ({
         check_runs,
         addLabelsCalled,
