@@ -1,75 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import summary from '../src/summary';
 
-function createMockGithub() {
-  return {
-    rest: {
-      checks: {
-        listForRef: vi.fn().mockResolvedValue({
-          data: {
-            check_runs: [],
-          },
-        }),
-      },
-      issues: {
-        addLabels: vi.fn().mockResolvedValue(),
-        listLabelsOnIssue: vi.fn().mockResolvedValue({
-          data: [],
-        }),
-        removeLabel: vi.fn().mockResolvedValue(),
-      },
-    },
-  };
-}
-
-function createMockContextCheckSuite() {
-  return {
-    eventName: 'check_suite',
-    payload: {
-      repository: {
-        name: 'TestRepoName',
-        owner: {
-          login: 'TestRepoOwnerLogin',
-        },
-      },
-      check_suite: {
-        head_sha: 'abc123',
-        pull_requests: [
-          {
-            number: 123,
-          },
-        ],
-      },
-    },
-  };
-}
-
-function createMockContextPullRequest() {
-  return {
-    eventName: 'pull_request',
-    payload: {
-      repository: {
-        name: 'TestRepoName',
-        owner: {
-          login: 'TestRepoOwnerLogin',
-        },
-      },
-      pull_request: {
-        head: {
-          sha: 'abc123',
-        },
-        number: 123,
-      },
-    },
-  };
-}
-
-function createMockCore() {
-  return {
-    info: vi.fn(),
-  };
-}
-
 describe('summary', () => {
   it('loads inputs from env', async () => {
     const github = createMockGithub();
@@ -254,3 +185,72 @@ describe('summary', () => {
     });
   });
 });
+
+function createMockGithub() {
+  return {
+    rest: {
+      checks: {
+        listForRef: vi.fn().mockResolvedValue({
+          data: {
+            check_runs: [],
+          },
+        }),
+      },
+      issues: {
+        addLabels: vi.fn().mockResolvedValue(),
+        listLabelsOnIssue: vi.fn().mockResolvedValue({
+          data: [],
+        }),
+        removeLabel: vi.fn().mockResolvedValue(),
+      },
+    },
+  };
+}
+
+function createMockContextCheckSuite() {
+  return {
+    eventName: 'check_suite',
+    payload: {
+      repository: {
+        name: 'TestRepoName',
+        owner: {
+          login: 'TestRepoOwnerLogin',
+        },
+      },
+      check_suite: {
+        head_sha: 'abc123',
+        pull_requests: [
+          {
+            number: 123,
+          },
+        ],
+      },
+    },
+  };
+}
+
+function createMockContextPullRequest() {
+  return {
+    eventName: 'pull_request',
+    payload: {
+      repository: {
+        name: 'TestRepoName',
+        owner: {
+          login: 'TestRepoOwnerLogin',
+        },
+      },
+      pull_request: {
+        head: {
+          sha: 'abc123',
+        },
+        number: 123,
+      },
+    },
+  };
+}
+
+function createMockCore() {
+  return {
+    info: vi.fn(),
+  };
+}
