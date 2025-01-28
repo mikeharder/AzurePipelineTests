@@ -53,102 +53,143 @@ describe('summary', () => {
 
   describe('processes check status', () => {
     it.each([
-      ["no check", [], 0, 0, null, false],
-      ["in progress",
-        [
+      {
+        name: 'in progress',
+        check_runs: [
           {
             name: 'Swagger LintDiff',
             status: 'in_progress',
             conclusion: null,
-          }
-        ], 0, 0, null, false
-      ],
-      ["success",
-        [
-          {
-            name: 'Swagger LintDiff',
-            status: 'completed',
-            conclusion: 'success',
           },
-        ], 1, 0, null, false
-      ],
-      ["failure",
-        [
-          {
-            name: 'Swagger LintDiff',
-            status: 'completed',
-            conclusion: 'failure',
-          },
-        ], 0, 1, null, false
-      ],
-      ["failure 404",
-        [
-          {
-            name: 'Swagger LintDiff',
-            status: 'completed',
-            conclusion: 'failure',
-          },
-        ], 0, 1, 404, false
-      ],
-      ["failure 500",
-        [
-          {
-            name: 'Swagger LintDiff',
-            status: 'completed',
-            conclusion: 'failure',
-          },
-        ], 0, 1, 500, true
-      ],
-      ["multiple check runs",
-        [
-          {
-            name: 'Swagger LintDiff',
-            status: 'completed',
-            conclusion: 'failure',
-          },
-          {
-            name: 'Swagger LintDiff',
-            status: 'completed',
-            conclusion: 'success',
-          },
-        ], 0, 0, null, true
-      ]
-    ])('%s', async (_, checkRuns, addLabelsCalled, removeLabelCalled, removeLabelErrorStatus, expectThrow) => {
-      const github = createMockGithub();
-      github.rest.issues.listLabelsOnIssue.mockResolvedValue({
-        data: [
-          { name: 'ARMReview' },
-          { name: 'ARMBestPractices' },
-          { name: 'rp-service-existing' },
-          { name: 'typespec-incremental' },
-          { name: 'SuppressionReviewRequired' },
-          { name: 'Suppression-Approved' },
         ],
-      });
+        addLabelsCalled: 0,
+        removeLabelCalled: 0,
+        removeLabelErrorStatus: null,
+        expectThrow: false,
+      },
+      {
+        name: 'success',
+        check_runs: [
+          {
+            name: 'Swagger LintDiff',
+            status: 'completed',
+            conclusion: 'success',
+          },
+        ],
+        addLabelsCalled: 1,
+        removeLabelCalled: 0,
+        removeLabelErrorStatus: null,
+        expectThrow: false,
+      },
+      {
+        name: 'failure',
+        check_runs: [
+          {
+            name: 'Swagger LintDiff',
+            status: 'completed',
+            conclusion: 'failure',
+          },
+        ],
+        addLabelsCalled: 0,
+        removeLabelCalled: 1,
+        removeLabelErrorStatus: null,
+        expectThrow: false,
+      },
+      {
+        name: 'failure 404',
+        check_runs: [
+          {
+            name: 'Swagger LintDiff',
+            status: 'completed',
+            conclusion: 'failure',
+          },
+        ],
+        addLabelsCalled: 0,
+        removeLabelCalled: 1,
+        removeLabelErrorStatus: 404,
+        expectThrow: false,
+      },
+      {
+        name: 'failure 500',
+        check_runs: [
+          {
+            name: 'Swagger LintDiff',
+            status: 'completed',
+            conclusion: 'failure',
+          },
+        ],
+        addLabelsCalled: 0,
+        removeLabelCalled: 1,
+        removeLabelErrorStatus: 500,
+        expectThrow: true,
+      },
+      {
+        name: 'multiple check runs',
+        check_runs: [
+          {
+            name: 'Swagger LintDiff',
+            status: 'completed',
+            conclusion: 'failure',
+          },
+          {
+            name: 'Swagger LintDiff',
+            status: 'completed',
+            conclusion: 'success',
+          },
+        ],
+        addLabelsCalled: 0,
+        removeLabelCalled: 0,
+        removeLabelErrorStatus: null,
+        expectThrow: true,
+      },
+    ])(
+      '%s',
+      async ({
+        check_runs,
+        addLabelsCalled,
+        removeLabelCalled,
+        removeLabelErrorStatus,
+        expectThrow,
+      }) => {
+        const github = createMockGithub();
+        github.rest.issues.listLabelsOnIssue.mockResolvedValue({
+          data: [
+            { name: 'ARMReview' },
+            { name: 'ARMBestPractices' },
+            { name: 'rp-service-existing' },
+            { name: 'typespec-incremental' },
+            { name: 'SuppressionReviewRequired' },
+            { name: 'Suppression-Approved' },
+          ],
+        });
 
-      const context = createMockContextCheckSuite();
-      const core = createMockCore();
+        const context = createMockContextCheckSuite();
+        const core = createMockCore();
 
-      github.rest.checks.listForRef.mockResolvedValue({
-        data: {
-          check_runs: checkRuns,
-        },
-      });
+        github.rest.checks.listForRef.mockResolvedValue({
+          data: {
+            check_runs: check_runs,
+          },
+        });
 
-      if (removeLabelErrorStatus) {
-        github.rest.issues.removeLabel.mockRejectedValue({ status: removeLabelErrorStatus });
-      }
+        if (removeLabelErrorStatus) {
+          github.rest.issues.removeLabel.mockRejectedValue({
+            status: removeLabelErrorStatus,
+          });
+        }
 
-      if (expectThrow) {
-        await expect(summary({ github, context, core })).rejects.toThrow();
-      }
-      else {
-        await summary({ github, context, core });
-      }
+        if (expectThrow) {
+          await expect(summary({ github, context, core })).rejects.toThrow();
+        } else {
+          await summary({ github, context, core });
+        }
 
-      expect(github.rest.issues.addLabels).toBeCalledTimes(addLabelsCalled);
-      expect(github.rest.issues.removeLabel).toBeCalledTimes(removeLabelCalled);
-    });
+        expect(github.rest.issues.addLabels).toBeCalledTimes(addLabelsCalled);
+        expect(github.rest.issues.removeLabel).toBeCalledTimes(
+          removeLabelCalled,
+        );
+      },
+    );
   });
 });
 
