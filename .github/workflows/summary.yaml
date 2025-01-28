@@ -57,5 +57,6 @@ jobs:
           HEAD_SHA: ${{ inputs.head_sha }}
         with:
           script: |
-            const script = await import('${{ github.workspace }}/.github/workflows/src/summary.js')
-            await script({ github, context, core });
+            const { default: summary } =
+              await import('${{ github.workspace }}/.github/workflows/src/summary.js');
+            await summary({ github, context, core });

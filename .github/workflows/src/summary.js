@@ -5,7 +5,7 @@ import { extractInputs } from '../../src/context.js';
 /**
  * @param {import('github-script').AsyncFunctionArguments} AsyncFunctionArguments
  */
-module.exports = async ({ github, context, core }) => {
+export default async function summary({ github, context, core }) {
   let owner = process.env.OWNER || '';
   let repo = process.env.REPO || '';
   let issue_number = parseInt(process.env.ISSUE_NUMBER || '');
