@@ -51,136 +51,104 @@ describe('summary', () => {
     });
   });
 
-  it('adds and removes label based on check status', async () => {
-    const github = createMockGithub();
-    github.rest.issues.listLabelsOnIssue.mockResolvedValue({
-      data: [
-        { name: 'ARMReview' },
-        { name: 'ARMBestPractices' },
-        { name: 'rp-service-existing' },
-        { name: 'typespec-incremental' },
-        { name: 'SuppressionReviewRequired' },
-        { name: 'Suppression-Approved' },
-      ],
-    });
-
-    const context = createMockContextCheckSuite();
-    const core = createMockCore();
-
-    // Before check starts running
-    await summary({ github, context, core });
-    expect(github.rest.issues.addLabels).toBeCalledTimes(0);
-    expect(github.rest.issues.removeLabel).toBeCalledTimes(0);
-
-    // Check in-progress
-    github.rest.checks.listForRef.mockResolvedValue({
-      data: {
-        check_runs: [
+  describe('processes check status', () => {
+    it.each([
+      ["no check", [], 0, 0, null, false],
+      ["in progress",
+        [
           {
             name: 'Swagger LintDiff',
             status: 'in_progress',
             conclusion: null,
-          },
-        ],
-      },
-    });
-    await summary({ github, context, core });
-    expect(github.rest.issues.addLabels).toBeCalledTimes(0);
-    expect(github.rest.issues.removeLabel).toBeCalledTimes(0);
-
-    // Check completed with success
-    github.rest.checks.listForRef.mockResolvedValue({
-      data: {
-        check_runs: [
+          }
+        ], 0, 0, null, false
+      ],
+      ["success",
+        [
           {
             name: 'Swagger LintDiff',
             status: 'completed',
             conclusion: 'success',
           },
-        ],
-      },
-    });
-    await summary({ github, context, core });
-    expect(github.rest.issues.addLabels).toHaveBeenCalledWith({
-      owner: context.payload.repository.owner.login,
-      repo: context.payload.repository.name,
-      issue_number: 123,
-      labels: ['ARMAutomatedSignOff'],
-    });
-    expect(github.rest.issues.removeLabel).toBeCalledTimes(0);
-
-    // Check completed with failure
-    github.rest.issues.addLabels.mockReset();
-    github.rest.issues.removeLabel.mockReset();
-    github.rest.checks.listForRef.mockResolvedValue({
-      data: {
-        check_runs: [
+        ], 1, 0, null, false
+      ],
+      ["failure",
+        [
           {
             name: 'Swagger LintDiff',
             status: 'completed',
             conclusion: 'failure',
           },
-        ],
-      },
-    });
-    await summary({ github, context, core });
-    expect(github.rest.issues.addLabels).toBeCalledTimes(0);
-    expect(github.rest.issues.removeLabel).toHaveBeenCalledWith({
-      owner: context.payload.repository.owner.login,
-      repo: context.payload.repository.name,
-      issue_number: 123,
-      name: 'ARMAutomatedSignOff',
-    });
-
-    // Ignore 404 from removeLabel()
-    github.rest.issues.addLabels.mockReset();
-    github.rest.issues.removeLabel.mockReset();
-    github.rest.issues.removeLabel.mockRejectedValue({ status: 404 });
-    await summary({ github, context, core });
-    expect(github.rest.issues.addLabels).toBeCalledTimes(0);
-    expect(github.rest.issues.removeLabel).toHaveBeenCalledWith({
-      owner: context.payload.repository.owner.login,
-      repo: context.payload.repository.name,
-      issue_number: 123,
-      name: 'ARMAutomatedSignOff',
-    });
-
-    // Throw if other error from removeLabel()
-    github.rest.issues.addLabels.mockReset();
-    github.rest.issues.removeLabel.mockReset();
-    github.rest.issues.removeLabel.mockRejectedValue({ status: 500 });
-    await expect(summary({ github, context, core })).rejects.toThrow();
-    expect(github.rest.issues.addLabels).toBeCalledTimes(0);
-    expect(github.rest.issues.removeLabel).toHaveBeenCalledWith({
-      owner: context.payload.repository.owner.login,
-      repo: context.payload.repository.name,
-      issue_number: 123,
-      name: 'ARMAutomatedSignOff',
-    });
-
-    // Invalid: multiple check runs named "Swagger LintDiff"
-    github.rest.issues.addLabels.mockReset();
-    github.rest.issues.removeLabel.mockReset();
-    github.rest.checks.listForRef.mockResolvedValue({
-      data: {
-        check_runs: [
+        ], 0, 1, null, false
+      ],
+      ["failure 404",
+        [
+          {
+            name: 'Swagger LintDiff',
+            status: 'completed',
+            conclusion: 'failure',
+          },
+        ], 0, 1, 404, false
+      ],
+      ["failure 500",
+        [
+          {
+            name: 'Swagger LintDiff',
+            status: 'completed',
+            conclusion: 'failure',
+          },
+        ], 0, 1, 500, true
+      ],
+      ["multiple check runs",
+        [
+          {
+            name: 'Swagger LintDiff',
+            status: 'completed',
+            conclusion: 'failure',
+          },
           {
             name: 'Swagger LintDiff',
             status: 'completed',
             conclusion: 'success',
           },
-          {
-            name: 'Swagger LintDiff',
-            status: 'completed',
-            conclusion: 'failure',
-          },
+        ], 0, 0, null, true
+      ]
+    ])('%s', async (_, checkRuns, addLabelsCalled, removeLabelCalled, removeLabelErrorStatus, expectThrow) => {
+      const github = createMockGithub();
+      github.rest.issues.listLabelsOnIssue.mockResolvedValue({
+        data: [
+          { name: 'ARMReview' },
+          { name: 'ARMBestPractices' },
+          { name: 'rp-service-existing' },
+          { name: 'typespec-incremental' },
+          { name: 'SuppressionReviewRequired' },
+          { name: 'Suppression-Approved' },
         ],
-      },
-    });
+      });
 
-    await expect(summary({ github, context, core })).rejects.toThrow();
-    expect(github.rest.issues.addLabels).toBeCalledTimes(0);
-    expect(github.rest.issues.removeLabel).toBeCalledTimes(0);
+      const context = createMockContextCheckSuite();
+      const core = createMockCore();
+
+      github.rest.checks.listForRef.mockResolvedValue({
+        data: {
+          check_runs: checkRuns,
+        },
+      });
+
+      if (removeLabelErrorStatus) {
+        github.rest.issues.removeLabel.mockRejectedValue({ status: removeLabelErrorStatus });
+      }
+
+      if (expectThrow) {
+        await expect(summary({ github, context, core })).rejects.toThrow();
+      }
+      else {
+        await summary({ github, context, core });
+      }
+
+      expect(github.rest.issues.addLabels).toBeCalledTimes(addLabelsCalled);
+      expect(github.rest.issues.removeLabel).toBeCalledTimes(removeLabelCalled);
+    });
   });
 });
 
