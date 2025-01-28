@@ -9,7 +9,7 @@
  * @param {import('github-script').AsyncFunctionArguments['core']} core
  * @returns {Promise<{owner: string, repo: string, head_sha: string, issue_number: number, run_id: number }>}
  */
-async function extractInputs(github, context, core) {
+export async function extractInputs(github, context, core) {
   core.info(`extractInputs(${context.eventName}, ${context.payload.action})`);
 
   // Add support for more event types as needed
@@ -143,5 +143,3 @@ async function extractInputs(github, context, core) {
     );
   }
 }
-
-module.exports = { extractInputs };
