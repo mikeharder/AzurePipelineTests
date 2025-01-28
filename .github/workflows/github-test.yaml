@@ -11,6 +11,11 @@ on:
       - .github
   workflow_dispatch:
 
+defaults:
+  run:
+    shell: bash
+    working-directory: ./.github
+
 jobs:
   test:
     runs-on: ubuntu-24.04
