@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import summary from '../src/summary';
+const summary = require('../src/summary');
 
 describe('summary', () => {
   it('loads inputs from env', async () => {
