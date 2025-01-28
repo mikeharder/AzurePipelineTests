@@ -5,7 +5,7 @@ const { extractInputs } = require('../../context');
 /**
  * @param {import('github-script').AsyncFunctionArguments} AsyncFunctionArguments
  */
-const script = async ({ github, context, core }) => {
+module.exports = async ({ github, context, core }) => {
   let owner = process.env.OWNER || '';
   let repo = process.env.REPO || '';
   let issue_number = parseInt(process.env.ISSUE_NUMBER || '');
@@ -26,6 +26,25 @@ const script = async ({ github, context, core }) => {
       issue_number: issue_number,
     })
   ).data.map((label) => label.name);
+
+  console.log('labels:');
+  console.log(`  ARMReview: ${labels.includes('ARMReview')}`);
+  console.log(
+    `  NotReadyForARMReview: ${labels.includes('NotReadyForARMReview')}`,
+  );
+  console.log(`  ARMBestPractices: ${labels.includes('ARMBestPractices')}`);
+  console.log(
+    `  rp-service-existing: ${labels.includes('rp-service-existing')}`,
+  );
+  console.log(
+    `  typespec-incremental: ${labels.includes('typespec-incremental')}`,
+  );
+  console.log(
+    `  SuppressionReviewRequired: ${labels.includes('SuppressionReviewRequired')}`,
+  );
+  console.log(
+    `  Suppression-Approved: ${labels.includes('Suppression-Approved')}`,
+  );
 
   const allLabelsMatch =
     labels.includes('ARMReview') &&
@@ -51,6 +70,12 @@ const script = async ({ github, context, core }) => {
       })
     ).data.check_runs;
 
+    console.log();
+    console.log('# Check Runs');
+    for (const run of checkRuns) {
+      console.log(`  ${run.name}: ${run.status}, ${run.conclusion}`);
+    }
+
     const swaggerLintDiffs = checkRuns.filter(
       (run) => run.name === 'Swagger LintDiff',
     );
@@ -72,7 +97,7 @@ const script = async ({ github, context, core }) => {
   }
 
   if (addAutoSignOff === true) {
-    core.info("Adding label 'ARMAutomatedSignOff'");
+    console.log("Adding label 'ARMAutomatedSignOff'");
     await github.rest.issues.addLabels({
       repo: repo,
       owner: owner,
@@ -81,7 +106,7 @@ const script = async ({ github, context, core }) => {
     });
   } else if (addAutoSignOff === false) {
     try {
-      core.info("Removing label 'ARMAutomatedSignOff'");
+      console.log("Removing label 'ARMAutomatedSignOff'");
       await github.rest.issues.removeLabel({
         owner: owner,
         repo: repo,
@@ -96,8 +121,6 @@ const script = async ({ github, context, core }) => {
       }
     }
   } else {
-    core.info('No-op');
+    console.log('No-op');
   }
 };
-
-module.exports = { script };

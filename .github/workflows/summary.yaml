@@ -57,5 +57,5 @@ jobs:
           HEAD_SHA: ${{ inputs.head_sha }}
         with:
           script: |
-            const { script } = require('./.github/workflows/src/summary.js')
+            const script = require('./.github/workflows/src/summary.js')
             await script({ github, context, core });
