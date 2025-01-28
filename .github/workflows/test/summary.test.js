@@ -6,21 +6,23 @@ describe('summary', () => {
     const github = createMockGithub();
     const core = createMockCore();
 
-    process.env.OWNER = 'TestRepoOwnerLoginEnv';
-    process.env.REPO = 'TestRepoNameEnv';
-    process.env.ISSUE_NUMBER = '123';
-    process.env.HEAD_SHA = 'abc123';
+    try {
+      process.env.OWNER = 'TestRepoOwnerLoginEnv';
+      process.env.REPO = 'TestRepoNameEnv';
+      process.env.ISSUE_NUMBER = '123';
+      process.env.HEAD_SHA = 'abc123';
 
-    await summary({
-      github,
-      context: null,
-      core,
-    });
-
-    delete process.env.OWNER;
-    delete process.env.REPO;
-    delete process.env.ISSUE_NUMBER;
-    delete process.env.HEAD_SHA;
+      await summary({
+        github,
+        context: null,
+        core,
+      });
+    } finally {
+      delete process.env.OWNER;
+      delete process.env.REPO;
+      delete process.env.ISSUE_NUMBER;
+      delete process.env.HEAD_SHA;
+    }
 
     expect(github.rest.issues.removeLabel).toHaveBeenCalledWith({
       owner: 'TestRepoOwnerLoginEnv',
