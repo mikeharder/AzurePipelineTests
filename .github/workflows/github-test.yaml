@@ -1,0 +1,28 @@
+name: GitHub Actions and Workflows - Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+
+      - name: Setup Node 20 and run `npm i`
+        uses: ./.github/actions/setup-node-npm-i
+        with:
+          # actions/github-script@v7 uses Node 20
+          node-version: 20.x
