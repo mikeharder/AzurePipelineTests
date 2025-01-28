@@ -27,24 +27,11 @@ module.exports = async ({ github, context, core }) => {
     })
   ).data.map((label) => label.name);
 
-  console.log('labels:');
-  console.log(`  ARMReview: ${labels.includes('ARMReview')}`);
-  console.log(
-    `  NotReadyForARMReview: ${labels.includes('NotReadyForARMReview')}`,
-  );
-  console.log(`  ARMBestPractices: ${labels.includes('ARMBestPractices')}`);
-  console.log(
-    `  rp-service-existing: ${labels.includes('rp-service-existing')}`,
-  );
-  console.log(
-    `  typespec-incremental: ${labels.includes('typespec-incremental')}`,
-  );
-  console.log(
-    `  SuppressionReviewRequired: ${labels.includes('SuppressionReviewRequired')}`,
-  );
-  console.log(
-    `  Suppression-Approved: ${labels.includes('Suppression-Approved')}`,
-  );
+  /** @type {boolean?} */
+  // true: Add Label
+  // false: Remove Label
+  // null|undefined: No-op
+  var addAutoSignOff = null;
 
   const allLabelsMatch =
     labels.includes('ARMReview') &&
@@ -55,12 +42,6 @@ module.exports = async ({ github, context, core }) => {
     (!labels.includes('SuppressionReviewRequired') ||
       labels.includes('Suppression-Approved'));
 
-  /** @type {boolean?} */
-  // true: Add Label
-  // false: Remove Label
-  // null|undefined: No-op
-  var addAutoSignOff = null;
-
   if (allLabelsMatch) {
     const checkRuns = (
       await github.rest.checks.listForRef({
@@ -69,12 +50,6 @@ module.exports = async ({ github, context, core }) => {
         ref: head_sha,
       })
     ).data.check_runs;
-
-    console.log();
-    console.log('# Check Runs');
-    for (const run of checkRuns) {
-      console.log(`  ${run.name}: ${run.status}, ${run.conclusion}`);
-    }
 
     const swaggerLintDiffs = checkRuns.filter(
       (run) => run.name === 'Swagger LintDiff',
@@ -97,7 +72,7 @@ module.exports = async ({ github, context, core }) => {
   }
 
   if (addAutoSignOff === true) {
-    console.log("Adding label 'ARMAutomatedSignOff'");
+    core.info("Adding label 'ARMAutomatedSignOff'");
     await github.rest.issues.addLabels({
       repo: repo,
       owner: owner,
@@ -106,7 +81,7 @@ module.exports = async ({ github, context, core }) => {
     });
   } else if (addAutoSignOff === false) {
     try {
-      console.log("Removing label 'ARMAutomatedSignOff'");
+      core.info("Removing label 'ARMAutomatedSignOff'");
       await github.rest.issues.removeLabel({
         owner: owner,
         repo: repo,
@@ -121,6 +96,6 @@ module.exports = async ({ github, context, core }) => {
       }
     }
   } else {
-    console.log('No-op');
+    core.info('No-op');
   }
 };
