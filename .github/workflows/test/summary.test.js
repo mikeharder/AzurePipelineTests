@@ -54,6 +54,14 @@ describe('summary', () => {
   describe('processes check status', () => {
     it.each([
       {
+        name: 'no checks',
+        check_runs: [],
+        addLabelsCalled: 0,
+        removeLabelCalled: 0,
+        removeLabelErrorStatus: null,
+        expectThrow: false,
+      },
+      {
         name: 'in progress',
         check_runs: [
           {
