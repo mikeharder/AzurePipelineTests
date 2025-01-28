@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import summary from '../src/summary';
+import { script } from '../src/summary';
 
 describe('summary', () => {
   it('loads inputs from env', async () => {
@@ -12,7 +12,7 @@ describe('summary', () => {
       process.env.ISSUE_NUMBER = '123';
       process.env.HEAD_SHA = 'abc123';
 
-      await summary({
+      await script({
         github,
         context: null,
         core,
@@ -40,7 +40,7 @@ describe('summary', () => {
       const github = createMockGithub();
       const core = createMockCore();
 
-      await summary({ github, context, core });
+      await script({ github, context, core });
 
       expect(github.rest.issues.removeLabel).toHaveBeenCalledWith({
         owner: context.payload.repository.owner.login,
@@ -71,7 +71,7 @@ describe('summary', () => {
       const core = createMockCore();
 
       // Before check starts running
-      await summary({ github, context, core });
+      await script({ github, context, core });
       expect(github.rest.issues.addLabels).toBeCalledTimes(0);
       expect(github.rest.issues.removeLabel).toBeCalledTimes(0);
 
@@ -87,7 +87,7 @@ describe('summary', () => {
           ],
         },
       });
-      await summary({ github, context, core });
+      await script({ github, context, core });
       expect(github.rest.issues.addLabels).toBeCalledTimes(0);
       expect(github.rest.issues.removeLabel).toBeCalledTimes(0);
 
@@ -103,7 +103,7 @@ describe('summary', () => {
           ],
         },
       });
-      await summary({ github, context, core });
+      await script({ github, context, core });
       expect(github.rest.issues.addLabels).toHaveBeenCalledWith({
         owner: context.payload.repository.owner.login,
         repo: context.payload.repository.name,
@@ -126,7 +126,7 @@ describe('summary', () => {
           ],
         },
       });
-      await summary({ github, context, core });
+      await script({ github, context, core });
       expect(github.rest.issues.addLabels).toBeCalledTimes(0);
       expect(github.rest.issues.removeLabel).toHaveBeenCalledWith({
         owner: context.payload.repository.owner.login,
@@ -139,7 +139,7 @@ describe('summary', () => {
       github.rest.issues.addLabels.mockReset();
       github.rest.issues.removeLabel.mockReset();
       github.rest.issues.removeLabel.mockRejectedValue({ status: 404 });
-      await summary({ github, context, core });
+      await script({ github, context, core });
       expect(github.rest.issues.addLabels).toBeCalledTimes(0);
       expect(github.rest.issues.removeLabel).toHaveBeenCalledWith({
         owner: context.payload.repository.owner.login,
@@ -152,7 +152,7 @@ describe('summary', () => {
       github.rest.issues.addLabels.mockReset();
       github.rest.issues.removeLabel.mockReset();
       github.rest.issues.removeLabel.mockRejectedValue({ status: 500 });
-      await expect(summary({ github, context, core })).rejects.toThrow();
+      await expect(script({ github, context, core })).rejects.toThrow();
       expect(github.rest.issues.addLabels).toBeCalledTimes(0);
       expect(github.rest.issues.removeLabel).toHaveBeenCalledWith({
         owner: context.payload.repository.owner.login,
@@ -181,7 +181,7 @@ describe('summary', () => {
         },
       });
 
-      await expect(summary({ github, context, core })).rejects.toThrow();
+      await expect(script({ github, context, core })).rejects.toThrow();
       expect(github.rest.issues.addLabels).toBeCalledTimes(0);
       expect(github.rest.issues.removeLabel).toBeCalledTimes(0);
     });
