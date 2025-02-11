@@ -17,6 +17,12 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+
       - run: echo '${{ toJSON(github.event) }}'
 
       - name: Get PR checks
