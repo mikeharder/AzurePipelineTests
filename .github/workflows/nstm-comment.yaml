@@ -1,0 +1,16 @@
+name: NSTM Comment
+
+on:
+  issue_comment:
+    types: [edited]
+
+jobs:
+  pr-comment:
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, 'next steps to merge')
+
+    runs-on: ubuntu-24.04
+
+    steps:
+      - run: echo '${{ toJSON(github.event) }}'
