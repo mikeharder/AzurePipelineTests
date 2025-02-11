@@ -1,0 +1,12 @@
+name: Issue Comment
+
+on:
+  issue_comment:
+    types: [created, edited, deleted]
+
+jobs:
+  issue-comment:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - run: echo '${{ toJSON(github.event) }}'
