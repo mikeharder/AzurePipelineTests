@@ -5,7 +5,7 @@ on:
     types: [edited]
 
 jobs:
-  pr-comment:
+  nstm-comment:
     if: |
       github.event.issue.pull_request &&
       contains(github.event.comment.body, 'next steps to merge')
