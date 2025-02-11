@@ -1,0 +1,28 @@
+name: NSTM Comment
+
+on:
+  issue_comment:
+    types: [edited]
+
+permissions:
+  checks: read
+  contents: read
+
+jobs:
+  nstm-comment:
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, 'next steps to merge')
+
+    runs-on: ubuntu-24.04
+
+    steps:
+      - run: echo '${{ toJSON(github.event) }}'
+
+      - name: Get PR checks
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { default: ntsmComment } =
+              await import('${{ github.workspace }}/.github/workflows/src/summary.js');
+            await ntsmComment({ github, context, core });

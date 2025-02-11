@@ -1,0 +1,14 @@
+name: PR Comment
+
+on:
+  issue_comment:
+    types: [created, edited, deleted]
+
+jobs:
+  pr-comment:
+    if: ${{ github.event.issue.pull_request }}
+
+    runs-on: ubuntu-24.04
+
+    steps:
+      - run: echo '${{ toJSON(github.event) }}'
