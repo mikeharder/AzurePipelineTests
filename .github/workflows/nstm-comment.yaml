@@ -30,5 +30,5 @@ jobs:
         with:
           script: |
             const { default: ntsmComment } =
-              await import('${{ github.workspace }}/.github/workflows/src/summary.js');
+              await import('${{ github.workspace }}/.github/workflows/src/ntsm-comment.js');
             await ntsmComment({ github, context, core });
