@@ -13,7 +13,6 @@ export default async function ntsmComment({ github, context, core }) {
     repo,
     event: 'pull_request',
     status: 'completed',
-    per_page: 100,
     head_sha,
   });
 
