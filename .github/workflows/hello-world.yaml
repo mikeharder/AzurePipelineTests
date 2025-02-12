@@ -11,3 +11,5 @@ jobs:
 
     steps:
       - run: echo "Hello, World!"
+
+      - run: echo "Test Github Step Summary" >> $GITHUB_STEP_SUMMARY
