@@ -11,8 +11,8 @@ export default async function ntsmComment({ github, context, core }) {
   const workflowRuns = await github.rest.actions.listWorkflowRunsForRepo({
     repo,
     owner,
-    // event: 'pull_request',
-    // status: 'completed',
+    event: 'pull_request',
+    status: 'completed',
     per_page: 100,
     head_sha,
   });
