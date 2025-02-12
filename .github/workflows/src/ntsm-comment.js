@@ -18,5 +18,6 @@ export default async function ntsmComment({ github, context, core }) {
   console.log('Check Runs:');
   checkRuns.data.check_runs.forEach((check) => {
     console.log(`- ${check.name}: ${check.conclusion || check.status}`);
+    console.log(JSON.stringify(check));
   });
 }

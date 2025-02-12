@@ -11,3 +11,11 @@ jobs:
 
     steps:
       - run: echo "Hello, World 2!"
+
+      - name: hello2
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { default: hello2 } =
+              await import('${{ github.workspace }}/.github/workflows/src/hello2.js');
+            await hello2({ github, context, core });
