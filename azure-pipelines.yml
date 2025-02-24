@@ -50,6 +50,7 @@ strategy:
 pool:
   name: $(Pool)
   demands: '$(OsVmImage)'
+  image: '$(OsVmImage)'
 
 variables:
   skipComponentGovernanceDetection: true
