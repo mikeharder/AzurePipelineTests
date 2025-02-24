@@ -25,6 +25,9 @@ strategy:
     1ESUbuntu2204:
       Pool: azsdk-pool-x64
       Demands: 'ImageOverride -equals ubuntu-22.04'
+    1ESWindows2022:
+      Pool: azsdk-pool-x64
+      Demands: 'ImageOverride -equals windows-2022'
     # DevOpsWindows2019:
     #   Pool: Azure Pipelines
     #   OSVmImage: "windows-2019"
@@ -64,7 +67,7 @@ steps:
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Linux'))
     displayName: Condition Linux
 
-  - script: echo Windows
+  - script: wmic logicaldisk get size,freespace,caption
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Windows_NT'))
     displayName: Condition Windows_NT
 
