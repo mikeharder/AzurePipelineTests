@@ -7,10 +7,10 @@ pr:
 
 strategy:
   matrix:
-    1ESUbuntu2204:
+    OneESUbuntu2204:
       Pool: azsdk-pool-x64
       OsVmImage: ubuntu-22.04
-    1ESWindows2022:
+    OneESWindows2022:
       Pool: azsdk-pool-x64
       OsVmImage: windows-2022
 
