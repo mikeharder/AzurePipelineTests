@@ -24,10 +24,10 @@ strategy:
     #   OSVmImage: 'ubuntu-20.04'
     1ESUbuntu2204:
       Pool: azsdk-pool-x64
-      Demands: 'ImageOverride -equals ubuntu-22.04'
+      OsVmImage: 'ImageOverride -equals ubuntu-22.04'
     1ESWindows2022:
       Pool: azsdk-pool-x64
-      Demands: 'ImageOverride -equals windows-2022'
+      OsVmImage: 'ImageOverride -equals windows-2022'
     # DevOpsWindows2019:
     #   Pool: Azure Pipelines
     #   OSVmImage: "windows-2019"
@@ -49,7 +49,7 @@ strategy:
 
 pool:
   name: $(Pool)
-  demands: $(Demands)
+  demands: '$(OsVmImage)'
 
 variables:
   skipComponentGovernanceDetection: true
