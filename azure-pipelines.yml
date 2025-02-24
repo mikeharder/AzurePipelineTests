@@ -22,9 +22,9 @@ strategy:
     # DevOpsUbuntu2004:
     #   Pool: Azure Pipelines
     #   OSVmImage: 'ubuntu-20.04'
-    DevOpsUbuntu2204:
-      Pool: Azure Pipelines
-      OSVmImage: 'ubuntu-22.04'
+    1ESUbuntu2204:
+      Pool: azsdk-pool-x64
+      Demands: 'ImageOverride -equals ubuntu-22.04'
     # DevOpsWindows2019:
     #   Pool: Azure Pipelines
     #   OSVmImage: "windows-2019"
@@ -46,7 +46,7 @@ strategy:
 
 pool:
   name: $(Pool)
-  vmImage: $(OSVmImage)
+  demands: $(Demands)
 
 variables:
   skipComponentGovernanceDetection: true
@@ -60,7 +60,7 @@ steps:
   - script: uname -m
     displayName: uname -m
 
-  - script: echo Linux
+  - script: df -h
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Linux'))
     displayName: Condition Linux
 
