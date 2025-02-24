@@ -16,7 +16,6 @@ strategy:
 
 pool:
   name: $(Pool)
-  demands: 'ImageOverride -equals $(OsVmImage)'
   image: $(OsVmImage)
 
 variables:
