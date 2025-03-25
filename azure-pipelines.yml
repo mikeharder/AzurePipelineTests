@@ -8,10 +8,10 @@ pr:
 strategy:
   matrix:
     OneESUbuntu2204:
-      Pool: azsdk-pool-x64
+      Pool: azsdk-pool
       OsVmImage: ubuntu-22.04
     OneESWindows2022:
-      Pool: azsdk-pool-x64
+      Pool: azsdk-pool
       OsVmImage: windows-2022
 
 pool:
