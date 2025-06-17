@@ -7,9 +7,12 @@ pr:
 
 strategy:
   matrix:
-    1ESUbuntu2204:
+    1ESUbuntu2404:
       Pool: 'azsdk-pool'
       OSVmImage: 'ubuntu-24.04'
+    1ESUbuntu2204:
+      Pool: 'azsdk-pool-mms-ubuntu-2204-general'
+      OSVmImage: 'ubuntu-22.04'
 
 pool:
   name: $(Pool)
