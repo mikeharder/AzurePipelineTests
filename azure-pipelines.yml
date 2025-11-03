@@ -22,6 +22,9 @@ strategy:
     # DevOpsUbuntu2004:
     #   Pool: Azure Pipelines
     #   OSVmImage: 'ubuntu-20.04'
+    DevOpsUbuntu2204:
+      Pool: Azure Pipelines
+      OSVmImage: "ubuntu-22.04"
     DevOpsUbuntu2404:
       Pool: Azure Pipelines
       OSVmImage: "ubuntu-24.04"
