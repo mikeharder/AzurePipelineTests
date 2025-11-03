@@ -22,9 +22,9 @@ strategy:
     # DevOpsUbuntu2004:
     #   Pool: Azure Pipelines
     #   OSVmImage: 'ubuntu-20.04'
-    DevOpsUbuntu2204:
+    DevOpsUbuntu2404:
       Pool: Azure Pipelines
-      OSVmImage: 'ubuntu-22.04'
+      OSVmImage: "ubuntu-24.04"
     # DevOpsWindows2019:
     #   Pool: Azure Pipelines
     #   OSVmImage: "windows-2019"
@@ -50,10 +50,20 @@ pool:
 
 variables:
   skipComponentGovernanceDetection: true
-  NugetSecurityAnalysisWarningLevel: 'none'
+  NugetSecurityAnalysisWarningLevel: "none"
   system.debug: true
 
 steps:
+  - script: |
+      echo "--- Environment ---"
+      printenv | sort
+      echo "--- Disk Info ---"
+      lsblk -f
+      df -h
+      echo "--- /tmp Mount ---"
+      df -h /tmp
+    displayName: Inspect environment and disks
+
   - script: echo $(Agent.OS)
     displayName: print Agent.OS
 
