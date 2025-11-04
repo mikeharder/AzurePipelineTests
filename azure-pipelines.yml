@@ -60,8 +60,11 @@ variables:
   system.debug: true
 
 steps:
-  - script: sudo apt-get update
+  - script: |
+      sudo apt-get update
+      sudo apt-get install -y x11-xserver-utils
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Linux'))
+    displayName: apt-get
 
   - script: echo $(Agent.OS)
     displayName: print Agent.OS
