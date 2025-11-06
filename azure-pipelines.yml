@@ -16,18 +16,21 @@ strategy:
     # 1ESUbuntu2404:
     #   Pool: "azsdk-pool-mms-ubuntu-2204-perf"
     #   OSVmImage: "ubuntu-24.04"
-    PipelinesUbuntu2404_25:
+    PipelinesUbuntu2404:
       Pool: "azsdk-pool-mms-ubuntu-2204-perf"
       OSVmImage: "ubuntu-24.04-pipelines"
-      VersionOverride: 25.0.0
-    PipelinesUbuntu2404_24:
-      Pool: "azsdk-pool-mms-ubuntu-2204-perf"
-      OSVmImage: "ubuntu-24.04-pipelines"
-      VersionOverride: 24.0.0
-    PipelinesUbuntu2404_23:
-      Pool: "azsdk-pool-mms-ubuntu-2204-perf"
-      OSVmImage: "ubuntu-24.04-pipelines"
-      VersionOverride: 23.0.0
+    # PipelinesUbuntu2404_25:
+    #   Pool: "azsdk-pool-mms-ubuntu-2204-perf"
+    #   OSVmImage: "ubuntu-24.04-pipelines"
+    #   VersionOverride: 25.0.0
+    # PipelinesUbuntu2404_24:
+    #   Pool: "azsdk-pool-mms-ubuntu-2204-perf"
+    #   OSVmImage: "ubuntu-24.04-pipelines"
+    #   VersionOverride: 24.0.0
+    # PipelinesUbuntu2404_23:
+    #   Pool: "azsdk-pool-mms-ubuntu-2204-perf"
+    #   OSVmImage: "ubuntu-24.04-pipelines"
+    #   VersionOverride: 23.0.0
     # 1ESWindows2019:
     #   Pool: "azsdk-pool-mms-win-2019-general"
     #   OSVmImage: "windows-2019"
