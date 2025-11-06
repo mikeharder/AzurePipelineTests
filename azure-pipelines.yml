@@ -69,7 +69,7 @@ pool:
   name: $(Pool)
   demands:
     - ImageOverride -equals $(OSVmImage)
-    - ImageVersionOverride -equals $(VersionOverride)
+    # - ImageVersionOverride -equals $(VersionOverride)
 
 variables:
   skipComponentGovernanceDetection: true
