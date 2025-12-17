@@ -62,9 +62,17 @@ steps:
   - script: |
       echo "macro: '$(testEmptyString)'"
       echo "templateExpression: '${{ variables.testEmptyString }}'"
+      echo "macro: '$(testNotSet)'"
+      echo "templateExpression: '${{ variables.testNotSet }}'"
 
   - script: echo "eq(variables.testEmptyString, '')"
     condition: eq(variables.testEmptyString, '')
 
   - script: echo "eq(variables['testEmptyString'], '')"
     condition: eq(variables['testEmptyString'], '')
+
+  - script: echo "eq(variables.testNotSet, '')"
+    condition: eq(variables.testNotSet, '')
+
+  - script: echo "eq(variables['testNotSet'], '')"
+    condition: eq(variables['testNotSet'], '')
