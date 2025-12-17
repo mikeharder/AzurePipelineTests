@@ -75,9 +75,9 @@ steps:
     parameters:
       CustomCondition: and(succeededOrFailed(), ne('', ''))
 
-  - template: /publish-artifact.yml
-    parameters:
-      CustomCondition: and(succeededOrFailed(), ne(Null, ''))
+  # - template: /publish-artifact.yml
+  #   parameters:
+  #     CustomCondition: and(succeededOrFailed(), ne(Null, ''))
 
   - template: /publish-artifact.yml
     parameters:
