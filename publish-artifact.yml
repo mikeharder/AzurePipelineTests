@@ -1,2 +1,10 @@
+parameters:
+  CustomCondition: true
+
 steps:
-  - script: echo 'publish artifact'
+  - script: |
+      echo "parameters.CustomCondition: ${{ parameters.CustomCondition }}"
+
+  - script: |
+      echo "and(succeeded(), ${{ parameters.CustomCondition }})"
+    condition: and(succeeded(), ${{ parameters.CustomCondition }})

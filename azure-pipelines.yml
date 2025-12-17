@@ -55,11 +55,41 @@ variables:
     value: 'none'
   - name: system.debug
     value: 'true'
+  - name: testFooString
+    value: 'foo'
   - name: testEmptyString
     value: ''
 
 steps:
   - template: /publish-artifact.yml
+
+  - template: /publish-artifact.yml
+    parameters:
+      CustomCondition: 'false'
+
+  - template: /publish-artifact.yml
+    parameters:
+      CustomCondition: and(succeededOrFailed(), ne('foo', ''))
+
+  - template: /publish-artifact.yml
+    parameters:
+      CustomCondition: and(succeededOrFailed(), ne('', ''))
+
+  - template: /publish-artifact.yml
+    parameters:
+      CustomCondition: and(succeededOrFailed(), ne(Null, ''))
+
+  - template: /publish-artifact.yml
+    parameters:
+      CustomCondition: and(succeededOrFailed(), ne(variables['testFooString'], ''))
+
+  - template: /publish-artifact.yml
+    parameters:
+      CustomCondition: and(succeededOrFailed(), ne(variables['testEmptyString'], ''))
+
+  - template: /publish-artifact.yml
+    parameters:
+      CustomCondition: and(succeededOrFailed(), ne(variables['testNotSet'], ''))
 
   # - script: |
   #     echo "macro: '$(testEmptyString)'"
