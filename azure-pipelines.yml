@@ -49,25 +49,23 @@ pool:
   vmImage: $(OSVmImage)
 
 variables:
-  skipComponentGovernanceDetection: true
-  NugetSecurityAnalysisWarningLevel: 'none'
-  system.debug: true
+  - name: skipComponentGovernanceDetection
+    value: 'true'
+  - name: NugetSecurityAnalysisWarningLevel
+    value: 'none'
+  - name: system.debug
+    value: 'true'
+  - name: testEmptyString
+    value: ''
 
 steps:
-  - script: echo $(Agent.OS)
-    displayName: print Agent.OS
+  - script: |
+      echo macro: $(testEmptyString)
+      echo templateExpression: ${{ variables.testEmptyString }}
+      echo runtimeExpression: $[variables.testEmptyString]
 
-  - script: uname -m
-    displayName: uname -m
+  - script: echo eq(variables.testEmptyString, '')
+    condition: eq(variables.testEmptyString, '')
 
-  - script: echo Linux
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Linux'))
-    displayName: Condition Linux
-
-  - script: echo Windows
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Windows_NT'))
-    displayName: Condition Windows_NT
-
-  - script: echo Mac
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
-    displayName: Condition Darwin
+  - script: echo eq(variables['testEmptyString'], '')
+    condition: eq(variables['testEmptyString'], '')
