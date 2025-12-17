@@ -60,12 +60,11 @@ variables:
 
 steps:
   - script: |
-      echo macro: $(testEmptyString)
-      echo templateExpression: ${{ variables.testEmptyString }}
-      echo runtimeExpression: $[variables.testEmptyString]
+      echo "macro: '$(testEmptyString)'"
+      echo "templateExpression: '${{ variables.testEmptyString }}'"
 
-  - script: echo eq(variables.testEmptyString, '')
+  - script: echo "eq(variables.testEmptyString, '')"
     condition: eq(variables.testEmptyString, '')
 
-  - script: echo eq(variables['testEmptyString'], '')
+  - script: echo "eq(variables['testEmptyString'], '')"
     condition: eq(variables['testEmptyString'], '')
