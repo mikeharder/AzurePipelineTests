@@ -1,21 +1,16 @@
 jobs:
-  - job: vs2017_win2016
+  - job: windows_latest
     pool:
-      vmImage: vs2017-win2016
+      vmImage: windows-latest
     steps:
       - script: dir
-  - job: windows_2019
+  - job: ubuntu_latest
     pool:
-      vmImage: windows-2019
-    steps:
-      - script: dir
-  - job: ubuntu_1604
-    pool:
-      vmImage: ubuntu-16.04
+      vmImage: ubuntu-latest
     steps:
       - script: df -H .
-  - job: macOS_1014
+  - job: macOS_latest
     pool:
-      vmImage: macOS-10.14
+      vmImage: macOS-latest
     steps:
       - script: df -H .
