@@ -27,3 +27,55 @@ jobs:
           echo "=== Disks and partitions ==="
           lsblk -o NAME,SIZE,FSTYPE,FSAVAIL,FSUSE%,MOUNTPOINTS
         displayName: "List disk and mount-point free space"
+
+      - bash: |
+          set -euo pipefail
+    
+          print_var() {
+            local name="$1"
+            printf '%-40s %s\n' "$name" "${!name:-<not set>}"
+          }
+    
+          echo "=== Agent ==="
+          print_var AGENT_NAME
+          print_var AGENT_MACHINENAME
+          print_var AGENT_OS
+          print_var AGENT_OSARCHITECTURE
+          print_var AGENT_HOMEDIRECTORY
+          print_var AGENT_WORKFOLDER
+          print_var AGENT_BUILDDIRECTORY
+          print_var AGENT_TEMPDIRECTORY
+          print_var AGENT_TOOLSDIRECTORY
+    
+          echo
+          echo "=== Pipeline ==="
+          print_var PIPELINE_WORKSPACE
+    
+          echo
+          echo "=== Build ==="
+          print_var BUILD_BUILDID
+          print_var BUILD_BUILDNUMBER
+          print_var BUILD_DEFINITIONNAME
+          print_var BUILD_REASON
+          print_var BUILD_REPOSITORY_NAME
+          print_var BUILD_SOURCEBRANCH
+          print_var BUILD_SOURCEBRANCHNAME
+          print_var BUILD_SOURCEVERSION
+          print_var BUILD_SOURCESDIRECTORY
+          print_var BUILD_BINARIESDIRECTORY
+          print_var BUILD_ARTIFACTSTAGINGDIRECTORY
+          print_var BUILD_STAGINGDIRECTORY
+    
+          echo
+          echo "=== System ==="
+          print_var SYSTEM_COLLECTIONURI
+          print_var SYSTEM_TEAMPROJECT
+          print_var SYSTEM_DEFINITIONID
+          print_var SYSTEM_STAGENAME
+          print_var SYSTEM_JOBNAME
+          print_var SYSTEM_JOBID
+    
+          echo
+          echo "=== Test results ==="
+          print_var COMMON_TESTRESULTSDIRECTORY
+        displayName: "Print common Azure Pipelines environment variables"
