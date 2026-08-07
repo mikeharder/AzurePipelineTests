@@ -14,3 +14,7 @@ jobs:
       vmImage: macOS-latest
     steps:
       - script: df -H .
+  - job: ubuntu_1es
+    pool: azsdk-pool
+    steps:
+      - script: df -H .
