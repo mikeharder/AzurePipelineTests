@@ -17,4 +17,13 @@ jobs:
   - job: ubuntu_1es
     pool: azsdk-pool
     steps:
-      - script: df -H .
+      - bash: |
+          set -euo pipefail
+    
+          echo "=== Mounted filesystems ==="
+          df -hT
+    
+          echo
+          echo "=== Disks and partitions ==="
+          lsblk -o NAME,SIZE,FSTYPE,FSAVAIL,FSUSE%,MOUNTPOINTS
+        displayName: "List disk and mount-point free space"
